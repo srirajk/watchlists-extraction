@@ -1,2 +1,8 @@
 iceberg-warehouse/
 output/
+
+*.xml.*
+*.xml
+
+
+.idea/

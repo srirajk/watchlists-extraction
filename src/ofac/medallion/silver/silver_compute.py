@@ -5,11 +5,15 @@ from pyspark.sql.types import StructType, StructField, StringType, ArrayType, Ma
 
 from src.ofac.custom_udfs import enrich_profile_data_udf, transform_document
 
+from src.ofac.utility import load_config
+
+config = load_config()
+
 # Paths to data
-source_data_base_path = "/Users/srirajkadimisetty/projects/spark-ofac-extraction/source_data/ofac/"
-reference_data_base_path = "/Users/srirajkadimisetty/projects/spark-ofac-extraction/reference_data/ofac/"
-output_base_path = "/Users/srirajkadimisetty/projects/spark-ofac-extraction/output/ofac/"
-warehouse_base_dir = "/Users/srirajkadimisetty/projects/spark-ofac-extraction/iceberg-warehouse"
+source_data_base_path = config['source_data_base_path']
+reference_data_base_path = config['reference_data_base_path']
+output_base_path = config['output_base_path']
+warehouse_base_dir = config['warehouse_base_dir']
 
 # Initialize Spark session
 spark = SparkSession.builder \

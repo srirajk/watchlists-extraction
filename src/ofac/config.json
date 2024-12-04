@@ -1,0 +1,7 @@
+{
+
+  "source_data_base_path": "/Users/srirajkadimisetty/projects/watchlists-extraction/source_data/ofac/",
+  "reference_data_base_path": "/Users/srirajkadimisetty/projects/watchlists-extraction/reference_data/ofac/",
+  "output_base_path": "/Users/srirajkadimisetty/projects/watchlists-extraction/output/ofac/",
+  "warehouse_base_dir": "/Users/srirajkadimisetty/projects/watchlists-extraction/iceberg-warehouse"
+}
