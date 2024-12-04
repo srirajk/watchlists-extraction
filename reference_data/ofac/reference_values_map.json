@@ -1,0 +1,4213 @@
+{
+  "AliasType": {
+    "1400": {
+      "_VALUE": "A.K.A."
+    },
+    "1401": {
+      "_VALUE": "F.K.A."
+    },
+    "1402": {
+      "_VALUE": "N.K.A."
+    },
+    "1403": {
+      "_VALUE": "Name"
+    }
+  },
+  "AreaCode": {
+    "11029": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11029,
+      "_Description": "Afghanistan",
+      "_VALUE": "AF"
+    },
+    "11030": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11030,
+      "_Description": "Albania",
+      "_VALUE": "AL"
+    },
+    "11031": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11031,
+      "_Description": "Algeria",
+      "_VALUE": "DZ"
+    },
+    "11033": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11033,
+      "_Description": "Angola",
+      "_VALUE": "AO"
+    },
+    "11034": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11034,
+      "_Description": "Antigua and Barbuda",
+      "_VALUE": "AG"
+    },
+    "11035": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11035,
+      "_Description": "Argentina",
+      "_VALUE": "AR"
+    },
+    "11036": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11036,
+      "_Description": "Armenia",
+      "_VALUE": "AM"
+    },
+    "11037": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11037,
+      "_Description": "Australia",
+      "_VALUE": "AU"
+    },
+    "11038": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11038,
+      "_Description": "Austria",
+      "_VALUE": "AT"
+    },
+    "11039": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11039,
+      "_Description": "Azerbaijan",
+      "_VALUE": "AZ"
+    },
+    "11040": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11040,
+      "_Description": "Bahamas, The",
+      "_VALUE": "BS"
+    },
+    "11041": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11041,
+      "_Description": "Bahrain",
+      "_VALUE": "BH"
+    },
+    "11042": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11042,
+      "_Description": "Bangladesh",
+      "_VALUE": "BD"
+    },
+    "11043": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11043,
+      "_Description": "Barbados",
+      "_VALUE": "BB"
+    },
+    "11044": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11044,
+      "_Description": "Belarus",
+      "_VALUE": "BY"
+    },
+    "11045": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11045,
+      "_Description": "Belgium",
+      "_VALUE": "BE"
+    },
+    "11046": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11046,
+      "_Description": "Belize",
+      "_VALUE": "BZ"
+    },
+    "11047": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11047,
+      "_Description": "Benin",
+      "_VALUE": "BJ"
+    },
+    "11049": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11049,
+      "_Description": "Bolivia",
+      "_VALUE": "BO"
+    },
+    "11050": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11050,
+      "_Description": "Bosnia and Herzegovina",
+      "_VALUE": "BA"
+    },
+    "11052": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11052,
+      "_Description": "Brazil",
+      "_VALUE": "BR"
+    },
+    "11053": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11053,
+      "_Description": "Brunei",
+      "_VALUE": "BN"
+    },
+    "11054": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11054,
+      "_Description": "Bulgaria",
+      "_VALUE": "BG"
+    },
+    "11055": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11055,
+      "_Description": "Burkina Faso",
+      "_VALUE": "BF"
+    },
+    "11056": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11056,
+      "_Description": "Burma",
+      "_VALUE": "MM"
+    },
+    "11058": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11058,
+      "_Description": "Cambodia",
+      "_VALUE": "KH"
+    },
+    "11060": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11060,
+      "_Description": "Canada",
+      "_VALUE": "CA"
+    },
+    "11061": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11061,
+      "_Description": "Cabo Verde",
+      "_VALUE": "CV"
+    },
+    "11062": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11062,
+      "_Description": "Central African Republic",
+      "_VALUE": "CF"
+    },
+    "11064": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11064,
+      "_Description": "Chile",
+      "_VALUE": "CL"
+    },
+    "11065": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11065,
+      "_Description": "China",
+      "_VALUE": "CN"
+    },
+    "11066": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11066,
+      "_Description": "Colombia",
+      "_VALUE": "CO"
+    },
+    "11067": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11067,
+      "_Description": "Comoros",
+      "_VALUE": "KM"
+    },
+    "11068": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11068,
+      "_Description": "Congo, Republic of the",
+      "_VALUE": "CG"
+    },
+    "11069": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11069,
+      "_Description": "Congo, Democratic Republic of the",
+      "_VALUE": "CD"
+    },
+    "11070": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11070,
+      "_Description": "Costa Rica",
+      "_VALUE": "CR"
+    },
+    "11071": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11071,
+      "_Description": "Cote d Ivoire",
+      "_VALUE": "CI"
+    },
+    "11072": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11072,
+      "_Description": "Croatia",
+      "_VALUE": "HR"
+    },
+    "11073": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11073,
+      "_Description": "Cuba",
+      "_VALUE": "CU"
+    },
+    "11074": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11074,
+      "_Description": "Cyprus",
+      "_VALUE": "CY"
+    },
+    "11075": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11075,
+      "_Description": "Czech Republic",
+      "_VALUE": "CZ"
+    },
+    "11076": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11076,
+      "_Description": "Denmark",
+      "_VALUE": "DK"
+    },
+    "11077": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11077,
+      "_Description": "Djibouti",
+      "_VALUE": "DJ"
+    },
+    "11078": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11078,
+      "_Description": "Dominica",
+      "_VALUE": "DM"
+    },
+    "11079": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11079,
+      "_Description": "Dominican Republic",
+      "_VALUE": "DO"
+    },
+    "11081": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11081,
+      "_Description": "Ecuador",
+      "_VALUE": "EC"
+    },
+    "11082": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11082,
+      "_Description": "Egypt",
+      "_VALUE": "EG"
+    },
+    "11083": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11083,
+      "_Description": "El Salvador",
+      "_VALUE": "SV"
+    },
+    "11084": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11084,
+      "_Description": "Equatorial Guinea",
+      "_VALUE": "GQ"
+    },
+    "11085": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11085,
+      "_Description": "Eritrea",
+      "_VALUE": "ER"
+    },
+    "11086": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11086,
+      "_Description": "Estonia",
+      "_VALUE": "EE"
+    },
+    "11087": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11087,
+      "_Description": "Ethiopia",
+      "_VALUE": "ET"
+    },
+    "11089": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11089,
+      "_Description": "Finland",
+      "_VALUE": "FI"
+    },
+    "11090": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11090,
+      "_Description": "France",
+      "_VALUE": "FR"
+    },
+    "11092": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11092,
+      "_Description": "The Gambia",
+      "_VALUE": "GM"
+    },
+    "11093": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11093,
+      "_Description": "Georgia",
+      "_VALUE": "GE"
+    },
+    "11094": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11094,
+      "_Description": "Germany",
+      "_VALUE": "DE"
+    },
+    "11095": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11095,
+      "_Description": "Ghana",
+      "_VALUE": "GH"
+    },
+    "11096": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11096,
+      "_Description": "Greece",
+      "_VALUE": "GR"
+    },
+    "11098": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11098,
+      "_Description": "Guatemala",
+      "_VALUE": "GT"
+    },
+    "11099": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11099,
+      "_Description": "Guinea",
+      "_VALUE": "GN"
+    },
+    "11100": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11100,
+      "_Description": "Guinea-Bissau",
+      "_VALUE": "GW"
+    },
+    "11101": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11101,
+      "_Description": "Guyana",
+      "_VALUE": "GY"
+    },
+    "11102": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11102,
+      "_Description": "Haiti",
+      "_VALUE": "HT"
+    },
+    "11104": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11104,
+      "_Description": "Honduras",
+      "_VALUE": "HN"
+    },
+    "11105": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11105,
+      "_Description": "Hungary",
+      "_VALUE": "HU"
+    },
+    "11106": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11106,
+      "_Description": "Iceland",
+      "_VALUE": "IS"
+    },
+    "11107": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11107,
+      "_Description": "India",
+      "_VALUE": "IN"
+    },
+    "11108": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11108,
+      "_Description": "Indonesia",
+      "_VALUE": "ID"
+    },
+    "11109": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11109,
+      "_Description": "Iran",
+      "_VALUE": "IR"
+    },
+    "11110": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11110,
+      "_Description": "Iraq",
+      "_VALUE": "IQ"
+    },
+    "11111": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11111,
+      "_Description": "Ireland",
+      "_VALUE": "IE"
+    },
+    "11112": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11112,
+      "_Description": "Israel",
+      "_VALUE": "IL"
+    },
+    "11113": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11113,
+      "_Description": "Italy",
+      "_VALUE": "IT"
+    },
+    "11114": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11114,
+      "_Description": "Jamaica",
+      "_VALUE": "JM"
+    },
+    "11115": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11115,
+      "_Description": "Japan",
+      "_VALUE": "JP"
+    },
+    "11116": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11116,
+      "_Description": "Jordan",
+      "_VALUE": "JO"
+    },
+    "11117": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11117,
+      "_Description": "Kazakhstan",
+      "_VALUE": "KZ"
+    },
+    "11118": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11118,
+      "_Description": "Kenya",
+      "_VALUE": "KE"
+    },
+    "11120": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11120,
+      "_Description": "Korea, North",
+      "_VALUE": "KP"
+    },
+    "11121": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11121,
+      "_Description": "Korea, South",
+      "_VALUE": "KR"
+    },
+    "11122": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11122,
+      "_Description": "Kuwait",
+      "_VALUE": "KW"
+    },
+    "11123": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11123,
+      "_Description": "Kyrgyzstan",
+      "_VALUE": "KG"
+    },
+    "11124": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11124,
+      "_Description": "Laos",
+      "_VALUE": "LA"
+    },
+    "11125": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11125,
+      "_Description": "Latvia",
+      "_VALUE": "LV"
+    },
+    "11126": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11126,
+      "_Description": "Lebanon",
+      "_VALUE": "LB"
+    },
+    "11128": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11128,
+      "_Description": "Liberia",
+      "_VALUE": "LR"
+    },
+    "11129": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11129,
+      "_Description": "Libya",
+      "_VALUE": "LY"
+    },
+    "11130": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11130,
+      "_Description": "Liechtenstein",
+      "_VALUE": "LI"
+    },
+    "11131": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11131,
+      "_Description": "Lithuania",
+      "_VALUE": "LT"
+    },
+    "11132": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11132,
+      "_Description": "Luxembourg",
+      "_VALUE": "LU"
+    },
+    "11133": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11133,
+      "_Description": "North Macedonia, The Republic of",
+      "_VALUE": "MK"
+    },
+    "11136": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11136,
+      "_Description": "Malaysia",
+      "_VALUE": "MY"
+    },
+    "11137": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11137,
+      "_Description": "Maldives",
+      "_VALUE": "MV"
+    },
+    "11138": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11138,
+      "_Description": "Mali",
+      "_VALUE": "ML"
+    },
+    "11139": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11139,
+      "_Description": "Malta",
+      "_VALUE": "MT"
+    },
+    "11140": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11140,
+      "_Description": "Marshall Islands",
+      "_VALUE": "MH"
+    },
+    "11141": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11141,
+      "_Description": "Mauritania",
+      "_VALUE": "MR"
+    },
+    "11143": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11143,
+      "_Description": "Mexico",
+      "_VALUE": "MX"
+    },
+    "11145": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11145,
+      "_Description": "Moldova",
+      "_VALUE": "MD"
+    },
+    "11146": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11146,
+      "_Description": "Monaco",
+      "_VALUE": "MC"
+    },
+    "11147": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11147,
+      "_Description": "Mongolia",
+      "_VALUE": "MN"
+    },
+    "11148": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11148,
+      "_Description": "Morocco",
+      "_VALUE": "MA"
+    },
+    "11149": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11149,
+      "_Description": "Mozambique",
+      "_VALUE": "MZ"
+    },
+    "11150": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11150,
+      "_Description": "Namibia",
+      "_VALUE": "NA"
+    },
+    "11153": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11153,
+      "_Description": "Netherlands",
+      "_VALUE": "NL"
+    },
+    "11154": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11154,
+      "_Description": "New Zealand",
+      "_VALUE": "NZ"
+    },
+    "11155": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11155,
+      "_Description": "Nicaragua",
+      "_VALUE": "NI"
+    },
+    "11156": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11156,
+      "_Description": "Niger",
+      "_VALUE": "NE"
+    },
+    "11157": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11157,
+      "_Description": "Nigeria",
+      "_VALUE": "NG"
+    },
+    "11158": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11158,
+      "_Description": "Norway",
+      "_VALUE": "NO"
+    },
+    "11159": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11159,
+      "_Description": "Oman",
+      "_VALUE": "OM"
+    },
+    "11160": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11160,
+      "_Description": "Pakistan",
+      "_VALUE": "PK"
+    },
+    "11161": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11161,
+      "_Description": "Palau",
+      "_VALUE": "PW"
+    },
+    "11162": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11162,
+      "_Description": "Panama",
+      "_VALUE": "PA"
+    },
+    "11164": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11164,
+      "_Description": "Paraguay",
+      "_VALUE": "PY"
+    },
+    "11165": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11165,
+      "_Description": "Peru",
+      "_VALUE": "PE"
+    },
+    "11166": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11166,
+      "_Description": "Philippines",
+      "_VALUE": "PH"
+    },
+    "11167": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11167,
+      "_Description": "Poland",
+      "_VALUE": "PL"
+    },
+    "11168": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11168,
+      "_Description": "Portugal",
+      "_VALUE": "PT"
+    },
+    "11169": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11169,
+      "_Description": "Qatar",
+      "_VALUE": "QA"
+    },
+    "11170": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11170,
+      "_Description": "Romania",
+      "_VALUE": "RO"
+    },
+    "11171": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11171,
+      "_Description": "Russia",
+      "_VALUE": "RU"
+    },
+    "11172": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11172,
+      "_Description": "Rwanda",
+      "_VALUE": "RW"
+    },
+    "11173": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11173,
+      "_Description": "Saint Kitts and Nevis",
+      "_VALUE": "KN"
+    },
+    "11175": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11175,
+      "_Description": "Saint Vincent and the Grenadines",
+      "_VALUE": "VC"
+    },
+    "11176": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11176,
+      "_Description": "Samoa",
+      "_VALUE": "WS"
+    },
+    "11177": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11177,
+      "_Description": "San Marino",
+      "_VALUE": "SM"
+    },
+    "11179": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11179,
+      "_Description": "Saudi Arabia",
+      "_VALUE": "SA"
+    },
+    "11180": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11180,
+      "_Description": "Senegal",
+      "_VALUE": "SN"
+    },
+    "11181": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11181,
+      "_Description": "Serbia",
+      "_VALUE": "RS"
+    },
+    "11182": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11182,
+      "_Description": "Seychelles",
+      "_VALUE": "SC"
+    },
+    "11183": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11183,
+      "_Description": "Sierra Leone",
+      "_VALUE": "SL"
+    },
+    "11184": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11184,
+      "_Description": "Singapore",
+      "_VALUE": "SG"
+    },
+    "11185": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11185,
+      "_Description": "Slovakia",
+      "_VALUE": "SK"
+    },
+    "11186": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11186,
+      "_Description": "Slovenia",
+      "_VALUE": "SI"
+    },
+    "11188": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11188,
+      "_Description": "Somalia",
+      "_VALUE": "SO"
+    },
+    "11189": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11189,
+      "_Description": "South Africa",
+      "_VALUE": "ZA"
+    },
+    "11190": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11190,
+      "_Description": "Spain",
+      "_VALUE": "ES"
+    },
+    "11191": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11191,
+      "_Description": "Sri Lanka",
+      "_VALUE": "LK"
+    },
+    "11192": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11192,
+      "_Description": "Sudan",
+      "_VALUE": "SD"
+    },
+    "11193": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11193,
+      "_Description": "Suriname",
+      "_VALUE": "SR"
+    },
+    "11195": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11195,
+      "_Description": "Sweden",
+      "_VALUE": "SE"
+    },
+    "11196": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11196,
+      "_Description": "Switzerland",
+      "_VALUE": "CH"
+    },
+    "11197": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11197,
+      "_Description": "Syria",
+      "_VALUE": "SY"
+    },
+    "11198": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11198,
+      "_Description": "Tajikistan",
+      "_VALUE": "TJ"
+    },
+    "11199": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11199,
+      "_Description": "Tanzania",
+      "_VALUE": "TZ"
+    },
+    "11200": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11200,
+      "_Description": "Thailand",
+      "_VALUE": "TH"
+    },
+    "11203": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11203,
+      "_Description": "Trinidad and Tobago",
+      "_VALUE": "TT"
+    },
+    "11204": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11204,
+      "_Description": "Tunisia",
+      "_VALUE": "TN"
+    },
+    "11205": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11205,
+      "_Description": "Turkey",
+      "_VALUE": "TR"
+    },
+    "11206": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11206,
+      "_Description": "Turkmenistan",
+      "_VALUE": "TM"
+    },
+    "11208": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11208,
+      "_Description": "Uganda",
+      "_VALUE": "UG"
+    },
+    "11209": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11209,
+      "_Description": "Ukraine",
+      "_VALUE": "UA"
+    },
+    "11210": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11210,
+      "_Description": "United Arab Emirates",
+      "_VALUE": "AE"
+    },
+    "11211": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11211,
+      "_Description": "United Kingdom",
+      "_VALUE": "GB"
+    },
+    "11212": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11212,
+      "_Description": "United States",
+      "_VALUE": "US"
+    },
+    "11213": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11213,
+      "_Description": "Uruguay",
+      "_VALUE": "UY"
+    },
+    "11214": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11214,
+      "_Description": "Uzbekistan",
+      "_VALUE": "UZ"
+    },
+    "11215": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11215,
+      "_Description": "Vanuatu",
+      "_VALUE": "VU"
+    },
+    "11216": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11216,
+      "_Description": "Venezuela",
+      "_VALUE": "VE"
+    },
+    "11217": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11217,
+      "_Description": "Vietnam",
+      "_VALUE": "VN"
+    },
+    "11218": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11218,
+      "_Description": "Yemen",
+      "_VALUE": "YE"
+    },
+    "11219": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11219,
+      "_Description": "Zambia",
+      "_VALUE": "ZM"
+    },
+    "11220": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11220,
+      "_Description": "Zimbabwe",
+      "_VALUE": "ZW"
+    },
+    "11223": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11223,
+      "_Description": "Aruba",
+      "_VALUE": "AW"
+    },
+    "11226": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11226,
+      "_Description": "Bermuda",
+      "_VALUE": "BM"
+    },
+    "11230": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11230,
+      "_Description": "Cayman Islands",
+      "_VALUE": "KY"
+    },
+    "11241": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11241,
+      "_Description": "Gibraltar",
+      "_VALUE": "GI"
+    },
+    "11247": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11247,
+      "_Description": "Hong Kong",
+      "_VALUE": "HK"
+    },
+    "11250": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11250,
+      "_Description": "Jersey",
+      "_VALUE": "JE"
+    },
+    "11253": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11253,
+      "_Description": "Macau",
+      "_VALUE": "MO"
+    },
+    "11254": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11254,
+      "_Description": "Man, Isle of",
+      "_VALUE": "IM"
+    },
+    "11260": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11260,
+      "_Description": "Netherlands Antilles",
+      "_VALUE": null
+    },
+    "11278": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11278,
+      "_Description": "Virgin Islands, British",
+      "_VALUE": "VG"
+    },
+    "11291": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11291,
+      "_Description": "undetermined",
+      "_VALUE": null
+    },
+    "11292": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11292,
+      "_Description": "West Bank",
+      "_VALUE": null
+    },
+    "11391": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 11391,
+      "_Description": "Taiwan",
+      "_VALUE": "TW"
+    },
+    "91021": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 91021,
+      "_Description": "Palestinian",
+      "_VALUE": "PS"
+    },
+    "91116": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 91116,
+      "_Description": "Kosovo",
+      "_VALUE": null
+    },
+    "91192": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 91192,
+      "_Description": "Montenegro",
+      "_VALUE": "ME"
+    },
+    "91434": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 91434,
+      "_Description": "Region: Northern Mali",
+      "_VALUE": null
+    },
+    "91501": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 91501,
+      "_Description": "South Sudan",
+      "_VALUE": "SS"
+    },
+    "91704": {
+      "_AreaCodeTypeID": 1,
+      "_CountryID": 91704,
+      "_Description": "Region: Gaza",
+      "_VALUE": null
+    }
+  },
+  "Country": {
+    "11029": {
+      "_ISO2": "AF",
+      "_VALUE": "Afghanistan"
+    },
+    "11030": {
+      "_ISO2": "AL",
+      "_VALUE": "Albania"
+    },
+    "11031": {
+      "_ISO2": "DZ",
+      "_VALUE": "Algeria"
+    },
+    "11033": {
+      "_ISO2": "AO",
+      "_VALUE": "Angola"
+    },
+    "11034": {
+      "_ISO2": "AG",
+      "_VALUE": "Antigua and Barbuda"
+    },
+    "11035": {
+      "_ISO2": "AR",
+      "_VALUE": "Argentina"
+    },
+    "11036": {
+      "_ISO2": "AM",
+      "_VALUE": "Armenia"
+    },
+    "11037": {
+      "_ISO2": "AU",
+      "_VALUE": "Australia"
+    },
+    "11038": {
+      "_ISO2": "AT",
+      "_VALUE": "Austria"
+    },
+    "11039": {
+      "_ISO2": "AZ",
+      "_VALUE": "Azerbaijan"
+    },
+    "11040": {
+      "_ISO2": "BS",
+      "_VALUE": "Bahamas, The"
+    },
+    "11041": {
+      "_ISO2": "BH",
+      "_VALUE": "Bahrain"
+    },
+    "11042": {
+      "_ISO2": "BD",
+      "_VALUE": "Bangladesh"
+    },
+    "11043": {
+      "_ISO2": "BB",
+      "_VALUE": "Barbados"
+    },
+    "11044": {
+      "_ISO2": "BY",
+      "_VALUE": "Belarus"
+    },
+    "11045": {
+      "_ISO2": "BE",
+      "_VALUE": "Belgium"
+    },
+    "11046": {
+      "_ISO2": "BZ",
+      "_VALUE": "Belize"
+    },
+    "11047": {
+      "_ISO2": "BJ",
+      "_VALUE": "Benin"
+    },
+    "11049": {
+      "_ISO2": "BO",
+      "_VALUE": "Bolivia"
+    },
+    "11050": {
+      "_ISO2": "BA",
+      "_VALUE": "Bosnia and Herzegovina"
+    },
+    "11052": {
+      "_ISO2": "BR",
+      "_VALUE": "Brazil"
+    },
+    "11053": {
+      "_ISO2": "BN",
+      "_VALUE": "Brunei"
+    },
+    "11054": {
+      "_ISO2": "BG",
+      "_VALUE": "Bulgaria"
+    },
+    "11055": {
+      "_ISO2": "BF",
+      "_VALUE": "Burkina Faso"
+    },
+    "11056": {
+      "_ISO2": "MM",
+      "_VALUE": "Burma"
+    },
+    "11058": {
+      "_ISO2": "KH",
+      "_VALUE": "Cambodia"
+    },
+    "11060": {
+      "_ISO2": "CA",
+      "_VALUE": "Canada"
+    },
+    "11061": {
+      "_ISO2": "CV",
+      "_VALUE": "Cabo Verde"
+    },
+    "11062": {
+      "_ISO2": "CF",
+      "_VALUE": "Central African Republic"
+    },
+    "11064": {
+      "_ISO2": "CL",
+      "_VALUE": "Chile"
+    },
+    "11065": {
+      "_ISO2": "CN",
+      "_VALUE": "China"
+    },
+    "11066": {
+      "_ISO2": "CO",
+      "_VALUE": "Colombia"
+    },
+    "11067": {
+      "_ISO2": "KM",
+      "_VALUE": "Comoros"
+    },
+    "11068": {
+      "_ISO2": "CG",
+      "_VALUE": "Congo, Republic of the"
+    },
+    "11069": {
+      "_ISO2": "CD",
+      "_VALUE": "Congo, Democratic Republic of the"
+    },
+    "11070": {
+      "_ISO2": "CR",
+      "_VALUE": "Costa Rica"
+    },
+    "11071": {
+      "_ISO2": "CI",
+      "_VALUE": "Cote d Ivoire"
+    },
+    "11072": {
+      "_ISO2": "HR",
+      "_VALUE": "Croatia"
+    },
+    "11073": {
+      "_ISO2": "CU",
+      "_VALUE": "Cuba"
+    },
+    "11074": {
+      "_ISO2": "CY",
+      "_VALUE": "Cyprus"
+    },
+    "11075": {
+      "_ISO2": "CZ",
+      "_VALUE": "Czech Republic"
+    },
+    "11076": {
+      "_ISO2": "DK",
+      "_VALUE": "Denmark"
+    },
+    "11077": {
+      "_ISO2": "DJ",
+      "_VALUE": "Djibouti"
+    },
+    "11078": {
+      "_ISO2": "DM",
+      "_VALUE": "Dominica"
+    },
+    "11079": {
+      "_ISO2": "DO",
+      "_VALUE": "Dominican Republic"
+    },
+    "11081": {
+      "_ISO2": "EC",
+      "_VALUE": "Ecuador"
+    },
+    "11082": {
+      "_ISO2": "EG",
+      "_VALUE": "Egypt"
+    },
+    "11083": {
+      "_ISO2": "SV",
+      "_VALUE": "El Salvador"
+    },
+    "11084": {
+      "_ISO2": "GQ",
+      "_VALUE": "Equatorial Guinea"
+    },
+    "11085": {
+      "_ISO2": "ER",
+      "_VALUE": "Eritrea"
+    },
+    "11086": {
+      "_ISO2": "EE",
+      "_VALUE": "Estonia"
+    },
+    "11087": {
+      "_ISO2": "ET",
+      "_VALUE": "Ethiopia"
+    },
+    "11089": {
+      "_ISO2": "FI",
+      "_VALUE": "Finland"
+    },
+    "11090": {
+      "_ISO2": "FR",
+      "_VALUE": "France"
+    },
+    "11092": {
+      "_ISO2": "GM",
+      "_VALUE": "The Gambia"
+    },
+    "11093": {
+      "_ISO2": "GE",
+      "_VALUE": "Georgia"
+    },
+    "11094": {
+      "_ISO2": "DE",
+      "_VALUE": "Germany"
+    },
+    "11095": {
+      "_ISO2": "GH",
+      "_VALUE": "Ghana"
+    },
+    "11096": {
+      "_ISO2": "GR",
+      "_VALUE": "Greece"
+    },
+    "11098": {
+      "_ISO2": "GT",
+      "_VALUE": "Guatemala"
+    },
+    "11099": {
+      "_ISO2": "GN",
+      "_VALUE": "Guinea"
+    },
+    "11100": {
+      "_ISO2": "GW",
+      "_VALUE": "Guinea-Bissau"
+    },
+    "11101": {
+      "_ISO2": "GY",
+      "_VALUE": "Guyana"
+    },
+    "11102": {
+      "_ISO2": "HT",
+      "_VALUE": "Haiti"
+    },
+    "11104": {
+      "_ISO2": "HN",
+      "_VALUE": "Honduras"
+    },
+    "11105": {
+      "_ISO2": "HU",
+      "_VALUE": "Hungary"
+    },
+    "11106": {
+      "_ISO2": "IS",
+      "_VALUE": "Iceland"
+    },
+    "11107": {
+      "_ISO2": "IN",
+      "_VALUE": "India"
+    },
+    "11108": {
+      "_ISO2": "ID",
+      "_VALUE": "Indonesia"
+    },
+    "11109": {
+      "_ISO2": "IR",
+      "_VALUE": "Iran"
+    },
+    "11110": {
+      "_ISO2": "IQ",
+      "_VALUE": "Iraq"
+    },
+    "11111": {
+      "_ISO2": "IE",
+      "_VALUE": "Ireland"
+    },
+    "11112": {
+      "_ISO2": "IL",
+      "_VALUE": "Israel"
+    },
+    "11113": {
+      "_ISO2": "IT",
+      "_VALUE": "Italy"
+    },
+    "11114": {
+      "_ISO2": "JM",
+      "_VALUE": "Jamaica"
+    },
+    "11115": {
+      "_ISO2": "JP",
+      "_VALUE": "Japan"
+    },
+    "11116": {
+      "_ISO2": "JO",
+      "_VALUE": "Jordan"
+    },
+    "11117": {
+      "_ISO2": "KZ",
+      "_VALUE": "Kazakhstan"
+    },
+    "11118": {
+      "_ISO2": "KE",
+      "_VALUE": "Kenya"
+    },
+    "11120": {
+      "_ISO2": "KP",
+      "_VALUE": "Korea, North"
+    },
+    "11121": {
+      "_ISO2": "KR",
+      "_VALUE": "Korea, South"
+    },
+    "11122": {
+      "_ISO2": "KW",
+      "_VALUE": "Kuwait"
+    },
+    "11123": {
+      "_ISO2": "KG",
+      "_VALUE": "Kyrgyzstan"
+    },
+    "11124": {
+      "_ISO2": "LA",
+      "_VALUE": "Laos"
+    },
+    "11125": {
+      "_ISO2": "LV",
+      "_VALUE": "Latvia"
+    },
+    "11126": {
+      "_ISO2": "LB",
+      "_VALUE": "Lebanon"
+    },
+    "11128": {
+      "_ISO2": "LR",
+      "_VALUE": "Liberia"
+    },
+    "11129": {
+      "_ISO2": "LY",
+      "_VALUE": "Libya"
+    },
+    "11130": {
+      "_ISO2": "LI",
+      "_VALUE": "Liechtenstein"
+    },
+    "11131": {
+      "_ISO2": "LT",
+      "_VALUE": "Lithuania"
+    },
+    "11132": {
+      "_ISO2": "LU",
+      "_VALUE": "Luxembourg"
+    },
+    "11133": {
+      "_ISO2": "MK",
+      "_VALUE": "North Macedonia, The Republic of"
+    },
+    "11136": {
+      "_ISO2": "MY",
+      "_VALUE": "Malaysia"
+    },
+    "11137": {
+      "_ISO2": "MV",
+      "_VALUE": "Maldives"
+    },
+    "11138": {
+      "_ISO2": "ML",
+      "_VALUE": "Mali"
+    },
+    "11139": {
+      "_ISO2": "MT",
+      "_VALUE": "Malta"
+    },
+    "11140": {
+      "_ISO2": "MH",
+      "_VALUE": "Marshall Islands"
+    },
+    "11141": {
+      "_ISO2": "MR",
+      "_VALUE": "Mauritania"
+    },
+    "11143": {
+      "_ISO2": "MX",
+      "_VALUE": "Mexico"
+    },
+    "11145": {
+      "_ISO2": "MD",
+      "_VALUE": "Moldova"
+    },
+    "11146": {
+      "_ISO2": "MC",
+      "_VALUE": "Monaco"
+    },
+    "11147": {
+      "_ISO2": "MN",
+      "_VALUE": "Mongolia"
+    },
+    "11148": {
+      "_ISO2": "MA",
+      "_VALUE": "Morocco"
+    },
+    "11149": {
+      "_ISO2": "MZ",
+      "_VALUE": "Mozambique"
+    },
+    "11150": {
+      "_ISO2": "NA",
+      "_VALUE": "Namibia"
+    },
+    "11153": {
+      "_ISO2": "NL",
+      "_VALUE": "Netherlands"
+    },
+    "11154": {
+      "_ISO2": "NZ",
+      "_VALUE": "New Zealand"
+    },
+    "11155": {
+      "_ISO2": "NI",
+      "_VALUE": "Nicaragua"
+    },
+    "11156": {
+      "_ISO2": "NE",
+      "_VALUE": "Niger"
+    },
+    "11157": {
+      "_ISO2": "NG",
+      "_VALUE": "Nigeria"
+    },
+    "11158": {
+      "_ISO2": "NO",
+      "_VALUE": "Norway"
+    },
+    "11159": {
+      "_ISO2": "OM",
+      "_VALUE": "Oman"
+    },
+    "11160": {
+      "_ISO2": "PK",
+      "_VALUE": "Pakistan"
+    },
+    "11161": {
+      "_ISO2": "PW",
+      "_VALUE": "Palau"
+    },
+    "11162": {
+      "_ISO2": "PA",
+      "_VALUE": "Panama"
+    },
+    "11164": {
+      "_ISO2": "PY",
+      "_VALUE": "Paraguay"
+    },
+    "11165": {
+      "_ISO2": "PE",
+      "_VALUE": "Peru"
+    },
+    "11166": {
+      "_ISO2": "PH",
+      "_VALUE": "Philippines"
+    },
+    "11167": {
+      "_ISO2": "PL",
+      "_VALUE": "Poland"
+    },
+    "11168": {
+      "_ISO2": "PT",
+      "_VALUE": "Portugal"
+    },
+    "11169": {
+      "_ISO2": "QA",
+      "_VALUE": "Qatar"
+    },
+    "11170": {
+      "_ISO2": "RO",
+      "_VALUE": "Romania"
+    },
+    "11171": {
+      "_ISO2": "RU",
+      "_VALUE": "Russia"
+    },
+    "11172": {
+      "_ISO2": "RW",
+      "_VALUE": "Rwanda"
+    },
+    "11173": {
+      "_ISO2": "KN",
+      "_VALUE": "Saint Kitts and Nevis"
+    },
+    "11175": {
+      "_ISO2": "VC",
+      "_VALUE": "Saint Vincent and the Grenadines"
+    },
+    "11176": {
+      "_ISO2": "WS",
+      "_VALUE": "Samoa"
+    },
+    "11177": {
+      "_ISO2": "SM",
+      "_VALUE": "San Marino"
+    },
+    "11179": {
+      "_ISO2": "SA",
+      "_VALUE": "Saudi Arabia"
+    },
+    "11180": {
+      "_ISO2": "SN",
+      "_VALUE": "Senegal"
+    },
+    "11181": {
+      "_ISO2": "RS",
+      "_VALUE": "Serbia"
+    },
+    "11182": {
+      "_ISO2": "SC",
+      "_VALUE": "Seychelles"
+    },
+    "11183": {
+      "_ISO2": "SL",
+      "_VALUE": "Sierra Leone"
+    },
+    "11184": {
+      "_ISO2": "SG",
+      "_VALUE": "Singapore"
+    },
+    "11185": {
+      "_ISO2": "SK",
+      "_VALUE": "Slovakia"
+    },
+    "11186": {
+      "_ISO2": "SI",
+      "_VALUE": "Slovenia"
+    },
+    "11188": {
+      "_ISO2": "SO",
+      "_VALUE": "Somalia"
+    },
+    "11189": {
+      "_ISO2": "ZA",
+      "_VALUE": "South Africa"
+    },
+    "11190": {
+      "_ISO2": "ES",
+      "_VALUE": "Spain"
+    },
+    "11191": {
+      "_ISO2": "LK",
+      "_VALUE": "Sri Lanka"
+    },
+    "11192": {
+      "_ISO2": "SD",
+      "_VALUE": "Sudan"
+    },
+    "11193": {
+      "_ISO2": "SR",
+      "_VALUE": "Suriname"
+    },
+    "11195": {
+      "_ISO2": "SE",
+      "_VALUE": "Sweden"
+    },
+    "11196": {
+      "_ISO2": "CH",
+      "_VALUE": "Switzerland"
+    },
+    "11197": {
+      "_ISO2": "SY",
+      "_VALUE": "Syria"
+    },
+    "11198": {
+      "_ISO2": "TJ",
+      "_VALUE": "Tajikistan"
+    },
+    "11199": {
+      "_ISO2": "TZ",
+      "_VALUE": "Tanzania"
+    },
+    "11200": {
+      "_ISO2": "TH",
+      "_VALUE": "Thailand"
+    },
+    "11203": {
+      "_ISO2": "TT",
+      "_VALUE": "Trinidad and Tobago"
+    },
+    "11204": {
+      "_ISO2": "TN",
+      "_VALUE": "Tunisia"
+    },
+    "11205": {
+      "_ISO2": "TR",
+      "_VALUE": "Turkey"
+    },
+    "11206": {
+      "_ISO2": "TM",
+      "_VALUE": "Turkmenistan"
+    },
+    "11208": {
+      "_ISO2": "UG",
+      "_VALUE": "Uganda"
+    },
+    "11209": {
+      "_ISO2": "UA",
+      "_VALUE": "Ukraine"
+    },
+    "11210": {
+      "_ISO2": "AE",
+      "_VALUE": "United Arab Emirates"
+    },
+    "11211": {
+      "_ISO2": "GB",
+      "_VALUE": "United Kingdom"
+    },
+    "11212": {
+      "_ISO2": "US",
+      "_VALUE": "United States"
+    },
+    "11213": {
+      "_ISO2": "UY",
+      "_VALUE": "Uruguay"
+    },
+    "11214": {
+      "_ISO2": "UZ",
+      "_VALUE": "Uzbekistan"
+    },
+    "11215": {
+      "_ISO2": "VU",
+      "_VALUE": "Vanuatu"
+    },
+    "11216": {
+      "_ISO2": "VE",
+      "_VALUE": "Venezuela"
+    },
+    "11217": {
+      "_ISO2": "VN",
+      "_VALUE": "Vietnam"
+    },
+    "11218": {
+      "_ISO2": "YE",
+      "_VALUE": "Yemen"
+    },
+    "11219": {
+      "_ISO2": "ZM",
+      "_VALUE": "Zambia"
+    },
+    "11220": {
+      "_ISO2": "ZW",
+      "_VALUE": "Zimbabwe"
+    },
+    "11223": {
+      "_ISO2": "AW",
+      "_VALUE": "Aruba"
+    },
+    "11226": {
+      "_ISO2": "BM",
+      "_VALUE": "Bermuda"
+    },
+    "11230": {
+      "_ISO2": "KY",
+      "_VALUE": "Cayman Islands"
+    },
+    "11241": {
+      "_ISO2": "GI",
+      "_VALUE": "Gibraltar"
+    },
+    "11247": {
+      "_ISO2": "HK",
+      "_VALUE": "Hong Kong"
+    },
+    "11250": {
+      "_ISO2": "JE",
+      "_VALUE": "Jersey"
+    },
+    "11253": {
+      "_ISO2": "MO",
+      "_VALUE": "Macau"
+    },
+    "11254": {
+      "_ISO2": "IM",
+      "_VALUE": "Man, Isle of"
+    },
+    "11260": {
+      "_ISO2": null,
+      "_VALUE": "Netherlands Antilles"
+    },
+    "11278": {
+      "_ISO2": "VG",
+      "_VALUE": "Virgin Islands, British"
+    },
+    "11291": {
+      "_ISO2": null,
+      "_VALUE": "undetermined"
+    },
+    "11292": {
+      "_ISO2": null,
+      "_VALUE": "West Bank"
+    },
+    "11391": {
+      "_ISO2": "TW",
+      "_VALUE": "Taiwan"
+    },
+    "91021": {
+      "_ISO2": "PS",
+      "_VALUE": "Palestinian"
+    },
+    "91116": {
+      "_ISO2": null,
+      "_VALUE": "Kosovo"
+    },
+    "91192": {
+      "_ISO2": "ME",
+      "_VALUE": "Montenegro"
+    },
+    "91434": {
+      "_ISO2": null,
+      "_VALUE": "Region: Northern Mali"
+    },
+    "91501": {
+      "_ISO2": "SS",
+      "_VALUE": "South Sudan"
+    },
+    "91704": {
+      "_ISO2": null,
+      "_VALUE": "Region: Gaza"
+    }
+  },
+  "DetailReference": {
+    "702": {
+      "_VALUE": "Bulk Carrier"
+    },
+    "703": {
+      "_VALUE": "Container Ship"
+    },
+    "704": {
+      "_VALUE": "General Cargo"
+    },
+    "705": {
+      "_VALUE": "Tug"
+    },
+    "91272": {
+      "_VALUE": "Chemical/Products Tanker"
+    },
+    "91273": {
+      "_VALUE": "Crew/Supply Vessel"
+    },
+    "91274": {
+      "_VALUE": "Crude Oil Tanker"
+    },
+    "91275": {
+      "_VALUE": "Crude/Oil Products Tanker"
+    },
+    "91276": {
+      "_VALUE": "Landing Craft"
+    },
+    "91277": {
+      "_VALUE": "LPG Tanker"
+    },
+    "91278": {
+      "_VALUE": "Offshore Tug/Supply Ship"
+    },
+    "91279": {
+      "_VALUE": "Platform Supply Ship"
+    },
+    "91280": {
+      "_VALUE": "Shuttle Tanker"
+    },
+    "91281": {
+      "_VALUE": "Tanker"
+    },
+    "91405": {
+      "_VALUE": "Bunkering Tanker"
+    },
+    "91464": {
+      "_VALUE": "Involved in Energy Sector"
+    },
+    "91467": {
+      "_VALUE": "Involved in the Shipping Sector"
+    },
+    "91468": {
+      "_VALUE": "Port Operator"
+    },
+    "91473": {
+      "_VALUE": "Subject to Secondary Sanctions"
+    },
+    "91521": {
+      "_VALUE": "Subject to Directive 1"
+    },
+    "91522": {
+      "_VALUE": "Subject to Directive 2"
+    },
+    "91523": {
+      "_VALUE": "Subject to Directive 3"
+    },
+    "91524": {
+      "_VALUE": "Subject to Directive 4"
+    },
+    "91526": {
+      "_VALUE": "Male"
+    },
+    "91527": {
+      "_VALUE": "Female"
+    },
+    "91738": {
+      "_VALUE": "Subject to Secondary Sanctions Pursuant to the Hizballah Financial Sanctions Regulations"
+    },
+    "91762": {
+      "_VALUE": "North Korea Sanctions Regulations, sections 510.201 and 510.210"
+    },
+    "91766": {
+      "_VALUE": "FOREIGN EXCHANGE. Sec 235(a)(7)"
+    },
+    "91767": {
+      "_VALUE": "BANKING TRANSACTIONS. Sec 235(a)(8)"
+    },
+    "91769": {
+      "_VALUE": "BAN ON INVESTMENT IN EQUITY OR DEBT OF SANCTIONED PERSON. Sec 235(a)(10)"
+    },
+    "91770": {
+      "_VALUE": "EXCLUSION OF CORPORATE OFFICERS. Sec 235(a)(11)"
+    },
+    "91771": {
+      "_VALUE": "SANCTIONS ON PRINCIPAL EXECUTIVE OFFICERS. Sec 235(a)(12)"
+    },
+    "91772": {
+      "_VALUE": "EXPORT SANCTIONS Sec. 235(a)(2)"
+    },
+    "91778": {
+      "_VALUE": "BLOCKING PROPERTY AND INTERESTS IN PROPERTY. Sec 235(a)(9)"
+    },
+    "91780": {
+      "_VALUE": "Products Tanker"
+    },
+    "91782": {
+      "_VALUE": "Passenger"
+    },
+    "91785": {
+      "_VALUE": "Roll-on Roll-off"
+    },
+    "91795": {
+      "_VALUE": "General Cargo"
+    },
+    "91796": {
+      "_VALUE": "Landing Craft"
+    },
+    "91799": {
+      "_VALUE": "Passenger"
+    },
+    "91802": {
+      "_VALUE": "Roll-on Roll-off"
+    },
+    "91836": {
+      "_VALUE": "Drilling Ship"
+    },
+    "91837": {
+      "_VALUE": "Floating Storage Tanker"
+    },
+    "91838": {
+      "_VALUE": "Chemical/Oil Tanker"
+    },
+    "91840": {
+      "_VALUE": "Oil Products Tanker"
+    },
+    "91880": {
+      "_VALUE": "EXCLUSION OF CORPORATE OFFICERS.  Sec. 4(e)"
+    },
+    "91882": {
+      "_VALUE": "LOANS FROM UNITED STATES FINANCIAL INSTITUTIONS.  Sec. 5(a)(i)"
+    },
+    "91883": {
+      "_VALUE": "FOREIGN EXCHANGE.  Sec. 5(a)(ii)"
+    },
+    "91884": {
+      "_VALUE": "BANKING TRANSACTIONS.  Sec. 5(a)(iii)"
+    },
+    "91885": {
+      "_VALUE": "BLOCKING PROPERTY AND INTERESTS IN PROPERTY.  Sec. 5(a)(iv)"
+    },
+    "91886": {
+      "_VALUE": "BAN ON INVESTMENT IN EQUITY OR DEBT OF SANCTIONED PERSON.  Sec. 5(a)(v)"
+    },
+    "91887": {
+      "_VALUE": "IMPORT SANCTIONS.  Sec. 5(a)(vi)"
+    },
+    "91888": {
+      "_VALUE": "SANCTIONS ON PRINCIPAL EXECUTIVE OFFICERS. Sec. 5(a)(vii)"
+    },
+    "91889": {
+      "_VALUE": "Pleasure Craft"
+    },
+    "91905": {
+      "_VALUE": "North Korea Sanctions Regulations section 510.214"
+    },
+    "91906": {
+      "_VALUE": "Fishing Vessel"
+    },
+    "91911": {
+      "_VALUE": "Growing of vegetables and melons, roots and tubers"
+    },
+    "91919": {
+      "_VALUE": "Growing of pome fruits and stone fruits"
+    },
+    "91929": {
+      "_VALUE": "Raising of sheep and goats"
+    },
+    "91933": {
+      "_VALUE": "Mixed farming"
+    },
+    "91934": {
+      "_VALUE": "Support activities for crop production"
+    },
+    "91938": {
+      "_VALUE": "Support activities for animal production"
+    },
+    "91939": {
+      "_VALUE": "Post-harvest crop activities"
+    },
+    "91942": {
+      "_VALUE": "Mining of hard coal"
+    },
+    "91943": {
+      "_VALUE": "Mining of lignite"
+    },
+    "91944": {
+      "_VALUE": "Extraction of crude petroleum"
+    },
+    "91946": {
+      "_VALUE": "Mining of iron ores"
+    },
+    "91948": {
+      "_VALUE": "Mining of other non-ferrous metal ores"
+    },
+    "91953": {
+      "_VALUE": "Support activities for petroleum and natural gas extraction"
+    },
+    "91954": {
+      "_VALUE": "Support activities for other mining and quarrying"
+    },
+    "91955": {
+      "_VALUE": "Manufacture of refined petroleum products"
+    },
+    "91956": {
+      "_VALUE": "Manufacture of pharmaceuticals, medicinal chemical and botanical products"
+    },
+    "91957": {
+      "_VALUE": "Manufacture of air and spacecraft and related machinery"
+    },
+    "91958": {
+      "_VALUE": "Construction of buildings"
+    },
+    "91959": {
+      "_VALUE": "Construction of roads and railways"
+    },
+    "91960": {
+      "_VALUE": "Construction of utility projects"
+    },
+    "91961": {
+      "_VALUE": "Construction of other civil engineering projects"
+    },
+    "91963": {
+      "_VALUE": "Sea and coastal freight water transport"
+    },
+    "91964": {
+      "_VALUE": "Inland passenger water transport"
+    },
+    "91965": {
+      "_VALUE": "Inland freight water transport"
+    },
+    "91966": {
+      "_VALUE": "Passenger air transport"
+    },
+    "91967": {
+      "_VALUE": "Freight air transport"
+    },
+    "91968": {
+      "_VALUE": "Short term accommodation activities"
+    },
+    "91969": {
+      "_VALUE": "Restaurants and mobile food service activities"
+    },
+    "91971": {
+      "_VALUE": "Beverage serving activities"
+    },
+    "91972": {
+      "_VALUE": "Wired telecommunications activities"
+    },
+    "91973": {
+      "_VALUE": "Wireless telecommunications activities"
+    },
+    "91975": {
+      "_VALUE": "Central banking"
+    },
+    "91976": {
+      "_VALUE": "Activities of holding companies"
+    },
+    "91977": {
+      "_VALUE": "Trusts, funds and similar financial entities"
+    },
+    "91978": {
+      "_VALUE": "Financial leasing"
+    },
+    "91979": {
+      "_VALUE": "Real estate activities with own or leased property"
+    },
+    "91980": {
+      "_VALUE": "Real estate activities on a fee or contract basis"
+    },
+    "91981": {
+      "_VALUE": "Advertising"
+    },
+    "91982": {
+      "_VALUE": "Travel agency activities"
+    },
+    "91983": {
+      "_VALUE": "Tour operator activities"
+    },
+    "91984": {
+      "_VALUE": "Gambling and betting activities"
+    },
+    "91985": {
+      "_VALUE": "Operation of sports facilities"
+    },
+    "91986": {
+      "_VALUE": "Activities of sports clubs"
+    },
+    "91987": {
+      "_VALUE": "Palletized Cargo Ship"
+    },
+    "91990": {
+      "_VALUE": "Manufacture of furniture"
+    },
+    "91991": {
+      "_VALUE": "Sale of motor vehicle parts and accessories"
+    },
+    "92000": {
+      "_VALUE": "Wholesale of food, beverages and tobacco"
+    },
+    "92004": {
+      "_VALUE": "Wholesale of electronic and telecommunications equipment and parts"
+    },
+    "92005": {
+      "_VALUE": "Wholesale of metals and metal ores"
+    },
+    "92006": {
+      "_VALUE": "Wholesale of construction materials, hardware, plumbing and heating equipment and supplies"
+    },
+    "92007": {
+      "_VALUE": "Postal activities"
+    },
+    "92008": {
+      "_VALUE": "Private security activities"
+    },
+    "92009": {
+      "_VALUE": "Other financial service activities, except insurance and pension funding activities, n.e.c."
+    },
+    "92010": {
+      "_VALUE": "pursuant to the Hong Kong Autonomy Act of 2020 - Public Law 116-149"
+    },
+    "92012": {
+      "_VALUE": "Manufacture of articles of concrete, cement and plaster"
+    },
+    "92013": {
+      "_VALUE": "Manufacture of plastics products"
+    },
+    "92015": {
+      "_VALUE": "Higher education"
+    },
+    "92016": {
+      "_VALUE": "Manufacture of medical and dental instruments and supplies"
+    },
+    "92017": {
+      "_VALUE": "Other telecommunications activities"
+    },
+    "92018": {
+      "_VALUE": "Wholesale of other machinery and equipment"
+    },
+    "92032": {
+      "_VALUE": "Charity or Nonprofit Organization"
+    },
+    "92033": {
+      "_VALUE": "Private Company"
+    },
+    "92034": {
+      "_VALUE": "Public Company"
+    },
+    "92036": {
+      "_VALUE": "Financial Institution"
+    },
+    "92037": {
+      "_VALUE": "Criminal Organization"
+    },
+    "92040": {
+      "_VALUE": "General public administration activities"
+    },
+    "92041": {
+      "_VALUE": "Motion picture, video and television programme production activities"
+    },
+    "92044": {
+      "_VALUE": "Publishing of newspapers, journals and periodicals"
+    },
+    "92045": {
+      "_VALUE": "News agency activities"
+    },
+    "92046": {
+      "_VALUE": "Service activities related to printing"
+    },
+    "92048": {
+      "_VALUE": "State-Owned Enterprise"
+    },
+    "92050": {
+      "_VALUE": "Property and Interests in Property Blocked, Except Importation of Goods"
+    },
+    "92056": {
+      "_VALUE": "Pipe-laying Vessel"
+    },
+    "92057": {
+      "_VALUE": "Supply Vessel"
+    },
+    "92058": {
+      "_VALUE": "Offshore Tug"
+    },
+    "92059": {
+      "_VALUE": "Offshore Support Vessel"
+    },
+    "92060": {
+      "_VALUE": "Salvage Ship"
+    },
+    "92061": {
+      "_VALUE": "Anchor Handling Vessel"
+    },
+    "92062": {
+      "_VALUE": "Government Entity"
+    },
+    "92063": {
+      "_VALUE": "Other monetary intermediation"
+    },
+    "92066": {
+      "_VALUE": "Activities of political organizations"
+    },
+    "92072": {
+      "_VALUE": "Service Vessel"
+    },
+    "92077": {
+      "_VALUE": "Ukraine-/Russia-Related Sanctions Regulations, 31 CFR 589.201 and/or 589.209"
+    },
+    "92079": {
+      "_VALUE": "Fish Carrier"
+    },
+    "92080": {
+      "_VALUE": "Refrigerated Cargo Ship"
+    },
+    "92081": {
+      "_VALUE": "Public order and safety activities"
+    },
+    "92082": {
+      "_VALUE": "Wholesale of other household goods"
+    },
+    "92083": {
+      "_VALUE": "Other information technology and computer service activities"
+    },
+    "92084": {
+      "_VALUE": "section 1(b) of Executive Order 13224, as amended by Executive Order 13886"
+    },
+    "92097": {
+      "_VALUE": "For more information on directives, please visit the following link: https://home.treasury.gov/policy-issues/financial-sanctions/sanctions-programs-and-country-information/russian-harmful-foreign-activities-sanctions#directives"
+    },
+    "92098": {
+      "_VALUE": "Subject to Directive 3 - All transactions in, provision of financing for, and other dealings in new debt of longer than 14 days maturity or new equity where such new debt or new equity is issued on or after the 'Effective Date (EO 14024 Directive)' associated with this name are prohibited."
+    },
+    "92103": {
+      "_VALUE": "Yacht"
+    },
+    "92104": {
+      "_VALUE": "Manufacture of jewellery and related articles"
+    },
+    "92105": {
+      "_VALUE": "Other business support service activities n.e.c."
+    },
+    "92107": {
+      "_VALUE": "Manufacture of basic precious and other non-ferrous metals"
+    },
+    "92108": {
+      "_VALUE": "Sale of motor vehicles"
+    },
+    "92109": {
+      "_VALUE": "Processing and preserving of fish, crustaceans and molluscs"
+    },
+    "92110": {
+      "_VALUE": "Manufacture of other food products n.e.c."
+    },
+    "92114": {
+      "_VALUE": "Maintenance and repair of motor vehicles"
+    },
+    "92115": {
+      "_VALUE": "Management consultancy activities"
+    },
+    "92116": {
+      "_VALUE": "Other human health activities"
+    },
+    "92117": {
+      "_VALUE": "Other amusement and recreation activities"
+    },
+    "92118": {
+      "_VALUE": "Dredger"
+    },
+    "92119": {
+      "_VALUE": "Hopper Barge"
+    },
+    "92125": {
+      "_VALUE": "Unrecognized Government Entity"
+    },
+    "92126": {
+      "_VALUE": "Accounting, bookkeeping and auditing activities; tax consultancy"
+    },
+    "92127": {
+      "_VALUE": "Ukraine-/Russia-Related Sanctions Regulations, 31 CFR 589.201"
+    },
+    "92128": {
+      "_VALUE": "Non-specialized wholesale trade"
+    },
+    "92130": {
+      "_VALUE": "Service activities incidental to air transportation"
+    },
+    "92131": {
+      "_VALUE": "Marine Fishing"
+    },
+    "92133": {
+      "_VALUE": "Other transportation support activities"
+    },
+    "92134": {
+      "_VALUE": "Other reservation service and related activities"
+    },
+    "92142": {
+      "_VALUE": "Mining and Quarrying"
+    },
+    "92143": {
+      "_VALUE": "Research and experimental development on natural sciences and engineering"
+    },
+    "92145": {
+      "_VALUE": "Defense activities"
+    },
+    "92146": {
+      "_VALUE": "Frigate"
+    },
+    "92147": {
+      "_VALUE": "Naval Auxiliary Vessel"
+    },
+    "92148": {
+      "_VALUE": "Retail sale of pharmaceutical and medical goods, cosmetic and toilet articles in specialized stores"
+    },
+    "92149": {
+      "_VALUE": "Livestock Carrier"
+    },
+    "92150": {
+      "_VALUE": "Hairdressing and other beauty treatment"
+    },
+    "92151": {
+      "_VALUE": "Wholesale of solid, liquid and gaseous fuels and related products"
+    },
+    "92152": {
+      "_VALUE": "Transportation and storage"
+    },
+    "92153": {
+      "_VALUE": "Manufacture of chemicals and chemical products"
+    },
+    "92154": {
+      "_VALUE": "Wholesale of jewelry, watches, precious stones, and precious metals"
+    },
+    "92155": {
+      "_VALUE": "Chemicals and allied products wholesale"
+    },
+    "92160": {
+      "_VALUE": "Research Vessel"
+    },
+    "92161": {
+      "_VALUE": "Retail sale of textiles in specialized stores"
+    },
+    "92162": {
+      "_VALUE": "Sports and recreation education"
+    },
+    "92163": {
+      "_VALUE": "Retail sale via mail order houses or via Internet"
+    },
+    "92164": {
+      "_VALUE": "Manufacture of other porcelain and ceramic products"
+    },
+    "92165": {
+      "_VALUE": "Packaging activities"
+    },
+    "92693": {
+      "_VALUE": "Cutting, shaping and finishing of stone"
+    },
+    "92719": {
+      "_VALUE": "Logging"
+    },
+    "92723": {
+      "_VALUE": "Retail sale of information and communications equipment in specialized stores"
+    },
+    "92764": {
+      "_VALUE": "See Section 11 of Executive Order 14024."
+    },
+    "92765": {
+      "_VALUE": "Computer programming activities"
+    },
+    "92766": {
+      "_VALUE": "Retail sale of clothing, footwear and leather articles in specialized stores"
+    },
+    "92767": {
+      "_VALUE": "Manufacture of other fabricated metal products n.e.c."
+    },
+    "92768": {
+      "_VALUE": "Manufacture of other special-purpose machinery"
+    },
+    "92769": {
+      "_VALUE": "Manufacture of pulp, paper and paperboard"
+    },
+    "92770": {
+      "_VALUE": "Manufacture of computers and peripheral equipment"
+    },
+    "92774": {
+      "_VALUE": "Heavy Lift Vessel"
+    },
+    "92775": {
+      "_VALUE": "Other food service activities"
+    },
+    "92776": {
+      "_VALUE": "Financial and Insurance Activities"
+    },
+    "92777": {
+      "_VALUE": "Wholesale and retail trade"
+    },
+    "92778": {
+      "_VALUE": "Professional, scientific, and technical activities"
+    },
+    "92779": {
+      "_VALUE": "LNG Carrier"
+    },
+    "92780": {
+      "_VALUE": "Retail sale of food in specialized stores"
+    },
+    "92781": {
+      "_VALUE": "Armed Group"
+    },
+    "92782": {
+      "_VALUE": "Retail sale of automotive fuel in specialized stores"
+    },
+    "92783": {
+      "_VALUE": "Manufacture of industrial, electric and electronic machinery"
+    }
+  },
+  "DetailType": {
+    "1430": {
+      "_VALUE": "DATE"
+    },
+    "1431": {
+      "_VALUE": "LOOKUP"
+    },
+    "1432": {
+      "_VALUE": "TEXT"
+    },
+    "1433": {
+      "_VALUE": "COUNTRY"
+    }
+  },
+  "DocNameStatus": {
+    "1": {
+      "_VALUE": "Primary Latin"
+    },
+    "2": {
+      "_VALUE": "Others"
+    }
+  },
+  "FeatureType": {
+    "1": {
+      "_FeatureTypeGroupID": 1,
+      "_VALUE": "Vessel Call Sign"
+    },
+    "2": {
+      "_FeatureTypeGroupID": 1,
+      "_VALUE": "VESSEL TYPE"
+    },
+    "3": {
+      "_FeatureTypeGroupID": 1,
+      "_VALUE": "Vessel Flag"
+    },
+    "4": {
+      "_FeatureTypeGroupID": 1,
+      "_VALUE": "Vessel Owner"
+    },
+    "5": {
+      "_FeatureTypeGroupID": 1,
+      "_VALUE": "Vessel Tonnage"
+    },
+    "6": {
+      "_FeatureTypeGroupID": 1,
+      "_VALUE": "Vessel Gross Registered Tonnage"
+    },
+    "8": {
+      "_FeatureTypeGroupID": 1,
+      "_VALUE": "Birthdate"
+    },
+    "9": {
+      "_FeatureTypeGroupID": 1,
+      "_VALUE": "Place of Birth"
+    },
+    "10": {
+      "_FeatureTypeGroupID": 1,
+      "_VALUE": "Nationality Country"
+    },
+    "11": {
+      "_FeatureTypeGroupID": 1,
+      "_VALUE": "Citizenship Country"
+    },
+    "13": {
+      "_FeatureTypeGroupID": 1,
+      "_VALUE": "SWIFT/BIC"
+    },
+    "14": {
+      "_FeatureTypeGroupID": 1,
+      "_VALUE": "Website"
+    },
+    "21": {
+      "_FeatureTypeGroupID": 1,
+      "_VALUE": "Email Address"
+    },
+    "24": {
+      "_FeatureTypeGroupID": 1,
+      "_VALUE": "Former Vessel Flag"
+    },
+    "25": {
+      "_FeatureTypeGroupID": 1,
+      "_VALUE": "Location"
+    },
+    "26": {
+      "_FeatureTypeGroupID": 1,
+      "_VALUE": "Title"
+    },
+    "44": {
+      "_FeatureTypeGroupID": 1,
+      "_VALUE": "Aircraft Construction Number (also called L/N or S/N or F/N)"
+    },
+    "45": {
+      "_FeatureTypeGroupID": 1,
+      "_VALUE": "Aircraft Manufacture Date"
+    },
+    "46": {
+      "_FeatureTypeGroupID": 1,
+      "_VALUE": "Aircraft Mode S Transponder Code"
+    },
+    "47": {
+      "_FeatureTypeGroupID": 1,
+      "_VALUE": "Aircraft Model"
+    },
+    "48": {
+      "_FeatureTypeGroupID": 1,
+      "_VALUE": "Aircraft Operator"
+    },
+    "49": {
+      "_FeatureTypeGroupID": 1,
+      "_VALUE": "Previous Aircraft Tail Number"
+    },
+    "50": {
+      "_FeatureTypeGroupID": 1,
+      "_VALUE": "Aircraft Manufacturer's Serial Number (MSN)"
+    },
+    "64": {
+      "_FeatureTypeGroupID": 1,
+      "_VALUE": "Aircraft Tail Number"
+    },
+    "104": {
+      "_FeatureTypeGroupID": 1,
+      "_VALUE": "IFCA Determination -"
+    },
+    "125": {
+      "_FeatureTypeGroupID": 1,
+      "_VALUE": "Additional Sanctions Information -"
+    },
+    "164": {
+      "_FeatureTypeGroupID": 1,
+      "_VALUE": "BIK (RU)"
+    },
+    "204": {
+      "_FeatureTypeGroupID": 1,
+      "_VALUE": "Executive Order 13662 Directive Determination -"
+    },
+    "224": {
+      "_FeatureTypeGroupID": 1,
+      "_VALUE": "Gender"
+    },
+    "264": {
+      "_FeatureTypeGroupID": 1,
+      "_VALUE": "UN/LOCODE"
+    },
+    "304": {
+      "_FeatureTypeGroupID": 1,
+      "_VALUE": "MICEX Code"
+    },
+    "344": {
+      "_FeatureTypeGroupID": 1,
+      "_VALUE": "Digital Currency Address - XBT"
+    },
+    "345": {
+      "_FeatureTypeGroupID": 1,
+      "_VALUE": "Digital Currency Address - ETH"
+    },
+    "364": {
+      "_FeatureTypeGroupID": 1,
+      "_VALUE": "D-U-N-S Number"
+    },
+    "365": {
+      "_FeatureTypeGroupID": 1,
+      "_VALUE": "Nationality of Registration"
+    },
+    "404": {
+      "_FeatureTypeGroupID": 1,
+      "_VALUE": "Registration Country"
+    },
+    "424": {
+      "_FeatureTypeGroupID": 1,
+      "_VALUE": "Other Vessel Flag"
+    },
+    "425": {
+      "_FeatureTypeGroupID": 1,
+      "_VALUE": "Other Vessel Call Sign"
+    },
+    "444": {
+      "_FeatureTypeGroupID": 1,
+      "_VALUE": "Digital Currency Address - XMR"
+    },
+    "504": {
+      "_FeatureTypeGroupID": 1,
+      "_VALUE": "Secondary sanctions risk:"
+    },
+    "524": {
+      "_FeatureTypeGroupID": 1,
+      "_VALUE": "Phone Number"
+    },
+    "525": {
+      "_FeatureTypeGroupID": 1,
+      "_VALUE": "CAATSA Section 235 Information:"
+    },
+    "526": {
+      "_FeatureTypeGroupID": 1,
+      "_VALUE": "Other Vessel Type"
+    },
+    "566": {
+      "_FeatureTypeGroupID": 1,
+      "_VALUE": "Digital Currency Address - LTC"
+    },
+    "586": {
+      "_FeatureTypeGroupID": 1,
+      "_VALUE": "Executive Order 13846 information:"
+    },
+    "626": {
+      "_FeatureTypeGroupID": 1,
+      "_VALUE": "Transactions Prohibited For Persons Owned or Controlled By U.S. Financial Institutions:"
+    },
+    "646": {
+      "_FeatureTypeGroupID": 1,
+      "_VALUE": "Organization Established Date"
+    },
+    "647": {
+      "_FeatureTypeGroupID": 1,
+      "_VALUE": "Organization Type:"
+    },
+    "686": {
+      "_FeatureTypeGroupID": 1,
+      "_VALUE": "Digital Currency Address - ZEC"
+    },
+    "687": {
+      "_FeatureTypeGroupID": 1,
+      "_VALUE": "Digital Currency Address - DASH"
+    },
+    "688": {
+      "_FeatureTypeGroupID": 1,
+      "_VALUE": "Digital Currency Address - BTG"
+    },
+    "689": {
+      "_FeatureTypeGroupID": 1,
+      "_VALUE": "Digital Currency Address - ETC"
+    },
+    "706": {
+      "_FeatureTypeGroupID": 1,
+      "_VALUE": "Digital Currency Address - BSV"
+    },
+    "726": {
+      "_FeatureTypeGroupID": 1,
+      "_VALUE": "Digital Currency Address - BCH"
+    },
+    "746": {
+      "_FeatureTypeGroupID": 1,
+      "_VALUE": "Digital Currency Address - XVG"
+    },
+    "766": {
+      "_FeatureTypeGroupID": 1,
+      "_VALUE": "Equity Ticker"
+    },
+    "806": {
+      "_FeatureTypeGroupID": 1,
+      "_VALUE": "ISIN"
+    },
+    "826": {
+      "_FeatureTypeGroupID": 1,
+      "_VALUE": "Target Type"
+    },
+    "827": {
+      "_FeatureTypeGroupID": 1,
+      "_VALUE": "PEESA Information:"
+    },
+    "887": {
+      "_FeatureTypeGroupID": 1,
+      "_VALUE": "Digital Currency Address - USDT"
+    },
+    "907": {
+      "_FeatureTypeGroupID": 1,
+      "_VALUE": "Digital Currency Address - XRP"
+    },
+    "947": {
+      "_FeatureTypeGroupID": 1,
+      "_VALUE": "Executive Order 14024 Directive Information -"
+    },
+    "948": {
+      "_FeatureTypeGroupID": 1,
+      "_VALUE": "Executive Order 14024 Directive Information"
+    },
+    "951": {
+      "_FeatureTypeGroupID": 1,
+      "_VALUE": "Listing Date (EO 14024 Directive 2):"
+    },
+    "952": {
+      "_FeatureTypeGroupID": 1,
+      "_VALUE": "Effective Date (EO 14024 Directive 2):"
+    },
+    "953": {
+      "_FeatureTypeGroupID": 1,
+      "_VALUE": "Listing Date (EO 14024 Directive 3):"
+    },
+    "954": {
+      "_FeatureTypeGroupID": 1,
+      "_VALUE": "Effective Date (EO 14024 Directive 3):"
+    },
+    "967": {
+      "_FeatureTypeGroupID": 1,
+      "_VALUE": "Vessel Year of Build"
+    },
+    "992": {
+      "_FeatureTypeGroupID": 1,
+      "_VALUE": "Digital Currency Address - TRX"
+    },
+    "998": {
+      "_FeatureTypeGroupID": 1,
+      "_VALUE": "Digital Currency Address - USDC"
+    },
+    "1007": {
+      "_FeatureTypeGroupID": 1,
+      "_VALUE": "Digital Currency Address - ARB"
+    },
+    "1008": {
+      "_FeatureTypeGroupID": 1,
+      "_VALUE": "Digital Currency Address - BSC"
+    }
+  },
+  "IDRegDocDateType": {
+    "1480": {
+      "_VALUE": "Issue Date"
+    },
+    "1481": {
+      "_VALUE": "Expiration Date"
+    }
+  },
+  "IDRegDocType": {
+    "1570": {
+      "_VALUE": "Cedula No."
+    },
+    "1571": {
+      "_VALUE": "Passport"
+    },
+    "1572": {
+      "_VALUE": "SSN"
+    },
+    "1573": {
+      "_VALUE": "R.F.C."
+    },
+    "1574": {
+      "_VALUE": "D.N.I."
+    },
+    "1575": {
+      "_VALUE": "NIT #"
+    },
+    "1576": {
+      "_VALUE": "US FEIN"
+    },
+    "1577": {
+      "_VALUE": "Driver's License No."
+    },
+    "1578": {
+      "_VALUE": "RUC #"
+    },
+    "1579": {
+      "_VALUE": "N.I.E."
+    },
+    "1580": {
+      "_VALUE": "C.I.F."
+    },
+    "1581": {
+      "_VALUE": "Business Registration Document #"
+    },
+    "1582": {
+      "_VALUE": "RIF #"
+    },
+    "1584": {
+      "_VALUE": "National ID No."
+    },
+    "1585": {
+      "_VALUE": "Registration ID"
+    },
+    "1586": {
+      "_VALUE": "LE Number"
+    },
+    "1587": {
+      "_VALUE": "Bosnian Personal ID No."
+    },
+    "1588": {
+      "_VALUE": "Registered Charity No."
+    },
+    "1589": {
+      "_VALUE": "V.A.T. Number"
+    },
+    "1590": {
+      "_VALUE": "Credencial electoral"
+    },
+    "1591": {
+      "_VALUE": "Kenyan ID No."
+    },
+    "1592": {
+      "_VALUE": "Italian Fiscal Code"
+    },
+    "1593": {
+      "_VALUE": "Serial No."
+    },
+    "1594": {
+      "_VALUE": "C.I.N."
+    },
+    "1595": {
+      "_VALUE": "C.U.I.T."
+    },
+    "1596": {
+      "_VALUE": "Tax ID No."
+    },
+    "1597": {
+      "_VALUE": "Moroccan Personal ID No."
+    },
+    "1598": {
+      "_VALUE": "Public Security and Immigration No."
+    },
+    "1600": {
+      "_VALUE": "C.U.R.P."
+    },
+    "1601": {
+      "_VALUE": "British National Overseas Passport"
+    },
+    "1602": {
+      "_VALUE": "C.R. No."
+    },
+    "1603": {
+      "_VALUE": "UK Company Number"
+    },
+    "1604": {
+      "_VALUE": "Immigration No."
+    },
+    "1605": {
+      "_VALUE": "Travel Document Number"
+    },
+    "1607": {
+      "_VALUE": "Electoral Registry No."
+    },
+    "1608": {
+      "_VALUE": "Identification Number"
+    },
+    "1609": {
+      "_VALUE": "Paraguayan tax identification number"
+    },
+    "1611": {
+      "_VALUE": "National Foreign ID Number"
+    },
+    "1612": {
+      "_VALUE": "RFC"
+    },
+    "1613": {
+      "_VALUE": "Diplomatic Passport"
+    },
+    "1614": {
+      "_VALUE": "Dubai Chamber of Commerce Membership No."
+    },
+    "1615": {
+      "_VALUE": "Trade License No."
+    },
+    "1619": {
+      "_VALUE": "Commercial Registry Number"
+    },
+    "1620": {
+      "_VALUE": "Certificate of Incorporation Number"
+    },
+    "1621": {
+      "_VALUE": "Tourism License No."
+    },
+    "1623": {
+      "_VALUE": "Aircraft Serial Identification"
+    },
+    "1624": {
+      "_VALUE": "Cartilla de Servicio Militar Nacional"
+    },
+    "1625": {
+      "_VALUE": "C.U.I.P."
+    },
+    "1626": {
+      "_VALUE": "Vessel Registration Identification"
+    },
+    "1627": {
+      "_VALUE": "Personal ID Card"
+    },
+    "1629": {
+      "_VALUE": "Registration Certificate Number (Dubai)"
+    },
+    "1630": {
+      "_VALUE": "VisaNumberID"
+    },
+    "1631": {
+      "_VALUE": "Matricula Mercantil No"
+    },
+    "1632": {
+      "_VALUE": "Residency Number"
+    },
+    "1633": {
+      "_VALUE": "Numero Unico de Identificacao Tributaria (NUIT)"
+    },
+    "1634": {
+      "_VALUE": "CNP (Personal Numerical Code)"
+    },
+    "1635": {
+      "_VALUE": "Romanian Permanent Resident"
+    },
+    "1636": {
+      "_VALUE": "Government Gazette Number"
+    },
+    "1638": {
+      "_VALUE": "Fiscal Code"
+    },
+    "1639": {
+      "_VALUE": "Pilot License Number"
+    },
+    "1642": {
+      "_VALUE": "Romanian C.R."
+    },
+    "1643": {
+      "_VALUE": "Folio Mercantil No."
+    },
+    "1644": {
+      "_VALUE": "Istanbul Chamber of Comm. No."
+    },
+    "1645": {
+      "_VALUE": "Turkish Identification Number"
+    },
+    "1646": {
+      "_VALUE": "Romanian Tax Registration"
+    },
+    "1647": {
+      "_VALUE": "Stateless Person Passport"
+    },
+    "1648": {
+      "_VALUE": "Stateless Person ID Card"
+    },
+    "1649": {
+      "_VALUE": "Refugee ID Card"
+    },
+    "91236": {
+      "_VALUE": "Afghan Money Service Provider License Number"
+    },
+    "91264": {
+      "_VALUE": "MMSI"
+    },
+    "91412": {
+      "_VALUE": "Company Number"
+    },
+    "91475": {
+      "_VALUE": "Public Registration Number"
+    },
+    "91478": {
+      "_VALUE": "N.I.F."
+    },
+    "91481": {
+      "_VALUE": "RTN"
+    },
+    "91482": {
+      "_VALUE": "Numero de Identidad"
+    },
+    "91484": {
+      "_VALUE": "SRE Permit No."
+    },
+    "91492": {
+      "_VALUE": "Tazkira National ID Card"
+    },
+    "91504": {
+      "_VALUE": "License"
+    },
+    "91508": {
+      "_VALUE": "Chinese Commercial Code"
+    },
+    "91712": {
+      "_VALUE": "I.F.E."
+    },
+    "91719": {
+      "_VALUE": "Branch Unit Number"
+    },
+    "91720": {
+      "_VALUE": "Enterprise Number"
+    },
+    "91721": {
+      "_VALUE": "Organization Code"
+    },
+    "91739": {
+      "_VALUE": "Citizen's Card Number"
+    },
+    "91740": {
+      "_VALUE": "UAE Identification"
+    },
+    "91747": {
+      "_VALUE": "United Social Credit Code Certificate (USCCC)"
+    },
+    "91751": {
+      "_VALUE": "Chamber of Commerce Number"
+    },
+    "91752": {
+      "_VALUE": "Legal Entity Number"
+    },
+    "91753": {
+      "_VALUE": "Business Number"
+    },
+    "91759": {
+      "_VALUE": "Birth Certificate Number"
+    },
+    "91760": {
+      "_VALUE": "Business Registration Number"
+    },
+    "91761": {
+      "_VALUE": "Registration Number"
+    },
+    "91812": {
+      "_VALUE": "MSB Registration Number"
+    },
+    "91835": {
+      "_VALUE": "File Number"
+    },
+    "91854": {
+      "_VALUE": "C.U.I."
+    },
+    "91891": {
+      "_VALUE": "Seafarer's Identification Document"
+    },
+    "92001": {
+      "_VALUE": "Unified Social Credit Code (USCC)"
+    },
+    "92067": {
+      "_VALUE": "Central Registration System Number"
+    },
+    "92121": {
+      "_VALUE": "Economic Register Number (CBLS)"
+    },
+    "92158": {
+      "_VALUE": "Trademark number"
+    },
+    "92159": {
+      "_VALUE": "Permit Number"
+    },
+    "92728": {
+      "_VALUE": "Military Registration Number"
+    },
+    "92772": {
+      "_VALUE": "Russian State Individual Business Registration Number Pattern (OGRNIP)"
+    }
+  },
+  "LegalBasis": {
+    "1": {
+      "_LegalBasisShortRef": "Unknown",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "Unknown"
+    },
+    "1807": {
+      "_LegalBasisShortRef": "Executive Order 13566 (Libya)",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "Executive Order 13566 (Libya)"
+    },
+    "1810": {
+      "_LegalBasisShortRef": "Executive Order 13441 (Lebanon)",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "Executive Order 13441 (Lebanon)"
+    },
+    "1811": {
+      "_LegalBasisShortRef": "Executive Order 13382 (Non-proliferation)",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "Executive Order 13382 (Non-proliferation)"
+    },
+    "1817": {
+      "_LegalBasisShortRef": "Executive Order 12947 (Terrorism)",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "Executive Order 12947 (Terrorism)"
+    },
+    "1819": {
+      "_LegalBasisShortRef": "Executive Order 12978 (Counter Narcotics SDNT)",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "Executive Order 12978 (Counter Narcotics SDNT)"
+    },
+    "1820": {
+      "_LegalBasisShortRef": "Executive Order 12854 (Cuba)",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "Executive Order 12854 (Cuba)"
+    },
+    "1821": {
+      "_LegalBasisShortRef": "Executive Order 13413 (DRC)",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "Executive Order 13413 (DRC)"
+    },
+    "1822": {
+      "_LegalBasisShortRef": "Executive Order 13606 (Iran/Syria)",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "Executive Order 13606 (Iran/Syria)"
+    },
+    "1823": {
+      "_LegalBasisShortRef": "Executive Order 13599 (Iran)",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "Executive Order 13599 (Iran)"
+    },
+    "1828": {
+      "_LegalBasisShortRef": "Executive Order 13224 (Terrorism)",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "Executive Order 13224 (Terrorism)"
+    },
+    "1829": {
+      "_LegalBasisShortRef": "Executive Order 13553 (Iran)",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "Executive Order 13553 (Iran)"
+    },
+    "1845": {
+      "_LegalBasisShortRef": "Executive Order 13304 (Balkans)",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "Executive Order 13304 (Balkans)"
+    },
+    "1846": {
+      "_LegalBasisShortRef": "Executive Order 13405 (Belarus)",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "Executive Order 13405 (Belarus)"
+    },
+    "1849": {
+      "_LegalBasisShortRef": "Foreign Narcotics Kingpin Designation Act",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "Foreign Narcotics Kingpin Designation Act"
+    },
+    "1852": {
+      "_LegalBasisShortRef": "Executive Order 13438 (Iraq)",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "Executive Order 13438 (Iraq)"
+    },
+    "1858": {
+      "_LegalBasisShortRef": "Executive Order 13315 (Iraq)",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "Executive Order 13315 (Iraq)"
+    },
+    "91240": {
+      "_LegalBasisShortRef": "Executive Order 13536 (Somalia)",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "Executive Order 13536 (Somalia)"
+    },
+    "91245": {
+      "_LegalBasisShortRef": "Executive Order 13551 (North Korea)",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "Executive Order 13551 (North Korea)"
+    },
+    "91251": {
+      "_LegalBasisShortRef": "Executive Order 13582 (Syria)",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "Executive Order 13582 (Syria)"
+    },
+    "91252": {
+      "_LegalBasisShortRef": "Executive Order 13573 (Syria)",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "Executive Order 13573 (Syria)"
+    },
+    "91253": {
+      "_LegalBasisShortRef": "Executive Order 13572 (Syria)",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "Executive Order 13572 (Syria)"
+    },
+    "91254": {
+      "_LegalBasisShortRef": "Executive Order 13460 (Syria)",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "Executive Order 13460 (Syria)"
+    },
+    "91256": {
+      "_LegalBasisShortRef": "Executive Order 13338 (Syria)",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "Executive Order 13338 (Syria)"
+    },
+    "91257": {
+      "_LegalBasisShortRef": "Executive Order 13581 (TCO)",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "Executive Order 13581 (TCO)"
+    },
+    "91258": {
+      "_LegalBasisShortRef": "Executive Order 13611 (Yemen)",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "Executive Order 13611 (Yemen)"
+    },
+    "91262": {
+      "_LegalBasisShortRef": "General License 4 Under EO 13224 (Terrorism)",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "General License 4 Under EO 13224 (Terrorism)"
+    },
+    "91414": {
+      "_LegalBasisShortRef": "CISADA",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "CISADA"
+    },
+    "91425": {
+      "_LegalBasisShortRef": "Executive Order 13628 (Iran)",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "Executive Order 13628 (Iran)"
+    },
+    "91426": {
+      "_LegalBasisShortRef": "TRA",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "TRA"
+    },
+    "91429": {
+      "_LegalBasisShortRef": "Executive Order 13628 - Section 3",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "Executive Order 13628 - Section 3"
+    },
+    "91430": {
+      "_LegalBasisShortRef": "Executive Order 13628 - Section 7",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "Executive Order 13628 - Section 7"
+    },
+    "91433": {
+      "_LegalBasisShortRef": "INA",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "INA"
+    },
+    "91436": {
+      "_LegalBasisShortRef": "Magnitsky",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "Magnitsky"
+    },
+    "91477": {
+      "_LegalBasisShortRef": "Executive Order 13620 (Somalia)",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "Executive Order 13620 (Somalia)"
+    },
+    "91494": {
+      "_LegalBasisShortRef": "Executive Order 13660 (Ukraine)",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "Executive Order 13660 (Ukraine)"
+    },
+    "91497": {
+      "_LegalBasisShortRef": "Executive Order 13664 (South Sudan)",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "Executive Order 13664 (South Sudan)"
+    },
+    "91498": {
+      "_LegalBasisShortRef": "Executive Order 13661 (Ukraine)",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "Executive Order 13661 (Ukraine)"
+    },
+    "91500": {
+      "_LegalBasisShortRef": "Executive Order 13667 (CAR)",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "Executive Order 13667 (CAR)"
+    },
+    "91503": {
+      "_LegalBasisShortRef": "Executive Order 13662 (Ukraine)",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "Executive Order 13662 (Ukraine)"
+    },
+    "91697": {
+      "_LegalBasisShortRef": "Executive Order 13726 (Libya)",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "Executive Order 13726 (Libya)"
+    },
+    "91701": {
+      "_LegalBasisShortRef": "Executive Order 13687 (North Korea)",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "Executive Order 13687 (North Korea)"
+    },
+    "91703": {
+      "_LegalBasisShortRef": "Executive Order 13685 (Ukraine)",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "Executive Order 13685 (Ukraine)"
+    },
+    "91706": {
+      "_LegalBasisShortRef": "Executive Order 13692 (Venezuela)",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "Executive Order 13692 (Venezuela)"
+    },
+    "91707": {
+      "_LegalBasisShortRef": "Cuban Assets Control Regulations (CACR)",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "Cuban Assets Control Regulations (CACR)"
+    },
+    "91711": {
+      "_LegalBasisShortRef": "Executive Order 13694 (Cyber)",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "Executive Order 13694 (Cyber)"
+    },
+    "91736": {
+      "_LegalBasisShortRef": "Executive Order 13722 (North Korea)",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "Executive Order 13722 (North Korea)"
+    },
+    "91742": {
+      "_LegalBasisShortRef": "Executive Order 13757 (Cyber)",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "Executive Order 13757 (Cyber)"
+    },
+    "91745": {
+      "_LegalBasisShortRef": "Executive Order 13810 (North Korea)",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "Executive Order 13810 (North Korea)"
+    },
+    "91746": {
+      "_LegalBasisShortRef": "31 CFR 594.201(a)(5)",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "31 CFR 594.201(a)(5)"
+    },
+    "91749": {
+      "_LegalBasisShortRef": "Executive Order 13818 (Global Magnitsky)",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "Executive Order 13818 (Global Magnitsky)"
+    },
+    "91758": {
+      "_LegalBasisShortRef": "CAATSA - Section 224",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "CAATSA - Section 224"
+    },
+    "91777": {
+      "_LegalBasisShortRef": "CAATSA - Section 231",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "CAATSA - Section 231"
+    },
+    "91779": {
+      "_LegalBasisShortRef": "CAATSA - Section 228",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "CAATSA - Section 228"
+    },
+    "91784": {
+      "_LegalBasisShortRef": "Executive Order 13846 (Iran)",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "Executive Order 13846 (Iran)"
+    },
+    "91809": {
+      "_LegalBasisShortRef": "Executive Order 13851 (Nicaragua)",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "Executive Order 13851 (Nicaragua)"
+    },
+    "91811": {
+      "_LegalBasisShortRef": "Executive Order 13850 (Venezuela)",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "Executive Order 13850 (Venezuela)"
+    },
+    "91856": {
+      "_LegalBasisShortRef": "Executive Order 13871 (Iran)",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "Executive Order 13871 (Iran)"
+    },
+    "91859": {
+      "_LegalBasisShortRef": "NHRAA",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "NHRAA"
+    },
+    "91860": {
+      "_LegalBasisShortRef": "NKSPEA",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "NKSPEA"
+    },
+    "91861": {
+      "_LegalBasisShortRef": "Executive Order 13876 (Iran)",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "Executive Order 13876 (Iran)"
+    },
+    "91864": {
+      "_LegalBasisShortRef": "Executive Order 13882 (Mali)",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "Executive Order 13882 (Mali)"
+    },
+    "91870": {
+      "_LegalBasisShortRef": "Executive Order 13848 (Election)",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "Executive Order 13848 (Election)"
+    },
+    "91872": {
+      "_LegalBasisShortRef": "HIFPAA - Title I",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "HIFPAA - Title I"
+    },
+    "91893": {
+      "_LegalBasisShortRef": "Executive Order 13846",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "Executive Order 13846"
+    },
+    "91894": {
+      "_LegalBasisShortRef": "Executive Order 13894 (Syria-related)",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "Executive Order 13894 (Syria-related)"
+    },
+    "91897": {
+      "_LegalBasisShortRef": "Executive Order 13884 (Venezuela)",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "Executive Order 13884 (Venezuela)"
+    },
+    "91902": {
+      "_LegalBasisShortRef": "Executive Order 13902 (Iran)",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "Executive Order 13902 (Iran)"
+    },
+    "91904": {
+      "_LegalBasisShortRef": "Executive Order 14059 (Illicit Drugs)",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "Executive Order 14059 (Illicit Drugs)"
+    },
+    "91908": {
+      "_LegalBasisShortRef": "CAATSA - Section 106",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "CAATSA - Section 106"
+    },
+    "91937": {
+      "_LegalBasisShortRef": "Caesar Act",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "Caesar Act"
+    },
+    "91989": {
+      "_LegalBasisShortRef": "Executive Order 13936 (HK)",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "Executive Order 13936 (HK)"
+    },
+    "92003": {
+      "_LegalBasisShortRef": "Executive Order - Convential Arms (Iran)",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "Executive Order - Convential Arms (Iran)"
+    },
+    "92014": {
+      "_LegalBasisShortRef": "31 CFR 542.201(a)",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "31 CFR 542.201(a)"
+    },
+    "92021": {
+      "_LegalBasisShortRef": "Protecting Europe's Energy Security Act (PEESA)",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "Protecting Europe's Energy Security Act (PEESA)"
+    },
+    "92027": {
+      "_LegalBasisShortRef": "CAATSA - Section 232",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "CAATSA - Section 232"
+    },
+    "92031": {
+      "_LegalBasisShortRef": "Executive Order 14014",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "Executive Order 14014"
+    },
+    "92043": {
+      "_LegalBasisShortRef": "Executive Order (Russia)",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "Executive Order (Russia)"
+    },
+    "92049": {
+      "_LegalBasisShortRef": "Executive Order 14024 (Russia)",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "Executive Order 14024 (Russia)"
+    },
+    "92065": {
+      "_LegalBasisShortRef": "Executive Order 14039",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "Executive Order 14039"
+    },
+    "92070": {
+      "_LegalBasisShortRef": "Executive Order 14038 (Belarus)",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "Executive Order 14038 (Belarus)"
+    },
+    "92074": {
+      "_LegalBasisShortRef": "Executive Order 14033 (Balkans)",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "Executive Order 14033 (Balkans)"
+    },
+    "92076": {
+      "_LegalBasisShortRef": "Executive Order 14046 (Ethiopia)",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "Executive Order 14046 (Ethiopia)"
+    },
+    "92123": {
+      "_LegalBasisShortRef": "Executive Order 14065",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "Executive Order 14065"
+    },
+    "92139": {
+      "_LegalBasisShortRef": "Executive Order 14078 (Hostages)",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "Executive Order 14078 (Hostages)"
+    },
+    "92141": {
+      "_LegalBasisShortRef": "UHRPA",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "UHRPA"
+    },
+    "92157": {
+      "_LegalBasisShortRef": "Executive Order 14098 (Sudan)",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "Executive Order 14098 (Sudan)"
+    },
+    "92763": {
+      "_LegalBasisShortRef": "Executive Order 14115 (West bank)",
+      "_LegalBasisTypeID": 1,
+      "_SanctionsProgramID": 1,
+      "_VALUE": "Executive Order 14115 (West bank)"
+    }
+  },
+  "List": {
+    "1550": {
+      "_VALUE": "SDN List"
+    },
+    "91243": {
+      "_VALUE": "Non-SDN Palestinian Legislative Council List"
+    },
+    "91507": {
+      "_VALUE": "Sectoral Sanctions Identifications List"
+    },
+    "91512": {
+      "_VALUE": "Consolidated List"
+    }
+  },
+  "LocPartType": {
+    "1": {
+      "_VALUE": "Unknown"
+    },
+    "1450": {
+      "_VALUE": "REGION"
+    },
+    "1451": {
+      "_VALUE": "ADDRESS1"
+    },
+    "1452": {
+      "_VALUE": "ADDRESS2"
+    },
+    "1453": {
+      "_VALUE": "ADDRESS3"
+    },
+    "1454": {
+      "_VALUE": "CITY"
+    },
+    "1455": {
+      "_VALUE": "STATE/PROVINCE"
+    },
+    "1456": {
+      "_VALUE": "POSTAL CODE"
+    }
+  },
+  "NamePartType": {
+    "1520": {
+      "_VALUE": "Last Name"
+    },
+    "1521": {
+      "_VALUE": "First Name"
+    },
+    "1522": {
+      "_VALUE": "Middle Name"
+    },
+    "1523": {
+      "_VALUE": "Maiden Name"
+    },
+    "1524": {
+      "_VALUE": "Aircraft Name"
+    },
+    "1525": {
+      "_VALUE": "Entity Name"
+    },
+    "1526": {
+      "_VALUE": "Vessel Name"
+    },
+    "1528": {
+      "_VALUE": "Nickname"
+    },
+    "91708": {
+      "_VALUE": "Patronymic"
+    },
+    "91709": {
+      "_VALUE": "Matronymic"
+    }
+  },
+  "PartySubType": {
+    "1": {
+      "_PartyTypeID": 4,
+      "_VALUE": "Vessel"
+    },
+    "2": {
+      "_PartyTypeID": 4,
+      "_VALUE": "Aircraft"
+    },
+    "3": {
+      "_PartyTypeID": 2,
+      "_VALUE": "Unknown"
+    },
+    "4": {
+      "_PartyTypeID": 1,
+      "_VALUE": "Unknown"
+    }
+  },
+  "PartyType": {
+    "1": {
+      "_VALUE": "Individual"
+    },
+    "2": {
+      "_VALUE": "Entity"
+    },
+    "3": {
+      "_VALUE": "Location"
+    },
+    "4": {
+      "_VALUE": "Transport"
+    },
+    "5": {
+      "_VALUE": "Other Entity"
+    }
+  },
+  "RelationQuality": {
+    "1540": {
+      "_VALUE": "High"
+    },
+    "1541": {
+      "_VALUE": "Low"
+    },
+    "1542": {
+      "_VALUE": "on OFAC's SDN list:"
+    },
+    "1": {
+      "_VALUE": "Unknown"
+    }
+  },
+  "RelationType": {
+    "1555": {
+      "_Symmetrical": false,
+      "_VALUE": "Associate Of"
+    },
+    "15001": {
+      "_Symmetrical": false,
+      "_VALUE": "Providing support to"
+    },
+    "15002": {
+      "_Symmetrical": false,
+      "_VALUE": "Acting for or on behalf of"
+    },
+    "15003": {
+      "_Symmetrical": false,
+      "_VALUE": "Owned or Controlled By"
+    },
+    "15004": {
+      "_Symmetrical": false,
+      "_VALUE": "Family member of"
+    },
+    "91422": {
+      "_Symmetrical": false,
+      "_VALUE": "playing a significant role in"
+    },
+    "91725": {
+      "_Symmetrical": false,
+      "_VALUE": "Leader or official of"
+    },
+    "91900": {
+      "_Symmetrical": false,
+      "_VALUE": "Principal Executive Officer"
+    },
+    "92019": {
+      "_Symmetrical": false,
+      "_VALUE": "Owns, controls, or operates"
+    },
+    "92122": {
+      "_Symmetrical": false,
+      "_VALUE": "Property in the interest of"
+    }
+  },
+  "Reliability": {
+    "1560": {
+      "_VALUE": "Confirmed"
+    },
+    "1561": {
+      "_VALUE": "False"
+    },
+    "91479": {
+      "_VALUE": "Reported"
+    },
+    "1": {
+      "_VALUE": "Unknown"
+    }
+  },
+  "SanctionsProgram": {
+    "1": {
+      "_SubsidiaryBodyID": 1,
+      "_VALUE": "Unknown"
+    },
+    "202": {
+      "_SubsidiaryBodyID": 1,
+      "_VALUE": "CUBA"
+    },
+    "203": {
+      "_SubsidiaryBodyID": 1,
+      "_VALUE": "SDNTK"
+    },
+    "204": {
+      "_SubsidiaryBodyID": 1,
+      "_VALUE": "FTO"
+    },
+    "205": {
+      "_SubsidiaryBodyID": 1,
+      "_VALUE": "IRAN"
+    },
+    "211": {
+      "_SubsidiaryBodyID": 1,
+      "_VALUE": "SDGT"
+    },
+    "212": {
+      "_SubsidiaryBodyID": 1,
+      "_VALUE": "SDNT"
+    },
+    "215": {
+      "_SubsidiaryBodyID": 1,
+      "_VALUE": "SYRIA"
+    },
+    "1001": {
+      "_SubsidiaryBodyID": 1,
+      "_VALUE": "IRAQ2"
+    },
+    "10008": {
+      "_SubsidiaryBodyID": 1,
+      "_VALUE": "BALKANS"
+    },
+    "91031": {
+      "_SubsidiaryBodyID": 1,
+      "_VALUE": "NPWMD"
+    },
+    "91055": {
+      "_SubsidiaryBodyID": 1,
+      "_VALUE": "NS-PLC"
+    },
+    "91057": {
+      "_SubsidiaryBodyID": 1,
+      "_VALUE": "BELARUS"
+    },
+    "91070": {
+      "_SubsidiaryBodyID": 1,
+      "_VALUE": "DRCONGO"
+    },
+    "91101": {
+      "_SubsidiaryBodyID": 1,
+      "_VALUE": "DARFUR"
+    },
+    "91103": {
+      "_SubsidiaryBodyID": 1,
+      "_VALUE": "IRAQ3"
+    },
+    "91104": {
+      "_SubsidiaryBodyID": 1,
+      "_VALUE": "LEBANON"
+    },
+    "91154": {
+      "_SubsidiaryBodyID": 1,
+      "_VALUE": "SOMALIA"
+    },
+    "91166": {
+      "_SubsidiaryBodyID": 1,
+      "_VALUE": "IRGC"
+    },
+    "91167": {
+      "_SubsidiaryBodyID": 1,
+      "_VALUE": "IFSR"
+    },
+    "91168": {
+      "_SubsidiaryBodyID": 1,
+      "_VALUE": "DPRK"
+    },
+    "91169": {
+      "_SubsidiaryBodyID": 1,
+      "_VALUE": "IRAN-HR"
+    },
+    "91185": {
+      "_SubsidiaryBodyID": 1,
+      "_VALUE": "LIBYA2"
+    },
+    "91191": {
+      "_SubsidiaryBodyID": 1,
+      "_VALUE": "ISA"
+    },
+    "91221": {
+      "_SubsidiaryBodyID": 1,
+      "_VALUE": "TCO"
+    },
+    "91230": {
+      "_SubsidiaryBodyID": 1,
+      "_VALUE": "HRIT-SY"
+    },
+    "91231": {
+      "_SubsidiaryBodyID": 1,
+      "_VALUE": "HRIT-IR"
+    },
+    "91423": {
+      "_SubsidiaryBodyID": 1,
+      "_VALUE": "YEMEN"
+    },
+    "91427": {
+      "_SubsidiaryBodyID": 1,
+      "_VALUE": "IRAN-TRA"
+    },
+    "91435": {
+      "_SubsidiaryBodyID": 1,
+      "_VALUE": "MAGNIT"
+    },
+    "91459": {
+      "_SubsidiaryBodyID": 1,
+      "_VALUE": "IFCA"
+    },
+    "91493": {
+      "_SubsidiaryBodyID": 1,
+      "_VALUE": "UKRAINE-EO13660"
+    },
+    "91495": {
+      "_SubsidiaryBodyID": 1,
+      "_VALUE": "CAR"
+    },
+    "91496": {
+      "_SubsidiaryBodyID": 1,
+      "_VALUE": "SOUTH SUDAN"
+    },
+    "91499": {
+      "_SubsidiaryBodyID": 1,
+      "_VALUE": "UKRAINE-EO13661"
+    },
+    "91502": {
+      "_SubsidiaryBodyID": 1,
+      "_VALUE": "UKRAINE-EO13662"
+    },
+    "91698": {
+      "_SubsidiaryBodyID": 1,
+      "_VALUE": "LIBYA3"
+    },
+    "91700": {
+      "_SubsidiaryBodyID": 1,
+      "_VALUE": "DPRK2"
+    },
+    "91702": {
+      "_SubsidiaryBodyID": 1,
+      "_VALUE": "UKRAINE-EO13685"
+    },
+    "91705": {
+      "_SubsidiaryBodyID": 1,
+      "_VALUE": "VENEZUELA"
+    },
+    "91735": {
+      "_SubsidiaryBodyID": 1,
+      "_VALUE": "DPRK3"
+    },
+    "91741": {
+      "_SubsidiaryBodyID": 1,
+      "_VALUE": "CYBER2"
+    },
+    "91744": {
+      "_SubsidiaryBodyID": 1,
+      "_VALUE": "DPRK4"
+    },
+    "91748": {
+      "_SubsidiaryBodyID": 1,
+      "_VALUE": "GLOMAG"
+    },
+    "91755": {
+      "_SubsidiaryBodyID": 1,
+      "_VALUE": "CAATSA - IRAN"
+    },
+    "91757": {
+      "_SubsidiaryBodyID": 1,
+      "_VALUE": "CAATSA - RUSSIA"
+    },
+    "91807": {
+      "_SubsidiaryBodyID": 1,
+      "_VALUE": "ELECTION-EO13848"
+    },
+    "91808": {
+      "_SubsidiaryBodyID": 1,
+      "_VALUE": "NICARAGUA"
+    },
+    "91810": {
+      "_SubsidiaryBodyID": 1,
+      "_VALUE": "VENEZUELA-EO13850"
+    },
+    "91855": {
+      "_SubsidiaryBodyID": 1,
+      "_VALUE": "IRAN-EO13871"
+    },
+    "91857": {
+      "_SubsidiaryBodyID": 1,
+      "_VALUE": "NICARAGUA-NHRAA"
+    },
+    "91858": {
+      "_SubsidiaryBodyID": 1,
+      "_VALUE": "DPRK-NKSPEA"
+    },
+    "91862": {
+      "_SubsidiaryBodyID": 1,
+      "_VALUE": "IRAN-EO13876"
+    },
+    "91863": {
+      "_SubsidiaryBodyID": 1,
+      "_VALUE": "MALI-EO13882"
+    },
+    "91869": {
+      "_SubsidiaryBodyID": 1,
+      "_VALUE": "IRAN-EO13846"
+    },
+    "91871": {
+      "_SubsidiaryBodyID": 1,
+      "_VALUE": "HIFPAA"
+    },
+    "91895": {
+      "_SubsidiaryBodyID": 1,
+      "_VALUE": "SYRIA-EO13894"
+    },
+    "91896": {
+      "_SubsidiaryBodyID": 1,
+      "_VALUE": "VENEZUELA-EO13884"
+    },
+    "91901": {
+      "_SubsidiaryBodyID": 1,
+      "_VALUE": "IRAN-EO13902"
+    },
+    "91903": {
+      "_SubsidiaryBodyID": 1,
+      "_VALUE": "ILLICIT-DRUGS-EO14059"
+    },
+    "91907": {
+      "_SubsidiaryBodyID": 1,
+      "_VALUE": "SYRIA-CAESAR"
+    },
+    "91988": {
+      "_SubsidiaryBodyID": 1,
+      "_VALUE": "HK-EO13936"
+    },
+    "92002": {
+      "_SubsidiaryBodyID": 1,
+      "_VALUE": "IRAN-CON-ARMS-EO"
+    },
+    "92030": {
+      "_SubsidiaryBodyID": 1,
+      "_VALUE": "BURMA-EO14014"
+    },
+    "92042": {
+      "_SubsidiaryBodyID": 1,
+      "_VALUE": "RUSSIA-EO14024"
+    },
+    "92064": {
+      "_SubsidiaryBodyID": 1,
+      "_VALUE": "PEESA-EO14039"
+    },
+    "92069": {
+      "_SubsidiaryBodyID": 1,
+      "_VALUE": "BELARUS-EO14038"
+    },
+    "92073": {
+      "_SubsidiaryBodyID": 1,
+      "_VALUE": "BALKANS-EO14033"
+    },
+    "92075": {
+      "_SubsidiaryBodyID": 1,
+      "_VALUE": "ETHIOPIA-EO14046"
+    },
+    "92078": {
+      "_SubsidiaryBodyID": 1,
+      "_VALUE": "SSIDES"
+    },
+    "92100": {
+      "_SubsidiaryBodyID": 1,
+      "_VALUE": "RUSSIA-EO14065"
+    },
+    "92138": {
+      "_SubsidiaryBodyID": 1,
+      "_VALUE": "HOSTAGES-EO14078"
+    },
+    "92140": {
+      "_SubsidiaryBodyID": 1,
+      "_VALUE": "UHRPA"
+    },
+    "92156": {
+      "_SubsidiaryBodyID": 1,
+      "_VALUE": "SUDAN-EO14098"
+    },
+    "92762": {
+      "_SubsidiaryBodyID": 1,
+      "_VALUE": "WEST-BANK-EO14115"
+    },
+    "92773": {
+      "_SubsidiaryBodyID": 1,
+      "_VALUE": "BPI-SUDAN-14098"
+    }
+  },
+  "SanctionsType": {
+    "1705": {
+      "_VALUE": "Block"
+    },
+    "1706": {
+      "_VALUE": "Reject"
+    },
+    "91419": {
+      "_VALUE": "NDAA Special Conditions"
+    },
+    "91505": {
+      "_VALUE": "13662 Sectoral Directive 1"
+    },
+    "91506": {
+      "_VALUE": "13662 Sectoral Directive 2"
+    },
+    "91513": {
+      "_VALUE": "13662 Sectoral Directive 3"
+    },
+    "91514": {
+      "_VALUE": "13662 Sectoral Directive 4"
+    },
+    "92087": {
+      "_VALUE": "Executive Order 14024 Directive 3"
+    },
+    "92093": {
+      "_VALUE": "Executive Order 14024 Directive 2"
+    },
+    "1": {
+      "_VALUE": "Program"
+    }
+  },
+  "Script": {
+    "160": {
+      "_ScriptCode": "Arab",
+      "_VALUE": "Arabic"
+    },
+    "230": {
+      "_ScriptCode": "Armn",
+      "_VALUE": "Armenian"
+    },
+    "501": {
+      "_ScriptCode": "Hans",
+      "_VALUE": "Chinese Simplified"
+    },
+    "502": {
+      "_ScriptCode": "Hant",
+      "_VALUE": "Chinese Traditional"
+    },
+    "220": {
+      "_ScriptCode": "Cyrl",
+      "_VALUE": "Cyrillic"
+    },
+    "240": {
+      "_ScriptCode": "Geor",
+      "_VALUE": "Georgian"
+    },
+    "200": {
+      "_ScriptCode": "Grek",
+      "_VALUE": "Greek"
+    },
+    "125": {
+      "_ScriptCode": "Hebrew",
+      "_VALUE": "Hebrew"
+    },
+    "413": {
+      "_ScriptCode": "Japanese",
+      "_VALUE": "Japanese"
+    },
+    "287": {
+      "_ScriptCode": "Korean",
+      "_VALUE": "Korean"
+    },
+    "215": {
+      "_ScriptCode": "Latin",
+      "_VALUE": "Latin"
+    }
+  },
+  "Validity": {
+    "1": {
+      "_VALUE": "Valid"
+    },
+    "2": {
+      "_VALUE": "Fraudulent"
+    }
+  }
+}
