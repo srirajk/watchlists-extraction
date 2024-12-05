@@ -56,7 +56,7 @@ distinct_parties_profile_df = distinct_parties_df.select(
 )
 
 print(f" Start Distinct Parties Explode Direct distinct_parties_profile_df")
-distinct_parties_profile_df.show(truncate=False)
+distinct_parties_profile_df.show(truncate=False, vertical=True)
 print(f" End Distinct Parties Explode Direct distinct_parties_profile_df")
 
 current_ts = current_timestamp()

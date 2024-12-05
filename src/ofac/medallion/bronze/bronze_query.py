@@ -4,7 +4,7 @@ from pyspark.sql.functions import col, explode, current_timestamp, lit
 
 from src.ofac.schemas import distinct_party_schema
 
-from src.ofac.utility import load_config
+from src.ofac.utility import load_config, pretty_print_spark_df
 
 config = load_config()
 
@@ -38,11 +38,12 @@ spark.sql("select * from bronze.identities LIMIT 30").show()
 
 
 distinct_party_raw_sample_df = spark.sql("select * from bronze.distinct_parties LIMIT 30")
-
+pretty_print_spark_df(distinct_party_raw_sample_df)
 distinct_party_raw_sample_df.write.mode("overwrite").json(f"{output_base_path}/distinct_party_raw_sample_df")
 
 
 identities_sample_df = spark.sql("select * from bronze.identities LIMIT 30")
+pretty_print_spark_df(identities_sample_df)
 identities_sample_df.write.mode("overwrite").json(f"{output_base_path}/identities_sample_df")
 
 

@@ -39,5 +39,10 @@ spark.sql("select distinct RECORD_TYPE from gold.ofac_cdm where RECORD_SUB_TYPE 
 print("List records where RECORD_TYPE is Individual")
 spark.sql("select * from gold.ofac_cdm where RECORD_TYPE == 'I' ").show()
 
+spark.sql("select * from gold.ofac_cdm where OFAC_RISK_ID == 2676 ").write.mode("overwrite").json(f"{output_base_path}/ofac_cdm_OFAC_RISK_ID_2676")
+
+spark.sql("select * from gold.ofac_cdm where RECORD_TYPE == 'I' ").write.mode("overwrite").json(f"{output_base_path}/ofac_cdm_individual")
+
+
 # Stop the Spark Session
 spark.stop()

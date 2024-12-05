@@ -4,7 +4,7 @@ from pyspark.sql.functions import col, explode, current_timestamp, lit, concat_w
 from pyspark.sql.types import StringType
 from src.ofac.custom_udfs import extract_names
 
-from src.ofac.utility import load_config
+from src.ofac.utility import load_config, pretty_print_spark_df
 
 config = load_config()
 
@@ -61,7 +61,10 @@ gold_df = ofac_enriched_df.select(
     ).otherwise(col("party_sub_type")).alias("RECORD_SUB_TYPE")  # Default to party_sub_type if not matched
 )
 
-gold_df.show(truncate=False)
+gold_df.show(truncate=False, vertical=True)
+
+
+pretty_print_spark_df(gold_df)
 
 # Write to Gold
 gold_df.writeTo("gold.ofac_cdm") \

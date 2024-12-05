@@ -57,7 +57,7 @@ spark.sql("""
 passport_documents_df = spark.sql("""
     SELECT *
     FROM silver.ofac_enriched
-    WHERE size(FILTER(id_documents, x -> x.document_type = 'Passport')) > 0
+    WHERE size(FILTER(id_documents, x -> x.document_type = 'Passport')) > 1
 """)
 
 passport_documents_df.write.mode("overwrite").json(f"{output_base_path}/passport_documents_df")
