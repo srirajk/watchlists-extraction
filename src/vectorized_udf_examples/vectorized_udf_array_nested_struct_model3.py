@@ -123,7 +123,7 @@ spark.stop()
 """
 
 from pyspark.sql import SparkSession
-from pyspark.sql.functions import pandas_udf, col, to_json, monotonically_increasing_id, struct
+from pyspark.sql.functions import pandas_udf, col, to_json, monotonically_increasing_id, struct, explode
 from pyspark.sql.types import StructType, StructField, StringType, IntegerType, ArrayType, MapType
 import pandas as pd
 import json
@@ -232,6 +232,11 @@ result_df = df.select(
 
 # Add a new unique id column
 result_df = result_df.withColumn("new_id", monotonically_increasing_id())
+
+result_df.select(
+    col("id"),
+    explode(col("processed_data")).alias("record_key", "record_data")
+).show()
 
 # Display input DataFrame
 print("Input DataFrame:")
