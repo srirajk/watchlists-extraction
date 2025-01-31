@@ -4,7 +4,7 @@ from pyspark.sql.functions import col, explode, current_timestamp, lit
 
 from src.ofac.schemas import distinct_party_schema
 
-from src.ofac.utility import load_config
+from src.ofac.utility import load_config, pretty_print_spark_df
 
 config = load_config()
 
@@ -37,7 +37,8 @@ print("Distinct values of RECORD_TYPE where RECORD_SUB_TYPE is Unknown")
 spark.sql("select distinct RECORD_TYPE from gold.ofac_cdm where RECORD_SUB_TYPE == 'Unknown' ").show()
 
 print("List records where RECORD_TYPE is Individual")
-spark.sql("select * from gold.ofac_cdm where RECORD_TYPE == 'I' ").show()
+df = spark.sql("select * from gold.ofac_cdm where RECORD_TYPE == 'I' ")
+pretty_print_spark_df(df)
 
 spark.sql("select * from gold.ofac_cdm where OFAC_RISK_ID == 2676 ").write.mode("overwrite").json(f"{output_base_path}/ofac_cdm_OFAC_RISK_ID_2676")
 

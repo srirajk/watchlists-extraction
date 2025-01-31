@@ -7,4 +7,4 @@ output/
 
 .idea/
 
-/src/vectorized_udf_examples/Test_helloworld.py
+/src/vectorized_udf_examples/test_helloworld.py

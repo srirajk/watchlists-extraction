@@ -9,9 +9,9 @@ def load_config():
 
 from prettytable import PrettyTable
 
-def pretty_print_spark_df(df):
+def pretty_print_spark_df(df, limit=10):
     # Convert to Pandas for better control
-    pandas_df = df.limit(10).toPandas()
+    pandas_df = df.limit(limit).toPandas()
     table = PrettyTable()
     table.field_names = pandas_df.columns
     for row in pandas_df.itertuples(index=False):

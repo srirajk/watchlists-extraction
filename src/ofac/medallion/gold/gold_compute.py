@@ -64,7 +64,7 @@ gold_df = ofac_enriched_df.select(
 gold_df.show(truncate=False, vertical=True)
 
 
-pretty_print_spark_df(gold_df)
+pretty_print_spark_df(gold_df, limit=100)
 
 # Write to Gold
 gold_df.writeTo("gold.ofac_cdm") \

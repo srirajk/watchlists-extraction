@@ -160,4 +160,6 @@ ofac_enriched_data_df.writeTo("silver.ofac_enriched") \
     .createOrReplace()
 
 
+ofac_enriched_data_df.printSchema()
+
 spark.stop()
