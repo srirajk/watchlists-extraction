@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+
+<!-- This is the second sample which has 3 profiles 36, 173 and 306.
+profile 36 has 2 aliases & 3 documents active.
+  from previous record. we modified name on the primary and added a new alias record.
+profile 173 has 2 aliases.
+  changed the primary name
+profile 306 has 3 aliases and 1 document
+  from previous record, changed the primary name and also added 1 document
+-->
+
+
+<IDRegDocuments>
+    <IDRegDocument ID="2" IDRegDocTypeID="1571" IdentityID="4375" IssuedBy-CountryID="11143" ValidityID="2">
+      <Comment />
+      <IDRegistrationNo>040070827</IDRegistrationNo>
+      <IssuingAuthority />
+      <DocumentedNameReference DocumentedNameID="15235" />
+    </IDRegDocument>
+    <IDRegDocument ID="3" IDRegDocTypeID="1571" IdentityID="4375" IssuedBy-CountryID="11143" ValidityID="2">
+      <Comment />
+      <IDRegistrationNo>07040059504</IDRegistrationNo>
+      <IssuingAuthority />
+      <DocumentedNameReference DocumentedNameID="15239" />
+    </IDRegDocument>
+    <IDRegDocument ID="3" IDRegDocTypeID="1571" IdentityID="4375" IssuedBy-CountryID="11143" ValidityID="2">
+      <Comment />
+      <IDRegistrationNo>070476559504</IDRegistrationNo>
+      <IssuingAuthority />
+      <DocumentedNameReference DocumentedNameID="15239" />
+    </IDRegDocument>
+    <IDRegDocument ID="3" IDRegDocTypeID="1571" IdentityID="4314" IssuedBy-CountryID="11143" ValidityID="2">
+      <Comment />
+      <IDRegistrationNo>070476559504</IDRegistrationNo>
+      <IssuingAuthority />
+      <DocumentedNameReference DocumentedNameID="15239" />
+    </IDRegDocument>
+</IDRegDocuments>
+<DistinctParties>
+    <DistinctParty FixedRef="36">
+      <Comment />
+      <Profile ID="36" PartySubTypeID="3">
+        <Identity ID="4375" FixedRef="36" Primary="true" False="false">
+          <Alias FixedRef="36" AliasTypeID="1400" Primary="false" LowQuality="false">
+            <DocumentedName ID="13178" FixedRef="36" DocNameStatusID="2">
+              <DocumentedNamePart>
+                <NamePartValue NamePartGroupID="19387" ScriptID="215" ScriptStatusID="1" Acronym="false">AERO-CARIBBEAN AIR</NamePartValue>
+              </DocumentedNamePart>
+            </DocumentedName>
+          </Alias>
+          <Alias FixedRef="36" AliasTypeID="1403" Primary="true" LowQuality="false">
+            <DocumentedName ID="4375" FixedRef="36" DocNameStatusID="1">
+              <DocumentedNamePart>
+                <NamePartValue NamePartGroupID="6700" ScriptID="215" ScriptStatusID="1" Acronym="false">AEROCARIBBEAN AIRLINES22</NamePartValue>
+              </DocumentedNamePart>
+            </DocumentedName>
+          </Alias>
+          <NamePartGroups>
+            <MasterNamePartGroup>
+              <NamePartGroup ID="6700" NamePartTypeID="1525" />
+            </MasterNamePartGroup>
+            <MasterNamePartGroup>
+              <NamePartGroup ID="19387" NamePartTypeID="1525" />
+            </MasterNamePartGroup>
+          </NamePartGroups>
+        </Identity>
+        <Feature ID="150025" FeatureTypeID="25">
+          <FeatureVersion ID="200025" ReliabilityID="1">
+            <Comment />
+            <VersionLocation LocationID="25" />
+          </FeatureVersion>
+          <IdentityReference IdentityID="4375" IdentityFeatureLinkTypeID="1" />
+        </Feature>
+      </Profile>
+    </DistinctParty>
+    <DistinctParty FixedRef="173">
+      <Comment />
+      <Profile ID="173" PartySubTypeID="3">
+        <Identity ID="4310" FixedRef="173" Primary="true" False="false">
+          <Alias FixedRef="173" AliasTypeID="1400" Primary="false" LowQuality="false">
+            <DocumentedName ID="12583" FixedRef="173" DocNameStatusID="2">
+              <DocumentedNamePart>
+                <NamePartValue NamePartGroupID="18519" ScriptID="215" ScriptStatusID="1" Acronym="false">AVIA IMPORT</NamePartValue>
+              </DocumentedNamePart>
+            </DocumentedName>
+          </Alias>
+          <Alias FixedRef="173" AliasTypeID="1403" Primary="true" LowQuality="false">
+            <DocumentedName ID="4310" FixedRef="173" DocNameStatusID="1">
+              <DocumentedNamePart>
+                <NamePartValue NamePartGroupID="6625" ScriptID="215" ScriptStatusID="1" Acronym="false">ANGLO-CARIBBEAN IMP CO., LTD.</NamePartValue>
+              </DocumentedNamePart>
+            </DocumentedName>
+          </Alias>
+          <NamePartGroups>
+            <MasterNamePartGroup>
+              <NamePartGroup ID="6625" NamePartTypeID="1525" />
+            </MasterNamePartGroup>
+            <MasterNamePartGroup>
+              <NamePartGroup ID="18519" NamePartTypeID="1525" />
+            </MasterNamePartGroup>
+          </NamePartGroups>
+        </Identity>
+        <Feature ID="150129" FeatureTypeID="25">
+          <FeatureVersion ID="200129" ReliabilityID="1">
+            <Comment />
+            <VersionLocation LocationID="129" />
+          </FeatureVersion>
+          <IdentityReference IdentityID="4310" IdentityFeatureLinkTypeID="1" />
+        </Feature>
+      </Profile>
+    </DistinctParty>
+    <DistinctParty FixedRef="306">
+      <Comment />
+      <Profile ID="306" PartySubTypeID="3">
+        <Identity ID="4314" FixedRef="306" Primary="true" False="false">
+          <Alias FixedRef="306" AliasTypeID="1400" Primary="false" LowQuality="true">
+            <DocumentedName ID="12584" FixedRef="306" DocNameStatusID="2">
+              <DocumentedNamePart>
+                <NamePartValue NamePartGroupID="27627" ScriptID="215" ScriptStatusID="1" Acronym="false">BNC</NamePartValue>
+              </DocumentedNamePart>
+            </DocumentedName>
+          </Alias>
+          <Alias FixedRef="306" AliasTypeID="1400" Primary="false" LowQuality="false">
+            <DocumentedName ID="12585" FixedRef="306" DocNameStatusID="2">
+              <DocumentedNamePart>
+                <NamePartValue NamePartGroupID="18521" ScriptID="215" ScriptStatusID="1" Acronym="false">NATIONAL BANK OF CUBA</NamePartValue>
+              </DocumentedNamePart>
+            </DocumentedName>
+          </Alias>
+          <Alias FixedRef="306" AliasTypeID="1403" Primary="true" LowQuality="false">
+            <DocumentedName ID="4314" FixedRef="306" DocNameStatusID="1">
+              <DocumentedNamePart>
+                <NamePartValue NamePartGroupID="27628" ScriptID="215" ScriptStatusID="1" Acronym="false">BANCO NACIONAL DE CUBA</NamePartValue>
+              </DocumentedNamePart>
+            </DocumentedName>
+          </Alias>
+          <NamePartGroups>
+            <MasterNamePartGroup>
+              <NamePartGroup ID="18521" NamePartTypeID="1525" />
+            </MasterNamePartGroup>
+            <MasterNamePartGroup>
+              <NamePartGroup ID="27627" NamePartTypeID="1525" />
+            </MasterNamePartGroup>
+            <MasterNamePartGroup>
+              <NamePartGroup ID="27628" NamePartTypeID="1525" />
+            </MasterNamePartGroup>
+          </NamePartGroups>
+        </Identity>
+        <Feature ID="150199" FeatureTypeID="25">
+          <FeatureVersion ID="200199" ReliabilityID="1">
+            <Comment />
+            <VersionLocation LocationID="199" />
+          </FeatureVersion>
+          <IdentityReference IdentityID="4314" IdentityFeatureLinkTypeID="1" />
+        </Feature>
+        <Feature ID="150200" FeatureTypeID="25">
+          <FeatureVersion ID="200200" ReliabilityID="1">
+            <Comment />
+            <VersionLocation LocationID="200" />
+          </FeatureVersion>
+          <IdentityReference IdentityID="4314" IdentityFeatureLinkTypeID="1" />
+        </Feature>
+        <Feature ID="150201" FeatureTypeID="25">
+          <FeatureVersion ID="200201" ReliabilityID="1">
+            <Comment />
+            <VersionLocation LocationID="201" />
+          </FeatureVersion>
+          <IdentityReference IdentityID="4314" IdentityFeatureLinkTypeID="1" />
+        </Feature>
+        <Feature ID="150202" FeatureTypeID="25">
+          <FeatureVersion ID="200202" ReliabilityID="1">
+            <Comment />
+            <VersionLocation LocationID="202" />
+          </FeatureVersion>
+          <IdentityReference IdentityID="4314" IdentityFeatureLinkTypeID="1" />
+        </Feature>
+      </Profile>
+    </DistinctParty>
+</DistinctParties>
