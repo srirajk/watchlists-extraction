@@ -103,6 +103,7 @@ distinct_parties_enriched_df = distinct_parties_enriched_df.join(
 
 distinct_parties_enriched_df = distinct_parties_enriched_df.withColumn("alias_id",
                                                                        concat_ws("_", col("app_profile_id"), monotonically_increasing_id()))
+
 print("Distinct Parties Enriched with App Profile ID")
 distinct_parties_enriched_df.show(truncate=False)
 

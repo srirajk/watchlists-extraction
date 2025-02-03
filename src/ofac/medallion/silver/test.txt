@@ -1,0 +1,132 @@
+[Row(action='no_change',
+data=Row(identity_id=4375, alias_type_value='Name', is_primary=True,
+
+documented_names=[{'Entity Name': 'AEROCARIBBEAN AIRLINES'}],
+extraction_timestamp='2025-02-02 14:34:00', source_name='OFAC',
+_FixedRef='36', party_sub_type='Unknown', party_type='Entity',
+app_profile_id='APP_19ca14e7ea6328a42e0eb13d585e4c22',
+alias_id='4d4cfcf465449d84fbc386f95bdfeace', alias_hash='5c13a0bb2f0e5b49c97348a0ae4443f0',
+id_documents=[Row(document_type='Passport', issuing_country='Mexico (MX)', id_reg_document_id='2', id_registration_number='040070827', document_dates='[]'), Row(document_type='Passport', issuing_country='Mexico (MX)', id_reg_document_id='3', id_registration_number='07040059504', document_dates='[]')], documents_hash='4be89a1acc0e6ba33c5ebefb88a0d1af', version=1, active_flag='Y', updated_at='2025-02-02 16:26:00', end_date=None)), Row(action='delete', data=Row(identity_id=4375, alias_type_value='A.K.A.', is_primary=False, documented_names=[{'Entity Name': 'AERO-CARIBBEAN'}], extraction_timestamp='2025-02-02 14:34:00', source_name='OFAC', _FixedRef='36', party_sub_type='Unknown', party_type='Entity', app_profile_id='APP_19ca14e7ea6328a42e0eb13d585e4c22', alias_id='116a005f0a2f631f46825c3418e5f2e2', alias_hash='68c0cec691cc75a1369f4a1b812f25b0', id_documents=None, documents_hash=None, version=1, active_flag='N', updated_at='2025-02-02 16:26:00', end_date=None))]
+
+
++--------------------+
+|extraction_timestamp|
++--------------------+
+| 2025-02-02 14:34:00|
+| 2025-02-02 16:46:00|
++--------------------+
+
+
++----------+-----------+----------------+----------+--------------------------------------------+--------------------+-----------+---------+--------------+----------+------------------------------------+--------------------------------+--------------------------------+----------------------------------------------------------------------------------------+--------------------------------+-------+-----------+-------------------+--------+------+
+|profile_id|identity_id|alias_type_value|is_primary|documented_names                            |extraction_timestamp|source_name|_FixedRef|party_sub_type|party_type|app_profile_id                      |alias_id                        |alias_hash                      |id_documents                                                                            |documents_hash                  |version|active_flag|updated_at         |end_date|action|
++----------+-----------+----------------+----------+--------------------------------------------+--------------------+-----------+---------+--------------+----------+------------------------------------+--------------------------------+--------------------------------+----------------------------------------------------------------------------------------+--------------------------------+-------+-----------+-------------------+--------+------+
+|306       |4314       |A.K.A.          |false     |[{Entity Name -> BNC}]                      |2025-02-02 14:34:00 |OFAC       |306      |Unknown       |Entity    |APP_b2eb7349035754953b57a32e2841bda5|22212fe7402b70f899b0a15ec9258662|fc571eaf276935ab7348ccd80cc85c50|NULL                                                                                    |NULL                            |1      |Y          |2025-02-02 17:37:00|NULL    |insert|
+|306       |4314       |A.K.A.          |false     |[{Entity Name -> NATIONAL BANK OF CUBA}]    |2025-02-02 14:34:00 |OFAC       |306      |Unknown       |Entity    |APP_b2eb7349035754953b57a32e2841bda5|f9004db4b2f32f82cefb09f7f18c99fc|141c750e51c092c1d9d7c2016484807c|NULL                                                                                    |NULL                            |1      |Y          |2025-02-02 17:37:00|NULL    |insert|
+|306       |4314       |Name            |true      |[{Entity Name -> BANCO NACIONAL DE CUBA}]   |2025-02-02 14:34:00 |OFAC       |306      |Unknown       |Entity    |APP_b2eb7349035754953b57a32e2841bda5|ede8e91aa1a9605e12dc6a83cb3fa656|2eb7512c21eb2d74453af42d4d01baa9|NULL                                                                                    |NULL                            |1      |Y          |2025-02-02 17:37:00|NULL    |insert|
+|36        |4375       |A.K.A.          |false     |[{Entity Name -> AERO-CARIBBEAN}]           |2025-02-02 14:34:00 |OFAC       |36       |Unknown       |Entity    |APP_19ca14e7ea6328a42e0eb13d585e4c22|116a005f0a2f631f46825c3418e5f2e2|68c0cec691cc75a1369f4a1b812f25b0|NULL                                                                                    |NULL                            |1      |Y          |2025-02-02 17:37:00|NULL    |insert|
+|36        |4375       |Name            |true      |[{Entity Name -> AEROCARIBBEAN AIRLINES}]   |2025-02-02 14:34:00 |OFAC       |36       |Unknown       |Entity    |APP_19ca14e7ea6328a42e0eb13d585e4c22|4d4cfcf465449d84fbc386f95bdfeace|5c13a0bb2f0e5b49c97348a0ae4443f0|[{Passport, Mexico (MX), 2, 040070827, []}, {Passport, Mexico (MX), 3, 07040059504, []}]|4be89a1acc0e6ba33c5ebefb88a0d1af|1      |Y          |2025-02-02 17:37:00|NULL    |insert|
+|173       |4310       |A.K.A.          |false     |[{Entity Name -> AVIA IMPORT}]              |2025-02-02 14:34:00 |OFAC       |173      |Unknown       |Entity    |APP_f7e6c85504ce6e82442c770f7c8606f0|1c68084605ac4fa2a29df74e06cfe1f9|0ee686624c7cbaa782821267b55b1fdb|NULL                                                                                    |NULL                            |1      |Y          |2025-02-02 17:37:00|NULL    |insert|
+|173       |4310       |Name            |true      |[{Entity Name -> ANGLO-CARIBBEAN CO., LTD.}]|2025-02-02 14:34:00 |OFAC       |173      |Unknown       |Entity    |APP_f7e6c85504ce6e82442c770f7c8606f0|1aaf49ae22332cce1e9a11d5b13b7a9e|7e56eefb7a5a7dc45235cce166fbfd43|NULL                                                                                    |NULL                            |1      |Y          |2025-02-02 17:37:00|NULL    |insert|
++----------+-----------+----------------+----------+--------------------------------------------+--------------------+-----------+---------+--------------+----------+------------------------------------+--------------------------------+--------------------------------+----------------------------------------------------------------------------------------+--------------------------------+-------+-----------+-------------------+--------+------+
+
+
+@udf(returnType=merge_decision_schema)
+def compare_alias_data(new_data, existing_data):
+    """
+    Compares new alias data with existing data to determine whether records should be inserted, updated, or deleted.
+    Returns a structured list of decisions, ensuring compatibility with the defined schema.
+    """
+    decisions = []
+
+    print(f"New Data: {new_data}")
+    print(f"Existing Data: {existing_data}")
+    active_existing_data = []
+    if existing_data is not None:
+        for record in existing_data:
+            if record["active_flag"] == "Y":
+                active_existing_data.append(record)
+
+    if existing_data is None:
+        for record in new_data:
+            decisions.append(Row(action="insert", data=record.asDict()))
+    else:
+        existing_aliases = {record["alias_hash"]: record for record in existing_data}
+        for new_record in new_data:
+            alias_hash = new_record["alias_hash"]
+
+            if alias_hash in existing_aliases:
+                existing_record = existing_aliases[alias_hash]
+
+                if new_record["is_primary"]:
+                    if new_record["documents_hash"] != existing_record["documents_hash"]:
+                        # Deactivate the existing record
+                        existing_record_inactive= existing_record.asDict()
+                        existing_record_inactive["active_flag"] = "N"
+                        decisions.append(Row(action="update", data=existing_record_inactive))
+
+                        # Create a new active record with incremented version
+                        updated_record = new_record.asDict()
+                        updated_record["alias_id"] = existing_record["alias_id"]
+                        updated_record["app_profile_id"] = existing_record["app_profile_id"]
+                        updated_record["version"] = existing_record["version"] + 1
+                        updated_record["active_flag"] = "Y"
+                        decisions.append(Row(action="insert", data=updated_record))
+
+                    else:
+                        decisions.append(Row(action="no_change", data=existing_record.asDict()))
+                else:
+                    decisions.append(Row(action="no_change", data=existing_record.asDict()))
+            else:
+                row_data = Row(
+                    identity_id=new_record["identity_id"],
+                    alias_type_value=new_record["alias_type_value"],
+                    is_primary=new_record["is_primary"],
+                    documented_names=new_record["documented_names"],
+                    extraction_timestamp=new_record["extraction_timestamp"],
+                    source_name=new_record["source_name"],
+                    _FixedRef=new_record["_FixedRef"],
+                    party_sub_type=new_record["party_sub_type"],
+                    party_type=new_record["party_type"],
+                    app_profile_id=new_record["app_profile_id"],
+                    alias_id=new_record["alias_id"],
+                    alias_hash=new_record["alias_hash"],
+                    id_documents=new_record["id_documents"],
+                    documents_hash=new_record["documents_hash"],
+                    version=1,
+                    active_flag="Y",
+                    updated_at=None,
+                    end_date=None
+                )
+                decisions.append(Row(action="insert", data=row_data.asDict()))
+
+        # Handle deletions: If an existing record is no longer in new_data, mark it as deleted
+        existing_alias_hashes = {r["alias_hash"] for r in new_data}
+        for existing_record in existing_data:
+            if existing_record["alias_hash"] not in existing_alias_hashes:
+                row_data = Row(
+                    identity_id=existing_record["identity_id"],
+                    alias_type_value=existing_record["alias_type_value"],
+                    is_primary=existing_record["is_primary"],
+                    documented_names=existing_record["documented_names"],
+                    extraction_timestamp=existing_record["extraction_timestamp"],
+                    source_name=existing_record["source_name"],
+                    _FixedRef=existing_record["_FixedRef"],
+                    party_sub_type=existing_record["party_sub_type"],
+                    party_type=existing_record["party_type"],
+                    app_profile_id=existing_record["app_profile_id"],
+                    alias_id=existing_record["alias_id"],
+                    alias_hash=existing_record["alias_hash"],
+                    id_documents=existing_record["id_documents"],
+                    documents_hash=existing_record["documents_hash"],
+                    version=existing_record["version"],
+                    active_flag="N",
+                    updated_at=None,
+                    end_date=None
+                )
+                decisions.append(Row(action="delete", data=row_data.asDict()))
+
+    #print(f"Final Decisions: {decisions}")
+
+    return decisions
+
+
