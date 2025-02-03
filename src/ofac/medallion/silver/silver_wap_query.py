@@ -65,13 +65,13 @@ spark.sql('''
         app_profile_id,
         alias_hash,
         id_documents
-    FROM silver.ofac_enriched.branch_20250203T145800
-    where profile_id = 9567
+    FROM silver.ofac_enriched.branch_20250203T153100
+    where profile_id = 36
 ''').show(truncate=False)
 
 
 
-#spark.sql("CALL local.system.fast_forward('silver.ofac_enriched', 'main', '20250203T144200')").show()
+#spark.sql("CALL local.system.fast_forward('silver.ofac_enriched', 'main', '20250203T153100')").show()
 
 print("main table ")
 
@@ -91,7 +91,7 @@ spark.sql('''
         alias_hash,
         id_documents
     FROM silver.ofac_enriched
-    where profile_id = 9567
+    where profile_id = 36
 ''').show(truncate=False)
 
 

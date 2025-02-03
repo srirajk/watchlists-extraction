@@ -173,10 +173,8 @@ def get_profile_df(spark, distinct_parties_df):
 
     distinct_parties_enriched_profile_ids_distinct_df = distinct_parties_enriched_df.select("profile_id").distinct()
 
-    generate_app_profile_id_udf = udf(lambda profile_id: f"APP_{md5(str(profile_id).encode()).hexdigest()[:8]}",
-                                      StringType())
 
-    # 1. Generate App Profile IDs
+    # Generate App Profile IDs
     distinct_parties_enriched_profile_ids_distinct_df = distinct_parties_enriched_profile_ids_distinct_df.withColumn(
         "app_profile_id", concat(lit("APP_"), md5(col("profile_id").cast("string")))
     )
@@ -191,20 +189,6 @@ def get_profile_df(spark, distinct_parties_df):
         "left"
     ).drop(distinct_parties_enriched_profile_ids_distinct_df["profile_id"])
 
-    # 3. Generate Alias Id for each alias record
-    # Use a combination of profile_id and an increasing sequence number to generate alias_id
-    """
-    distinct_parties_enriched_df = distinct_parties_enriched_df.withColumn("alias_id",
-                                                                           concat_ws("_", col("app_profile_id"),
-                                                                                monotonically_increasing_id()))
-    
-
-    from pyspark.sql.functions import expr
-
-    distinct_parties_enriched_df = distinct_parties_enriched_df.withColumn(
-        "alias_id", expr("uuid()")  # Generates a unique, deterministic identifier
-    )
-    """
     #print("Distinct Parties Enriched with App Profile ID")
     #distinct_parties_enriched_df.show(truncate=False)
 
@@ -325,47 +309,12 @@ def compare_alias_data(new_data, existing_data):
                 existing_inactive = existing_record.asDict()  # Convert Row to dict
                 existing_inactive["active_flag"] = "N"
                 decisions.append(Row(action="delete", data=existing_inactive))
-        """
-        # If a new primary alias appears and does NOT match the previous primary alias, inactivate old primary
-        new_primary = next((r.asDict() for r in new_data if r["is_primary"]), None)
-        old_primary = next((r.asDict() for r in active_existing_data if r["is_primary"]), None)
-
-        if new_primary and old_primary and new_primary["alias_hash"] != old_primary["alias_hash"]:
-            old_primary["active_flag"] = "N"
-            decisions.append(Row(action="delete", data=old_primary))
-        """
 
     #print(f"Final Decisions: {decisions}")
     return decisions
 
 
-"""
-This function takes the decisions made during the merge process and translates them into the actual data changes required for SCD2:
- New records are marked as active with version 1.
- Updated records are marked as active with their version incremented (done in the previous step).
- Deleted records are marked as inactive, preserving their last version.
- Unchanged records retain their previous active status and version.
-"""
 
-from pyspark.sql.functions import when, lit
-
-
-def apply_scd2_logic(decisions_df):
-    return decisions_df.select(
-        "profile_id",
-        "decision.action",
-        "decision.data.*"
-    ).withColumn(
-        "active_flag",
-        when(col("action").isin("insert", "update"), "Y")
-        .when(col("action") == "delete", "N")
-        .otherwise(col("active_flag"))
-    ).withColumn(
-        "version",
-        when(col("action") == "update", col("version"))
-        .when(col("action") == "insert", lit(1))
-        .otherwise(col("version"))
-    ).drop("action")  # Remove the 'action' column as it's no longer needed
 
 
 from pyspark.sql.functions import col, explode, current_timestamp, when, lit
@@ -406,8 +355,6 @@ def merge_ofac_data(spark, new_data_df, table_name, branch_name):
     print("merged data")
     merged_data.show(truncate=False)
 
-
-
     # Apply merge decision UDF
     decisions_df = merged_data.select(
         col("profile_id"),
@@ -443,27 +390,6 @@ def merge_ofac_data(spark, new_data_df, table_name, branch_name):
 
     final_df.show(truncate=False)
 
-    """
-
-    final_df = final_df.withColumn(
-        "active_flag",
-        when(col("action").isin("insert", "update"), lit("Y"))
-        .when(col("action") == "delete", lit("N"))
-        .otherwise(col("active_flag"))
-    ).withColumn(
-        "version",
-        when(col("action") == "insert", lit(1))
-        .when(col("action") == "update", col("version") + 1)
-        .otherwise(col("version"))
-    ).withColumn(
-        "updated_at",
-        lit(current_ts)
-    ).withColumn(
-        "end_date",
-        when(col("action") == "delete", lit(current_ts))
-        .otherwise(col("end_date"))
-    )
-    """
     final_df = final_df.withColumn("end_date",
                                    when(col("action") == "delete", lit(current_ts))
                                    .otherwise(col("end_date"))
@@ -472,44 +398,11 @@ def merge_ofac_data(spark, new_data_df, table_name, branch_name):
     print("Existing DataFrame")
     existing_data.show(truncate=False)
 
-
-
-
-
     print("Final DataFrame with all the required changes")
     final_df.show(truncate=False)
     final_df.writeTo(f"silver.ofac_enriched_audit_logs_{branch_name}").createOrReplace()
-    #final_df = final_df.drop("action")
 
-    
-    
     final_df.createOrReplaceTempView("source_data")
-    
-    #spark.sql("DESCRIBE source_data").show(truncate=False)
-
-
-
-    
-    """
-     # Perform merge operation using Spark SQL
-    merge_sql = f'''
-     MERGE INTO {table_name}.branch_{branch_name} AS target
-     USING source_data AS source
-     ON target.alias_id = source.alias_id
-     WHEN MATCHED AND source.active_flag = 'Y' THEN
-       UPDATE SET {', '.join([f"target.{field.name} = source.{field.name}" for field in record_schema.fields])}
-     WHEN MATCHED AND source.active_flag = 'N' THEN
-       UPDATE SET target.active_flag = source.active_flag, target.end_date = source.end_date
-     WHEN NOT MATCHED AND source.alias_id IS NOT NULL THEN
-       INSERT ({', '.join([f"target.{field.name}" for field in record_schema.fields])})
-       VALUES ({', '.join([f"source.{field.name}" for field in record_schema.fields])})
-     '''
-     """
-
-
-
-
-
 
     merge_sql = f'''
         MERGE INTO {table_name}.branch_{branch_name} AS target
@@ -529,42 +422,10 @@ def merge_ofac_data(spark, new_data_df, table_name, branch_name):
     '''
 
     spark.sql(merge_sql)
-    print("after first merge")
+    print("after merge")
     merged_df = spark.sql(f"SELECT * FROM {table_name}.branch_{branch_name}")
     merged_df.show(truncate=False)
-
-    """
-
-    # Insert New Records with New Versions
-    merge_sql = f'''
-        MERGE INTO {table_name}.branch_{branch_name} AS target
-        USING source_data AS source
-        ON target.alias_id = source.alias_id  -- Match on alias_id
-        AND target.version = source.version  -- Ensures proper versioning
-        
-        WHEN NOT MATCHED AND source.action IN ('update', 'insert') THEN
-          INSERT ({', '.join([field.name for field in record_schema.fields])})
-          VALUES ({', '.join([f"source.{field.name}" for field in record_schema.fields])});
-    '''
-
-    spark.sql(merge_sql)
-
-    print("after second merge")
-    merged_df = spark.sql(f"SELECT * FROM {table_name}.branch_{branch_name}")
-    merged_df.show(truncate=False)
-
-
-
-    """
-
-    """
-    
-    """
-    #merged_df.printSchema()
-
-
     pass
-
 
 
 def create_table_if_not_exists(spark, table_name, schema):
@@ -591,7 +452,7 @@ def main():
         .config("spark.sql.defaultCatalog", "local") \
         .getOrCreate()
 
-    extraction_timestamp = "2025-02-03T14:58:00"
+    extraction_timestamp = "2025-02-03T15:31:00"
 
     # create table if not existing with the schema defined record_schema (scd2 covered schema)
     table_name = "silver.ofac_enriched"
