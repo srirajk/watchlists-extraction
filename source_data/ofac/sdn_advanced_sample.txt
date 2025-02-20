@@ -19,6 +19,7 @@ profile 306 has 3 aliases.
       <DocumentedNameReference DocumentedNameID="15239" />
     </IDRegDocument>
 </IDRegDocuments>
+
 <DistinctParties>
     <DistinctParty FixedRef="36">
       <Comment />
@@ -159,4 +160,67 @@ profile 306 has 3 aliases.
         </Feature>
       </Profile>
     </DistinctParty>
+
+    <DistinctParty FixedRef="45314">
+          <Comment />
+          <Profile ID="45314" PartySubTypeID="3">
+            <Identity ID="36938" FixedRef="45314" Primary="true" False="false">
+              <Alias FixedRef="45314" AliasTypeID="1403" Primary="true" LowQuality="false">
+                <DocumentedName ID="67882" FixedRef="45314" DocNameStatusID="1">
+                  <DocumentedNamePart>
+                    <NamePartValue NamePartGroupID="119797" ScriptID="215" ScriptStatusID="1" Acronym="false">Valerian Labs, Inc.</NamePartValue>
+                  </DocumentedNamePart>
+                </DocumentedName>
+              </Alias>
+              <NamePartGroups>
+                <MasterNamePartGroup>
+                  <NamePartGroup ID="119797" NamePartTypeID="1525" />
+                </MasterNamePartGroup>
+              </NamePartGroups>
+            </Identity>
+            <Feature ID="65750" FeatureTypeID="344">
+              <FeatureVersion ID="63429" ReliabilityID="1">
+                <Comment />
+                <VersionDetail DetailTypeID="1432">bc1qardcxz845jw83vgfvcmewhuxa0ag9gchjwmcfd</VersionDetail>
+              </FeatureVersion>
+              <IdentityReference IdentityID="36938" IdentityFeatureLinkTypeID="1" />
+            </Feature>
+            <Feature ID="65751" FeatureTypeID="345">
+              <FeatureVersion ID="63430" ReliabilityID="1">
+                <Comment />
+                <VersionDetail DetailTypeID="1432">0x983a81ca6FB1e441266D2FbcB7D8E530AC2E05A2</VersionDetail>
+              </FeatureVersion>
+              <IdentityReference IdentityID="36938" IdentityFeatureLinkTypeID="1" />
+            </Feature>
+            <Feature ID="65752" FeatureTypeID="887">
+              <FeatureVersion ID="63431" ReliabilityID="1">
+                <Comment />
+                <VersionDetail DetailTypeID="1432">0x983a81ca6FB1e441266D2FbcB7D8E530AC2E05A2</VersionDetail>
+              </FeatureVersion>
+              <IdentityReference IdentityID="36938" IdentityFeatureLinkTypeID="1" />
+            </Feature>
+            <Feature ID="65753" FeatureTypeID="998">
+              <FeatureVersion ID="63432" ReliabilityID="1">
+                <Comment />
+                <VersionDetail DetailTypeID="1432">0x983a81ca6FB1e441266D2FbcB7D8E530AC2E05A2</VersionDetail>
+              </FeatureVersion>
+              <IdentityReference IdentityID="36938" IdentityFeatureLinkTypeID="1" />
+            </Feature>
+            <Feature ID="66051" FeatureTypeID="14">
+              <FeatureVersion ID="63730" ReliabilityID="1">
+                <Comment />
+                <VersionDetail DetailTypeID="1432">www.valerianlabs.com</VersionDetail>
+              </FeatureVersion>
+              <IdentityReference IdentityID="36938" IdentityFeatureLinkTypeID="1" />
+            </Feature>
+            <Feature ID="217420" FeatureTypeID="25">
+              <FeatureVersion ID="267420" ReliabilityID="1">
+                <Comment />
+                <VersionLocation LocationID="67420" />
+              </FeatureVersion>
+              <IdentityReference IdentityID="36938" IdentityFeatureLinkTypeID="1" />
+            </Feature>
+          </Profile>
+        </DistinctParty>
+
 </DistinctParties>

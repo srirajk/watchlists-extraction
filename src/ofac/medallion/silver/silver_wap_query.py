@@ -47,8 +47,13 @@ spark.sql("SELECT * FROM silver.ofac_enriched.refs").show()
 #silver.ofac_enriched.branch_20250202_175100
 
 
+print("Delta Changes")
+spark.sql(''' select * from silver.ofac_enriched_audit_logs_20250205T145500 where profile_id = 173''').show()
 
-#spark.sql(''' select * from silver.ofac_enriched_audit_logs_20250203T145800''').show()
+
+#silver.ofac_enriched.branch_20250205T145100
+
+print("branch data")
 
 spark.sql('''
     SELECT 
@@ -65,13 +70,13 @@ spark.sql('''
         app_profile_id,
         alias_hash,
         id_documents
-    FROM silver.ofac_enriched.branch_20250203T153100
-    where profile_id = 36
+    FROM silver.ofac_enriched.branch_20250205T145500
+    where profile_id = 173
 ''').show(truncate=False)
 
 
 
-#spark.sql("CALL local.system.fast_forward('silver.ofac_enriched', 'main', '20250203T153100')").show()
+spark.sql("CALL local.system.fast_forward('silver.ofac_enriched', 'main', '20250205T145500')").show()
 
 print("main table ")
 
@@ -91,13 +96,13 @@ spark.sql('''
         alias_hash,
         id_documents
     FROM silver.ofac_enriched
-    where profile_id = 36
+    where profile_id = 173
 ''').show(truncate=False)
 
 
 
 
-#spark.sql("ALTER TABLE silver.ofac_enriched DROP BRANCH 20250203T145800").show()
+# spark.sql("ALTER TABLE silver.ofac_enriched DROP BRANCH 20250203T145800").show()
 
 
 

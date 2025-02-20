@@ -137,13 +137,14 @@ def get_profile_df(spark, distinct_parties_df):
             ])
         )
     )
+
+    # Flatten the exploded data into columns
     distinct_parties_enriched_df = (distinct_parties_df
                                     .withColumn("enriched_party_data_multiple",
                                                 enrich_profile_data_udf_invoke(col("Profile")))
                                     .select(explode(col("enriched_party_data_multiple")).alias("enriched_party_data"),
                                             "*"))
 
-    # Flatten the exploded data into columns
     distinct_parties_enriched_df = distinct_parties_enriched_df.select(
         col("enriched_party_data.profile_id").alias("profile_id"),
         col("enriched_party_data.identity_id").alias("identity_id"),
@@ -166,7 +167,7 @@ def get_profile_df(spark, distinct_parties_df):
             col("profile_id"),
             col("identity_id"),
             col("alias_type_value"),
-            col("documented_names_hash")  # 🔥 Includes documented_names changes
+            col("documented_names_hash")
         )))
     )
     #distinct_parties_enriched_df.show(truncate=False)
@@ -452,7 +453,7 @@ def main():
         .config("spark.sql.defaultCatalog", "local") \
         .getOrCreate()
 
-    extraction_timestamp = "2025-02-03T15:31:00"
+    extraction_timestamp = "2025-02-05T14:55:00"
 
     # create table if not existing with the schema defined record_schema (scd2 covered schema)
     table_name = "silver.ofac_enriched"
