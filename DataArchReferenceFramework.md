@@ -471,7 +471,7 @@ Unlike traditional data warehouses, where storage and compute are tightly couple
 
 Open Table Formats act as a bridge between raw storage and compute layers, ensuring that data is well-managed, versioned, and optimized for querying across multiple workloads.
 
-![OTF in Lakehouse](OTF in Lakehouse.png)
+![OTF in Lakehouse.png](OTF%20in%20Lakehouse.png)
 
 | Layer           | Purpose                                                                           | Examples                                                |
 |-----------------|-----------------------------------------------------------------------------------|--------------------------------------------------------|
