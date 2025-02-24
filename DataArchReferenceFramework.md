@@ -280,7 +280,6 @@ The Lakehouse architecture represents a paradigm shift in modern data platforms,
 
 ![sample-lakeshouse-architecture-1.png](sample-lakeshouse-architecture-1.png)
 
-![sample-lakehouse-architecture-2.png](sample-lakehouse-architecture-2.png)
 
 1. **Data Ingestion Layer:** 
    This layer serves as the entry point for data from diverse sources, efficiently handling both batch and streaming ingestion. It employs a variety of protocols and connectors to integrate with internal systems, external APIs, IoT devices, and other data producers, ensuring a seamless flow of information into the Lakehouse.
@@ -667,18 +666,108 @@ The way data is physically laid out affects how efficiently it can be queried. O
 4.2.3 Schema Evolution & Data Versioning
 </h4>
 
+In traditional data warehouses, schema enforcement is rigid—meaning any structural changes require costly migrations or downtime. Data lakes, on the other hand, provide schema-on-read flexibility, but lack consistency controls across datasets.
+
+Lakehouse architecture solves this by enabling schema evolution while maintaining schema enforcement, consistency, and governance. This allows organizations to:
+- Modify schemas dynamically (add/remove columns, change types) without breaking queries.
+- Maintain backward & forward compatibility across datasets.
+- Ensure ACID compliance with metadata tracking & version control.
+
+<h4 style="color: #34495e; font-size: 20px; font-weight: bold; margin-top: 20px;">
+   What is Schema Evolution?
+</h4>
+
+Schema evolution refers to the ability to modify a table’s schema over time without breaking existing queries, jobs, or applications. This is critical for large-scale data platforms where data structures change frequently due to:
+- New business requirements (e.g., adding new attributes to transactions).
+- Regulatory changes (e.g., introducing compliance-mandated fields).
+- Machine learning use cases (e.g., modifying feature sets dynamically).
+
+Unlike traditional data warehouses where schema changes require at time full migrations or a change window for applying patches etc., Lakehouse architectures allow seamless schema modifications without disrupting workloads.
+
+**Supported Schema Type Changes:**
+
+| Schema Change      | Description                                                         | Supported by                                |
+|--------------------|---------------------------------------------------------------------|---------------------------------------------|
+| Adding Columns     | Introduces new attributes to an existing table without rewriting old data. | Delta, Iceberg, Hudi                         |
+| Renaming Columns   | Changes column names while maintaining backward compatibility.      | Iceberg (fully supports), Delta & Hudi (limited) |
+| Changing Data Types| Alters the data type of an existing column (e.g., INT → STRING).    | Iceberg (partial), Delta (some types)        |
+| Dropping Columns   | Removes an existing column while keeping historical versions accessible. | Iceberg                                      |
+| Reordering Columns | Changes column order without affecting data integrity.              | Iceberg, Delta, Hudi                         |
+| Merging Schemas    | Merges multiple datasets with different schemas.                    | Iceberg, Delta (MERGE INTO)                  |
 
 
+<h4 style="color: #34495e; font-size: 20px; font-weight: bold; margin-top: 20px;">
+   Managing Schema Evolution in OTFs
+</h4>
+
+Different Lakehouse table formats handle schema evolution differently:
+- Delta Lake → Allows adding columns but prevents breaking changes by enforcing schema validation.
+- Apache Iceberg → Supports flexible schema evolution (adding, renaming, dropping, and partition evolution).
+- Apache Hudi → Optimized for streaming & incremental updates, supports append-based schema changes.
+
+**Key Considerations:**
+- **Forward & backward compatibility:** Ensure new schemas can read old data and vice versa.
+- **Schema validation:** Enforce schema checks to prevent incompatible changes.
+- **Metadata Versioning:** Record schema versions and changes for auditing and rollback.
+
+<h4 style="color: #34495e; font-size: 20px; font-weight: bold; margin-top: 20px;">
+   Data Versioning & Time Travel
+</h4>
+
+Data versioning enables tracking historical changes to datasets, allowing users to:
+- Rollback changes in case of accidental modifications.
+- Query previous table versions for debugging & compliance.
+- Audit past transactions for regulatory reporting.
+
+**Key Features:**
+
+| Feature                    | Delta Lake              | Iceberg                  | Hudi                     |
+|----------------------------|-------------------------|--------------------------|--------------------------|
+| Time Travel Queries        | ✅ Yes (VERSION AS OF)   | ✅ Yes (Snapshots)        | ✅ Yes (Incremental Views)|
+| Rollback to Previous State | ✅ Yes (RESTORE)         | ✅ Yes (Snapshot Restore) | ✅ Yes (Rewind)           |
+| Retention Policy & Cleanup | ✅ Yes (VACUUM)          | ✅ Yes (Expire Snapshots) | ✅ Yes (Cleaning Policies)|
 
 
+<h4 style="color: #2c3e50; font-size: 20px; font-weight: bold; margin-top: 20px;">
+4.2.4 Disaster Recovery & Backup Strategies
+</h4>
 
+In a Lakehouse architecture, disaster recovery (DR) and backup strategies rely on two key layers: metadata and data storage. Unlike traditional monolithic data warehouses, which require entire database snapshots, Lakehouse architectures inherently inherit the cloud’s built-in resiliency mechanisms while also introducing additional safeguards via metadata-driven recovery options.
 
+Since open table formats (OTFs) like Delta Lake, Iceberg, and Hudi separate metadata and data, backup and recovery strategies depend on both:
+- **Metadata Layer (Table Format & Catalogs):** Governs schema evolution, transactions, and version control (tracked via metadata logs).
+- **Data Layer (Object Storage):** Houses physical data files (Parquet, ORC, Avro) managed within cloud-native storage services.
 
+Cloud platforms already provide native disaster recovery mechanisms such as multi-region replication, object versioning, and point-in-time restore capabilities. Lakehouse architectures simply leverage these capabilities while ensuring that metadata consistency is maintained for seamless failover and recovery.
 
+**Key Mechanisms:**
 
+| Backup Type | Description | Best For |
+|-------------|-------------|----------|
+| Immutable Snapshots | Full or incremental snapshots of storage at periodic intervals. | Regulatory compliance, time-travel auditing. |
+| Metadata & Transaction Log Backups | Backups of Delta/Iceberg/Hudi metadata logs to restore schema and transactions. | Version control, rollback, time travel. |
+| Data Replication | Cross-region or cross-cloud replication for redundancy. | Ensuring high availability in case of failure. |
+| Incremental Backups | Captures only changed data since the last snapshot. | Efficient storage usage, cost savings. |
 
+**Practical Implementation:**
 
+1. **Metadata-Driven Recovery:**
+    - Leverage OTF capabilities (Delta Lake, Iceberg, Hudi) for time travel and rollback functionality.
+    - Protect against accidental deletions or data corruptions through versioned metadata.
 
+2. **Cloud-Native Resilience:**
+    - Utilize built-in cloud storage features like AWS S3 Object Versioning or Azure Blob Snapshots.
+    - Ensure multi-region data availability without the need for additional infrastructure overhead.
+
+3. **Seamless Failover:**
+    - Implement replication and failover mechanisms for quick recovery during outages.
+    - Enable organizations to switch between cloud regions with minimal disruption to operations.
+
+By combining these strategies, Lakehouse architectures provide a robust, cloud-native approach to disaster recovery that balances data integrity, availability, and cost-efficiency.
+
+<h4 style="color: #2c3e50; font-size: 20px; font-weight: bold; margin-top: 20px;">
+4.2.5 Metadata & Catalog Governance
+</h4>
 
 
 
