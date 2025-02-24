@@ -446,7 +446,7 @@ Unlike traditional data warehouses, where storage and compute are tightly couple
    OTF Metadata Layer
 </h4>
 
-![OTF Metadata Layer](OTF-metadata-layer.png)
+![OTF Metadata Layer](OTF%20metadata%20layer.png)
 
 - **Schema Information** – Defines table structure, including column names, data types, and nested structures.
 - **Partition Information** – Specifies partition values and ranges to optimize query execution.
@@ -471,7 +471,7 @@ Unlike traditional data warehouses, where storage and compute are tightly couple
 
 Open Table Formats act as a bridge between raw storage and compute layers, ensuring that data is well-managed, versioned, and optimized for querying across multiple workloads.
 
-![OTF in Lakehouse](OTF-in-Lakehouse.png)
+![OTF in Lakehouse](OTF in Lakehouse.png)
 
 | Layer           | Purpose                                                                           | Examples                                                |
 |-----------------|-----------------------------------------------------------------------------------|--------------------------------------------------------|
@@ -486,7 +486,7 @@ Open Table Formats act as a bridge between raw storage and compute layers, ensur
    How OTF Supports Open Data Architecture
 </h4>
 
-![OTF in Open Data Architecture](OTF-in-Open-Data-Architecture.png)
+![OTF in Open Data Architecture](OTF%20in%20Open%20Data%20Architecture.png)
 
 Adopting Open Table Formats (OTF) such as Delta Lake, Iceberg, or Hudi is a crucial step toward building a truly open and interoperable data architecture. These formats eliminate proprietary table lock-in, enabling organizations to seamlessly integrate diverse storage and compute engines while maintaining ACID guarantees, schema evolution, and efficient data management at scale.
 
@@ -495,10 +495,16 @@ However, a fully open architecture extends beyond table formats—it requires op
 Now that we have established the importance of Open Table Formats in ensuring structured, governed, and ACID-compliant data management in a Lakehouse, the next challenge is optimizing storage for performance and cost efficiency. In the next section, we will explore storage optimization techniques, including partitioning, compaction, and indexing, to ensure that Lakehouse queries are both fast and scalable.
 
 <h4 style="color: #2c3e50; font-size: 20px; font-weight: bold; margin-top: 20px;">
-   4.2.1 Storage Optimization Strategies
+   4.2.2 Storage Optimization Strategies
 </h4>
 
 In a Lakehouse architecture, efficient storage management is critical to ensuring high query performance, reduced costs, and scalable data processing. While open table formats provide governance and transactionality, how data is physically stored and managed can significantly impact query speed, compute resource usage, and overall system efficiency.
+
+**The Role of Storage Optimization in a Lakehouse:**
+- Reduce query latency: Enable faster data access by avoiding full dataset scans. 
+- Minimize compute costs: Ensure efficient resource utilization by limiting unnecessary data reads.
+- Enhance scalability: Support large-scale workloads without storage bottlenecks.
+- Improve ingestion performance: Optimize how data is written for downstream processing.
 
 **Key Strategies :**
 - Partitioning: Organizing data for faster queries and reduced scan times.
@@ -506,6 +512,160 @@ In a Lakehouse architecture, efficient storage management is critical to ensurin
 - Indexing: Enabling faster data retrieval through metadata-driven optimizations.
 - Data Layout Optimization: Improving data locality and reducing unnecessary I/O scans.
 
+Most common fundamental storage optimization strategies used in Lakehouse architectures are:
+
+
+<h4 style="color: #34495e; font-size: 20px; font-weight: bold; margin-top: 20px;">
+1. Partitioning
+</h4>
+
+While partitioning optimizes how data is logically segmented, it does not solve the issue of small files, which can degrade performance in distributed query engines. The next section explores file compaction techniques, which help consolidate data for better query efficiency.
+
+Partitioning logically organizes data into subdirectories based on column values, reducing the amount of data read during queries. Instead of scanning an entire dataset, query engines prune irrelevant partitions, leading to faster response times and reduced costs.
+
+**Most common Types of Partitioning:**
+
+- **Static Partitioning (Hive Style Partitioning):** 
+  - Pre-defined partitions based on specific column values (e.g., date, region). Example path: `s3://bucket/table/date=2022-01-01/`.
+  - Suitable for time-series data, geographical data, or categorical attributes.
+  - Enabled & Supported by all open table formats (Delta Lake, Iceberg, Hudi) etc.
+  - Pros:
+    - Simple, widely adopted, works well with SQL engines. 
+    - Improves query performance by skipping irrelevant partitions during scans.
+    - Reduces data shuffling and network traffic in distributed processing.
+  - Cons:
+    - Query engines must manually prune partitions, increasing overhead.
+    - Requires upfront knowledge of partition keys and values.
+    - May lead to skewed partitions if not evenly distributed.
+
+
+- **Hidden Partitioning (Metadata-based partitioning):**
+  - Enabled by Apache Iceberg
+  - Avoids direct directory partitioning; partitioning happens at the metadata layer.
+  - Instead of physically storing files in directories, partitions are handled in metadata tables (e.g., Iceberg stores partition info in metadata).
+  - Pros:
+    - Simplifies data organization and management, no need to manage folder structures.
+    - Supports complex partitioning schemes without physical directory changes.
+    - No need for explicit partition column filters (year=2023) in queries.
+    - Improves query performance by pruning partitions at the metadata level.
+    - Enables dynamic partitioning without manual intervention.
+  - Cons
+    - Requires support from query engines and storage formats.
+    - Introduce additional complexity in metadata management.
+    - Not supported by all open storage formats.
+
+
+- **Dynamic Partitioning (Z-Ordering, Clustering):**
+  - Partitions are automatically created at write time based on column values.
+  - Instead of manually defining partition keys before writing data, the system dynamically generates partitions as new data arrives.
+  - Commonly used for streaming, event-driven ingestion, and append-heavy workloads.
+  - How it works:
+    - The system extracts partition values from incoming data and creates new partitions dynamically.
+    - If a new partition value is encountered, it is automatically added without user intervention.
+  - Z-ordering (Deltalake Exclusive & available in OSS version) is a technique to optimize data layout for efficient query performance where all the related data is stored together in the same file.
+  - Clustering is a data organization technique that reorganizes data within a table to optimize query performance by grouping related data together. Most or all of the OTF's support clustering.
+  - Liquid Partitioning/Liquid Clustering (Databricks Exclusive & not available on OSS version of Deltalake):
+    - Instead of physically partitioning data, Databricks dynamically clusters and optimizes file layout for efficient queries.
+    - Uses adaptive clustering instead of static partitions, automatically reorganizing data based on query patterns.
+    - No strict directory partitioning, data is clustered at the file level for more granular optimization.
+    - Best for ad-hoc queries, frequently changing workloads, and datasets with high cardinality columns.
+  - Pros:
+    - Simplifies data ingestion and management, no need to pre-define partitions.
+    - Supports real-time data ingestion and dynamic schema evolution.
+    - Improves query performance by optimizing data layout for common queries.
+  - Cons:
+    - Can lead to too many small partitions, causing performance degradation.
+    - Requires partition pruning and metadata tuning to avoid unnecessary file scans.
+    - Higher metadata maintenance cost, especially for high-cardinality partition keys.
+    - May not be suitable for all use cases, especially batch-oriented workloads.
+
+
+<h4 style="color: #34495e; font-size: 20px; font-weight: bold; margin-top: 20px;">
+2. File Compaction
+</h4>
+
+Compaction merges small files into larger, optimized files, reducing the overhead of reading multiple files per query. 
+
+This improves performance by:
+- Minimizing metadata overhead – Fewer files to track.
+- Reducing read amplification – Less I/O scanning per query.
+- Improving write efficiency – Faster upserts and deletes.
+
+**Compaction Techniques By OTF:**
+
+| Table Format    | Compaction Approach                                                   |
+|-----------------|-----------------------------------------------------------------------|
+| Delta Lake      | OPTIMIZE command merges small Parquet files into larger ones.         |
+| Apache Iceberg  | Uses RewriteDataFiles to compact fragmented partitions.               |
+| Apache Hudi     | Supports Auto Compaction for Merge-on-Read (MOR) tables.              |
+
+**Best Practices:**
+- Trigger compaction jobs periodically for high-churn datasets.
+- Combine small files when ingesting streaming data to avoid query slowdowns.
+
+<h4 style="color: #34495e; font-size: 20px; font-weight: bold; margin-top: 20px;">
+3. Indexing for Faster Query Execution
+</h4>
+
+Even with well-partitioned and compacted storage, query performance can still be suboptimal if large scans are required. Indexing strategies help further improve retrieval efficiency by leveraging metadata and statistical filtering.
+
+Indexing stores metadata about column values and file locations, allowing query engines to skip unnecessary scans.
+
+**Different Types of Indexing:**
+
+- **Data Skipping Indexes:**
+  - Uses column statistics (min/max values) to eliminate unnecessary reads.
+  - Supported by Delta Lake, Iceberg, and other open table formats.
+  - Improves query performance by skipping irrelevant data blocks.
+  - Example: If querying WHERE date='2024-01-01', the engine skips files outside this range.
+  
+- **Bloom Filters:** 
+  - Helps with fast lookups of specific values (e.g., searching for a specific customer_id).
+  - Not available in all the OTF's. DeltaLake & Hudi supports Bloom Filters.
+  - Reduces the number of files scanned during query execution.
+  - Example: Queries on customer_id=12345 only scan relevant files, not the entire dataset.
+  
+- **Secondary Indexes:**
+  - Improves point queries and range-based filtering.
+  - Not available in all the OTFs. DeltaLake & Hudi supports Secondary Indexes.
+  - Useful for: Time-series queries, finding records based on timestamps.
+
+**Best Practices:**
+- Use data skipping indexes for range queries on partitioned columns.
+- Apply Bloom filters for point lookups on high-cardinality columns.
+- Leverage secondary indexes for fast access to specific records.
+
+<h4 style="color: #34495e; font-size: 20px; font-weight: bold; margin-top: 20px;">
+3. Data Layout Optimization for Performance
+</h4>
+
+The way data is physically laid out affects how efficiently it can be queried. Optimizing file size, ordering, and clustering improves read performance.
+
+**Key Techniques:**
+- **File Size Optimization:**
+  - Balance between small files (for parallelism) and large files (for fewer reads).
+  - Avoid too many small files that increase metadata overhead.
+  - Use compaction to merge small files into larger, optimized files.
+
+- **Data Clustering:** 
+  - Group related data together to reduce I/O and improve query performance.
+  - Use Z-ordering, clustering, or adaptive clustering for efficient data layout.
+  - Avoid data skew by evenly distributing data across partitions.
+
+- **Data Locality:** 
+  - Store related data together to minimize network traffic and shuffling.
+  - Use partitioning and clustering to improve data locality.
+  - Optimize data layout for common query patterns.
+
+**Best Practices:**
+- Optimize file size for a balance between parallelism and efficiency.
+- Sort and cluster data based on the most frequently queried columns.
+- Avoid too many small files—optimize for 100MB-1GB per file.
+
+
+<h4 style="color: #2c3e50; font-size: 20px; font-weight: bold; margin-top: 20px;">
+4.2.3 Schema Evolution & Data Versioning
+</h4>
 
 
 
@@ -529,16 +689,7 @@ In a Lakehouse architecture, efficient storage management is critical to ensurin
 
 
 
----
-•	4.3.1 The Role of the Storage Layer in a Lakehouse
-•	4.3.2 Open Table Formats (Delta, Iceberg, Hudi)
-•	4.3.3 Data Partitioning, Compaction & Indexing Best Practices
-•	4.3.4 Schema Evolution & Data Versioning
-•	4.3.5 Disaster Recovery & Backup Strategies
 
-<h3 style="color: #34495e; font-size: 22px; font-weight: bold; margin-top: 25px;">
-   4.3 Metadata, Catalog & Governance (Schema enforcement, access control, and lineage tracking)
-</h3>
 
 
 
