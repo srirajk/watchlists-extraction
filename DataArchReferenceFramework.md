@@ -818,8 +818,6 @@ Metadata governance discussions often mixed Business catalogs with Technical Met
 
 
 
-
-
 <h2 style="color: #2c3e50; font-size: 28px; font-weight: bold; margin-top: 30px; border-bottom: 2px solid #3498db; padding-bottom: 10px;">
    5. Data Mesh & Data Product
 </h2>
