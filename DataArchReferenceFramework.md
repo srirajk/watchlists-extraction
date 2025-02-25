@@ -1238,7 +1238,7 @@ Consequently, although Data Catalog 2.0 addressed many governance-related needs,
 
 ### Introducing Data Catalog 3.0: The Modern Foundation for Data Mesh
 
-![Data Catalog 3.png](Data Catalog 3.png)
+![Data Catalog 3.png](Data%20Catalog%203.png)
 
 To overcome the challenges posed by traditional data catalogs, a new generation Data Catalog 3.0 has emerged, specifically designed for the complexities of modern data ecosystems and the federated nature of Data Mesh architectures. Unlike its predecessors, Data Catalog 3.0 places metadata at the core of data management, enabling organizations to achieve true decentralization, agility, and governance.
 
