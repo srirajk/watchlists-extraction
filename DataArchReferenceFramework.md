@@ -1283,6 +1283,7 @@ Adopting a Data Catalog 3.0 is vital for any organization aiming to become genui
 
 Organizations leveraging Data Catalog 3.0 benefit from significantly enhanced agility, stronger regulatory compliance, and seamless interoperability, laying a resilient and scalable foundation that turns data from a mere operational asset into a genuine competitive advantage. In essence, Data Catalog 3.0 is the cornerstone for building an effective, adaptable, and sustainable Data Mesh.
 
+---
 
 WIP
 
