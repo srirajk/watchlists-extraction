@@ -2,6 +2,8 @@
   Data Architecture Reference Framework
 </h1>
 
+
+
 <h2 style="color: #2c3e50; font-size: 28px; font-weight: bold; margin-top: 30px; border-bottom: 2px solid #3498db; padding-bottom: 10px;">
   1. Introduction
 </h2>
