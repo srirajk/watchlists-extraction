@@ -59,7 +59,7 @@ This section explores the evolution of data architectures, highlighting their ca
    2.1 Comparison of Architecturesthis
 </h3>
 
-![Data Architectures Comparison.png](Data Architectures Comparison.png)
+![Data Architectures Comparison.png](Data%20Architectures%20Comparison.png)
 
 <h4 style="color: #2c3e50; font-size: 20px; font-weight: bold; margin-top: 20px;">
    2.1.1 Traditional Data Warehouses (Structured, High-Performance, Governed Analytics)
