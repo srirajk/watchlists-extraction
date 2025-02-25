@@ -60,6 +60,8 @@ This section explores the evolution of data architectures, highlighting their ca
    2.1 Comparison of Architectures
 </h3>
 
+![Data Architectures Comparison.png](Data Architectures Comparison.png)
+
 <h4 style="color: #2c3e50; font-size: 20px; font-weight: bold; margin-top: 20px;">
    2.1.1 Traditional Data Warehouses (Structured, High-Performance, Governed Analytics)
 </h4>
@@ -686,14 +688,14 @@ Unlike traditional data warehouses where schema changes require at time full mig
 
 **Supported Schema Type Changes:**
 
-| Schema Change      | Description                                                         | Supported by                                |
-|--------------------|---------------------------------------------------------------------|---------------------------------------------|
-| Adding Columns     | Introduces new attributes to an existing table without rewriting old data. | Delta, Iceberg, Hudi                         |
-| Renaming Columns   | Changes column names while maintaining backward compatibility.      | Iceberg (fully supports), Delta & Hudi (limited) |
-| Changing Data Types| Alters the data type of an existing column (e.g., INT → STRING).    | Iceberg (partial), Delta (some types)        |
-| Dropping Columns   | Removes an existing column while keeping historical versions accessible. | Iceberg                                      |
-| Reordering Columns | Changes column order without affecting data integrity.              | Iceberg, Delta, Hudi                         |
-| Merging Schemas    | Merges multiple datasets with different schemas.                    | Iceberg, Delta (MERGE INTO)                  |
+| Schema Change       | Description                                                                | Supported by                                     |
+|---------------------|----------------------------------------------------------------------------|--------------------------------------------------|
+| Adding Columns      | Introduces new attributes to an existing table without rewriting old data. | Delta, Iceberg, Hudi                             |
+| Renaming Columns    | Changes column names while maintaining backward compatibility.             | Iceberg (fully supports), Delta & Hudi (limited) |
+| Changing Data Types | Alters the data type of an existing column (e.g., INT → STRING).           | Iceberg (partial), Delta (some types)            |
+| Dropping Columns    | Removes an existing column while keeping historical versions accessible.   | Iceberg                                          |
+| Reordering Columns  | Changes column order without affecting data integrity.                     | Iceberg, Delta, Hudi                             |
+| Merging Schemas     | Merges multiple datasets with different schemas.                           | Iceberg, Delta (MERGE INTO)                      |
 
 
 <h4 style="color: #34495e; font-size: 20px; font-weight: bold; margin-top: 20px;">
@@ -721,11 +723,11 @@ Data versioning enables tracking historical changes to datasets, allowing users 
 
 **Key Features:**
 
-| Feature                    | Delta Lake              | Iceberg                  | Hudi                     |
-|----------------------------|-------------------------|--------------------------|--------------------------|
-| Time Travel Queries        | ✅ Yes (VERSION AS OF)   | ✅ Yes (Snapshots)        | ✅ Yes (Incremental Views)|
-| Rollback to Previous State | ✅ Yes (RESTORE)         | ✅ Yes (Snapshot Restore) | ✅ Yes (Rewind)           |
-| Retention Policy & Cleanup | ✅ Yes (VACUUM)          | ✅ Yes (Expire Snapshots) | ✅ Yes (Cleaning Policies)|
+| Feature                    | Delta Lake          | Iceberg                | Hudi                    |
+|----------------------------|---------------------|------------------------|-------------------------|
+| Time Travel Queries        | Yes (VERSION AS OF) | Yes (Snapshots)        | Yes (Incremental Views) |
+| Rollback to Previous State | Yes (RESTORE)       | Yes (Snapshot Restore) | Yes (Rewind)            |
+| Retention Policy & Cleanup | Yes (VACUUM)        | Yes (Expire Snapshots) | Yes (Cleaning Policies) |
 
 
 <h4 style="color: #2c3e50; font-size: 20px; font-weight: bold; margin-top: 20px;">
@@ -742,12 +744,12 @@ Cloud platforms already provide native disaster recovery mechanisms such as mult
 
 **Key Mechanisms:**
 
-| Backup Type | Description | Best For |
-|-------------|-------------|----------|
-| Immutable Snapshots | Full or incremental snapshots of storage at periodic intervals. | Regulatory compliance, time-travel auditing. |
-| Metadata & Transaction Log Backups | Backups of Delta/Iceberg/Hudi metadata logs to restore schema and transactions. | Version control, rollback, time travel. |
-| Data Replication | Cross-region or cross-cloud replication for redundancy. | Ensuring high availability in case of failure. |
-| Incremental Backups | Captures only changed data since the last snapshot. | Efficient storage usage, cost savings. |
+| Backup Type                        | Description                                                                     | Best For                                       |
+|------------------------------------|---------------------------------------------------------------------------------|------------------------------------------------|
+| Immutable Snapshots                | Full or incremental snapshots of storage at periodic intervals.                 | Regulatory compliance, time-travel auditing.   |
+| Metadata & Transaction Log Backups | Backups of Delta/Iceberg/Hudi metadata logs to restore schema and transactions. | Version control, rollback, time travel.        |
+| Data Replication                   | Cross-region or cross-cloud replication for redundancy.                         | Ensuring high availability in case of failure. |
+| Incremental Backups                | Captures only changed data since the last snapshot.                             | Efficient storage usage, cost savings.         |
 
 **Practical Implementation:**
 
@@ -765,9 +767,9 @@ Cloud platforms already provide native disaster recovery mechanisms such as mult
 
 By combining these strategies, Lakehouse architectures provide a robust, cloud-native approach to disaster recovery that balances data integrity, availability, and cost-efficiency.
 
-<h4 style="color: #2c3e50; font-size: 20px; font-weight: bold; margin-top: 20px;">
-4.2.5 Metadata & Catalog Governance
-</h4>
+<h3 style="color: #34495e; font-size: 22px; font-weight: bold; margin-top: 25px;">
+   4.3 Metadata & Catalog Governance
+</h3>
 
 A well-structured metadata and catalog governance strategy is essential for managing the complexity of Lakehouse architectures. Unlike monolithic data warehouses, where metadata is centrally managed, Lakehouses operate across distributed cloud environments, making metadata standardization, schema evolution, and access control more complex.
 
@@ -778,7 +780,7 @@ In a Lakehouse architecture, data is stored in open file formats (Parquet, ORC, 
 - Lack of lineage tracking for auditing & compliance.
 
 <h4 style="color: #2c3e50; font-size: 20px; font-weight: bold; margin-top: 20px;">
-1. Business vs Technical Catalogs:
+4.3.1 Business vs Technical Catalogs
 </h4>
 
 Metadata governance discussions often mixed Business catalogs with Technical Metadata Catalogs. However, in Lakehouse architecture, Business Catalogs are more relevant within the Data Mesh paradigm, where self-service Data products and domain ownership are key (more will be discussed in the Data Products/Data Mesh section).
@@ -786,36 +788,195 @@ Metadata governance discussions often mixed Business catalogs with Technical Met
 **Business Catalog**
 - **Focus:** Human-friendly metadata (business terms, lineage diagrams, stewardship roles, compliance tags)
 - **Audience:** Data analysts, stewards, and governance teams
-- **Complexity:** Provides high-level context but, doesn’t store detailed file references or low-level snapshot states
+- **Complexity:** Provides high-level context but, doesn't store detailed file references or low-level snapshot states
 
-**Low-Level Metadata Catalog:**
+**Low-Level Metadata Catalog (Technical Catalog)**
 - **Focus:** Detailed technical metadata (snapshots, manifests, partition-to-file mappings, column-level statistics)
 - **Audience:** Query engines and systems that need fine-grained data insights for optimization and consistency
 - **Complexity:** Must scale to billions of files, handle frequent commits, and serve partition stats in milliseconds
 
-
 **Key Characteristics of a Technical Catalog:**
 - **Schema Metadata:** Defines table schemas, column types, constraints, and data formats.
-- **operational Metadata:** Tracks file locations, snapshots, partitions, and indexing details.
-- **Governance Metadata:** Manages access policies, lineage tracking, and audit logs
-- **Query Optimization Metadata:** Enables partition pruning, query acceleration, and indexing 
+- **Operational Metadata:** Tracks file locations, snapshots, partitions, and indexing details.
+- **Governance Metadata:** Manages access policies, lineage tracking, and audit logs.
+- **Query Optimization Metadata:** Enables partition pruning, query acceleration, and indexing.
 
-**Why Technical metadata are Performance critical:**
+**Why Technical Metadata are Performance Critical:**
 - **High Write Throughput:** Constant ingestion of new data creates snapshots every few minutes or even seconds. Each commit must be recorded atomically, ensuring data quality and consistency.
-
-- **Complex Transaction Coordination:** Multiple writers and readers operate concurrently, necessitating a robust transactional layer that prevents conflicts and ensures atomic visibility of new data. This is where ACID compliance play a crucial role in maintaining data integrity.
-
+- **Complex Transaction Coordination:** Multiple writers and readers operate concurrently, necessitating a robust transactional layer that prevents conflicts and ensures atomic visibility of new data. This is where ACID compliance plays a crucial role in maintaining data integrity.
 - **Large Table Counts (10k–1000k):** Many modern data platforms host tens or hundreds of thousands of tables in a single environment. The metadata catalog must simultaneously scale to track table definitions, schemas, and operational details for hundreds of thousands of tables.
-
 - **Huge Number of Files/Partitions per Table:** Each table can have thousands or millions of Parquet files and partitions, especially in streaming or micro-batch ingestion scenarios. Managing partition boundaries, file paths, and associated statistics at such a scale is a significant challenge for the catalog.
-
 - **Fine-Grained Partition and File-Level Stats:** Query engines rely on partition pruning and file skipping to accelerate queries. Storing and querying these statistics at scale turns the catalog into a data-intensive platform, often requiring indexing and caching strategies. This level of detail is essential for efficient data discovery and optimized query performance. As a result, the low-level catalog must be architected like a distributed metadata service. It may use scalable storage backends, caching tiers, and clever indexing structures to handle immense concurrency and volume.
 
-
-<h4 style="color: #34495e; font-size: 20px; font-weight: bold; margin-top: 20px;">
-2. Metadata-Driven Security & Access Control:
+<h4 style="color: #2c3e50; font-size: 20px; font-weight: bold; margin-top: 20px;">
+4.3.2 Metadata-Driven Security & Access Control
 </h4>
 
+
+Unlike traditional databases where access control is primarily enforced at the table or schema level, Lakehouse security frameworks must handle fine-grained, policy-based access control across distributed storage, compute engines, and multiple cloud environments. 
+
+This makes metadata governance critical for managing who can access what data, under what conditions, and in what context particularly for compliance heavy.
+
+**Key Challenges:**
+- Decentralized multi-cloud data environments require consistent policy enforcement.
+- Need for fine-grained access control beyond table-level restrictions.
+- Growing regulatory compliance needs (GDPR, PCI-DSS etc.) mandate strict governance.
+
+**Different Access Control Models:**
+
+| Access Control Model                  | Purpose                                                     | How it Works                                                                                | Common Implementations                                                     |
+|---------------------------------------|-------------------------------------------------------------|---------------------------------------------------------------------------------------------|----------------------------------------------------------------------------|
+| Role-Based Access Control (RBAC)      | Enforce static, predefined roles for users/groups.          | Access granted based on roles (Analyst, Engineer, Admin, etc.)                              | Snowflake RBAC, AWS Lake Formation, Apache Ranger                          |
+| Attribute-Based Access Control (ABAC) | Dynamically control access based on metadata attributes.    | Policies are applied based on attributes (region, data sensitivity, user department, etc.). | Immuta, Privacera, Databricks Unity Catalog                                |
+| Policy-Based Access Control (PBAC)    | Define granular policies using conditional rules            | Combines both RBAC & ABAC, ensuring governance policies dynamically adjust.                 | AWS IAM Policies, Snowflake Secure Views, Apache Ranger Tag-Based Policies |
+| Data Masking & Row-Level Security     | Ensure compliance by restricting access to sensitive fields | Uses metadata-based rules to mask or filter PII/Sensitive Data.                             | Databricks Column Masking, Snowflake Data Masking, AWS Lake Formation      |
+
+
+<h4 style="color: #2c3e50; font-size: 20px; font-weight: bold; margin-top: 20px;">
+4.3.3 Encryption & Data Privacy
+</h4>
+
+In a Lakehouse, data is stored in open columnar formats (Parquet, ORC, Avro) across cloud object stores. While access control policies (RBAC, ABAC, PBAC) restrict who can access the data, encryption ensures that even if unauthorized access occurs, the data remains unreadable without decryption keys.
+
+**Key Encryption Strategies:**
+
+| Encryption Type                                   | Purpose                                                                    | Implementation                                        | Examples                                                                         |
+|---------------------------------------------------|----------------------------------------------------------------------------|-------------------------------------------------------|----------------------------------------------------------------------------------|
+| Storage-Level Encryption (At Rest)                | Ensures that raw data files are unreadable without decryption keys.        | Uses cloud-native encryption features.                | AWS S3 SSE, Azure Blob Storage Encryption, GCP CMEK.                             |
+| Transport Encryption (In Transit)                 | Secures data movement between ingestion, processing, and analytics layers. | Uses TLS (Transport Layer Security) encryption.       | AWS PrivateLink, Azure TLS Encryption, Google TLS 1.2+.                          |
+| Column-Level Encryption                           | Protects specific sensitive fields (e.g., credit card numbers, SSNs).      | Encrypted at query time via metadata-driven policies. | Snowflake Column Encryption, Databricks Masking, Immuta Policy-Based Encryption. |
+| Tokenization & Format-Preserving Encryption (FPE) | Replaces sensitive data with reversible tokens for analytics use.          | Uses tokenization vaults for structured PII data.     | Protegrity, Privacera, AWS Macie.                                                |
+
+
+**Lakehouse Catalog Integration with Encryption:**
+- Metadata catalogs(Databricks Exclusive Unity Catalog, AWS Lake Formation, Snowflake Governance) manage encryption keys centrally.
+- Cloud-Native Key Management Services (AWS KMS, Azure Key Vault, Google Cloud KMS) ensure encryption keys are stored securely and rotated automatically.
+
+**Best Practices:**
+
+- **Adopt a Unified Metadata Catalog:**
+  - Consolidate a technical metadata, schema evolution tracking and security policies in a single governance layer.
+  - Using AWS Glue Catalog, Databricks Unity Catalog or Snowflake Metadata Store for centralized metadata management.
+  
+- **Enforce Schema Evolution Safeguards:**
+  - Prevent breaking changes in Production datasets by implementing version-controlled schema updates.
+  - Utilize Delta Lake Schema Evolution or Iceberg Table Evolution for safe schema modifications. 
+  
+- **Implement Policy-Based Access Control (PBAC) for Fine-Grained Security:**
+  - Move beyond static Role-Based (RBAC) Security to adopt metadata-driven ABAC policies.
+  - Use Privacera, Immuta or Apache Ranger to define dynamic access policies based on metadata attributes.
+  
+- **Automate Data Lineage Tracking & Audit Logs:**
+  - Ensure full visibility into data transformations, ELT/ETL processes and user access logs.
+  - Use Databricks Unity Catalog Lineage Tracking, Apache Atlas or OpenLineage to track data from source to consumption.
+  
+- **Optimize Metadata Query Performance:**
+  - Store metadata in columnar formats to accelerate lookup speeds.
+  - Implement metadata caching strategies to reduce query latency and improve Lakehouse analytics performance.
+  
+- **Enable Metadata Interoperability Across Platforms:**
+  - Ensure that metadata catalogs are compatible with multiple compute engines (e.g., Spark, Trino, Flink, Snowflake).
+  - Standardize on open metadata APIs to avoid vendor lock-in.
+  
+- **Encryption:**
+  - Implement encryption at rest and in transit to secure data across storage and processing layers.
+  - Use column-level encryption for sensitive fields and tokenization for PII data.
+  - Integrate with cloud-native key management services for secure key storage and rotation.
+  - Implement automatic key rotation to mitigate unauthorized access risks.
+
+<h3 style="color: #34495e; font-size: 22px; font-weight: bold; margin-top: 25px;">
+4.4 Processing & Compute Layer
+</h3>
+
+In a Lakehouse Architecture, the Processing & Compute Layer serves as the execution engine for transforming, analyzing, and processing data at scale. Unlike traditional data warehouses, where compute and storage are tightly coupled, the Lakehouse model separates compute from storage, enabling dynamic scalability, workload optimization, and cost efficiency.
+
+This layer supports diverse data workloads, ranging from large-scale batch processing, real-time streaming analytics, ad-hoc interactive querying, to complex AI/ML model training all operating on a unified platform. The decoupling of storage and compute allows organizations to scale infrastructure resources independently, ensuring performance optimization without unnecessary cost overhead.
+
+The Role of the Processing & Compute Layer
+
+A well-designed compute layer must cater to different types of analytical workloads while ensuring performance, governance, and cost efficiency:
+- **Scalability & Elasticity:** Supports massive parallel processing (MPP) architectures to handle petabyte-scale data workloads across cloud and on-prem environments.
+- **Multi-Modal Workloads:** Enables SQL-based analytics, data transformation pipelines, AI/ML training, and real-time streaming—all integrated within the Lakehouse ecosystem.
+- **Cost Efficiency:** Decoupling compute from storage allows for elastic scaling, ensuring that resources are provisioned only when needed to optimize cost.
+- **Query & Processing Performance:** Utilizes caching, indexing, columnar execution, and vectorized processing to accelerate query performance and reduce latency.
+- **Interoperability with Open Standards:** Supports Apache Spark, Trino, Flink, Presto, Snowflake, and other distributed compute engines, ensuring flexibility across analytical and operational workloads.
+
+**Key Components of the Processing & Compute Layer:**
+- **Processing Workload Types:**
+  - **1. Batch Processing:** 
+    - Processes large volumes of data in scheduled jobs or at predefined intervals.
+    - Supports ETL/ELT pipelines, data transformations, aggregations, and scheduled business reports.
+    - Typically, executed using distributed compute engines like Apache Spark, Databricks SQL Engine/Databricks Spark Warehouse, Snowflake, Trino, and Hive.
+    - Used for building historical datasets for trend analysis and business intelligence.
+    - Common Use Cases: 
+      - Extracting, transforming, and loading data from multiple sources into the Lakehouse.
+      - Aggregating transaction data for regulatory compliance and fraud detection.
+      - Preparing clean, structured datasets for analytics and decision-making.
+      
+  - **2. Real-Time Streaming:**
+    - Processes data continuously instead of scheduled batch jobs.
+    - Works with event-driven architectures and CDC (Change Data Capture) pipelines.
+    - Uses stream processing engines like Apache Flink, Apache Spark Structured Streaming and Kafka Streams.
+    - Ensures Data Freshness for real-time decision-making.
+    - Common Use Cases:
+      - Analyzing transactions in real-time to detect anomalies and prevent fraud.
+      - Processing financial trade data for market trend predictions.
+      
+  - **3. Interactive Querying:**
+    - Enables real-time, ad-hoc querying of datasets for exploratory analysis.
+    - Uses distributed query engines such as Trino, Snowflake, Databricks SQL Analytics and Google Bigquery.
+    - Optimized for concurrent users accessing dashboards, reports and analytics.
+    - Often leverages caching and indexing to improve query performance.
+    - Common Use Cases:
+      - Powering dashboards in Power BI, Tableau, Looker etc.
+      - Data teams performing ad-hoc queries for insights.
+      
+  - **4. Machine Learning & AI:** 
+    - Lakehouses are increasingly becoming common used as an AI/ML platforms, supporting everything from feature engineering to model training and inferencing.
+    - Trains, validates, and deploys machine learning models on large datasets.
+    - Leverages Lakehouse feature stores to manage ML model inputs efficiently.
+    - Utilizes ML frameworks like TensorFlow, PyTorch, Scikit-learn, and distributed ML libraries.
+    - Often integrates with MLOps platforms to automate model deployment and governance.
+    - Common Use Cases:
+      - Training AI models on historical transaction data.
+      - Financial institutions assessing customer creditworthiness.
+
+**Best Practices:**
+- **Decouple Compute from Storage & Optimize Compute Resources Based on Workload Type:**
+  - Use auto-scaling clusters to dynamically allocate compute resources based on demand.
+  - Separate batch processing clusters from real-time and interactive workloads to avoid resource contention.
+- **Enable Increment Processing Over Full Refreshes:**
+  - Avoid full table scans in batch workloads—use Delta Lake, Iceberg, or Hudi for incremental updates.
+  - Use CDC (Change Data Capture) for streaming ingestion to minimize processing overhead.
+  - Partition tables efficiently to reduce unnecessary reads and writes.
+- **Implement Caching & Indexing for Faster Query Performance:**
+  - Use result set caching for repeated interactive queries (Databricks SQL Cache, Snowflake Result Cache).
+  - Apply Z-ordering (Delta), hidden partitioning (Iceberg), or clustering (Hudi) to improve query pruning.
+  - Enable metadata caching for faster schema lookups and query planning.
+- **Optimize Streaming Workloads for Scalability:**
+  - Use stateful stream processing for event driven workloads (Apache Flink, Kafka Streams, Apache Spark Structured Streaming).
+  - Implement watermarking and event-time processing to handle late-arriving data efficiently.
+  - Avoid excessive small files by implementing auto-compaction strategies.
+- **Implement Cost Governance for Compute Resources:**
+  - Use serverless query engines (Trino, Snowflake, Google BigQuery) for ad-hoc analysis to avoid over-provisioning compute.
+  - Monitor and optimize resource usage with cost management tools (Snowflake Query Profiling, Custom Resource Utilization on Grafana etc., AWS Cost Explorer, Azure Cost Management).
+  - Implement query optimization techniques like predicate pushdown, adaptive execution, and materialized views to reduce compute costs.
+
+
+<h3 style="color: #34495e; font-size: 22px; font-weight: bold; margin-top: 25px;">
+4.5 Consumption & Analytics Layer
+</h3>
+
+The Consumption & Analytics layer in Lakehouse Architecture is where data is made accessible to end users for Business Intelligence (BI), analytics, data-science, AI/ML and any operational use cases. This layer plays a crucial role in ensuring that data consumers including analysts, data scientists and application developers can efficiently expolore, visualize and derive insights from data.
+
+Unlike traditional data warehouses, which primarily serve structured datasets through predefined reports, the Lakehouse enables multi-modal consumption, supporting both structured and unstructured data across different analytical engines and tools.
+
+**Key Functions:**
+- Self-Service Analytics & Business Intelligence (BI): Enables users to access, visualize, and analyze data using tools like Power BI, Tableau, and Looker.
+- AI/ML & Data Science Workloads: Provides direct access to Lakehouse data for advanced analytics, feature engineering, and model training.
+- SQL-Based Interactive Queries: Supports fast, ad-hoc queries on large datasets with engines like Snowflake, Databricks SQL, Trino etc.
+- Data Sharing & API Access: Facilitates external data consumption via APIs, federated queries, and real-time dashboards.
+- Data Governance & Access Control: Ensures secure, governed access to data, enabling compliance with regulatory and security policies.
 
 
 <h2 style="color: #2c3e50; font-size: 28px; font-weight: bold; margin-top: 30px; border-bottom: 2px solid #3498db; padding-bottom: 10px;">
