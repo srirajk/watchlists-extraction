@@ -1,27 +1,25 @@
 <h1 style="color: #2c3e50; font-size: 36px; font-weight: bold; text-align: center; padding: 20px; background-color: #ecf0f1; border-bottom: 4px solid #3498db;">
-  Data Architecture Reference Framework
+  Open Data Lakehouse: A Reference Framework
 </h1>
-
-
 
 <h2 style="color: #2c3e50; font-size: 28px; font-weight: bold; margin-top: 30px; border-bottom: 2px solid #3498db; padding-bottom: 10px;">
   1. Introduction
 </h2>
 
 <h3 style="color: #34495e; font-size: 22px; font-weight: bold; margin-top: 25px;">
-  1.1 Purpose of the Document
+  1.1 Purpose & Scope
 </h3>
 
-As organizations increasingly adopt modern data architectures, it is essential to establish a structured approach that ensures scalability, governance, and efficiency. While modern data platforms offer greater flexibility and capabilities, they also introduce new complexities in architecture design, technology selection, and operational best practices.
+This document provides a structured framework for designing and implementing a scalable, well-governed, and high-performance data ecosystem. It outlines key architectural principles, best practices, and considerations to help organizations build modern data platforms that are both business-aligned and technology-agnostic.
 
-This document serves as a guiding framework for designing and implementing a modern, well-governed, and high-performance data ecosystem. It outlines key architectural principles, best practices, and considerations to help organizations build scalable, secure, and business-aligned data platforms.
-
-Rather than advocating for a specific technology stack, this document focuses on architectural patterns that can be implemented using various tools and platforms, including:
-- Data Storage Formats: Apache Iceberg, Delta Lake, Apache Hudi, Snowflake Native Format, etc.
-- Compute & Processing Engines: Apache Spark (on EKS), Flink, Snowflake, Starburst, etc.
+Rather than advocating for a specific technology stack, it focuses on architectural patterns that can be implemented using various tools and platforms, including:
+- **Data Storage Formats:** Apache Iceberg, Delta Lake, Apache Hudi, Snowflake Native Format, etc.
+- **Compute & Processing Engines:** Apache Spark (on Kubernetes/EKS), Flink, Snowflake, Starburst, etc.
+- **Query & Analytics Layers:** Trino, Presto, Databricks SQL, Amazon Athena, BigQuery, etc.
+- **Metadata & Governance:** Apache Atlas, AWS Glue Data Catalog, Unity Catalog, etc.
 
 <h3 style="color: #34495e; font-size: 22px; font-weight: bold; margin-top: 25px;">
-  1.2 Scope and Objective of the Document
+  1.2 Objective of the Document
 </h3>
 
 The primary objective of this document is to provide a neutral, best-practice-based framework for designing modern data architectures. It aims to:
@@ -31,9 +29,8 @@ The primary objective of this document is to provide a neutral, best-practice-ba
 - Enable informed decision-making by presenting agnostic architectural guidelines that can be applied across different technologies.
 - Support engineering and architecture teams in implementing robust data solutions that align with both technical and business requirements.
 
-This document is intended to serve as a reference framework and does not:
+*This document provides best practices for designing data lakehouse architectures but does not prescribe a single vendor solution or specific migration path.*
 
-- Define a specific implementation roadmap for any individual use case.
 - Serve as a migration guide for legacy architectures.
 - Recommend a single vendor or technology solution for all scenarios.
 
@@ -59,7 +56,7 @@ However, neither solution alone fully meets the diverse needs of modern enterpri
 This section explores the evolution of data architectures, highlighting their capabilities, limitations, and how Lakehouse architectures address modern data challenges.
 
 <h3 style="color: #34495e; font-size: 22px; font-weight: bold; margin-top: 25px;">
-   2.1 Comparison of Architectures
+   2.1 Comparison of Architecturesthis
 </h3>
 
 ![Data Architectures Comparison.png](Data Architectures Comparison.png)
@@ -985,15 +982,319 @@ Unlike traditional data warehouses, which primarily serve structured datasets th
    5. Data Mesh & Data Product
 </h2>
 
+<h3 style="color: #34495e; font-size: 22px; font-weight: bold; margin-top: 25px;">
+5.1 The Shift to Data as a Product
+</h3>
+
+For decades, organizations have treated data as an asset something to be stored, maintained, and controlled. While this approach has helped companies accumulate vast amounts of information, it has failed to unlock the full potential of data for business users, data scientists, and decision-makers.
+
+The Data Mesh paradigm redefines how data is treated by introducing the principle of Data as a Product (DaaP). This shift applies product-thinking to data, ensuring that data is not merely collected but actively curated, maintained, and optimized to serve its consumers. This transformation represents a fundamental departure from traditional, centralized data architectures and is essential for organizations looking to scale their data-driven capabilities.
+
+**Key Considerations:**
+
+### Why Data Must Be Treated as a Product
+
+Historically, organizations measured the success of their data initiatives using vanity metrics how much data was collected, how many datasets were stored, or how much infrastructure was deployed. However, this approach led to data silos, poor discoverability, and frustrated consumers.
+
+By shifting to a Data as a Product mindset:
+
+- **Recognize data consumers as customers:** Every dataset should be designed to serve a specific audience, with usability and accessibility at its core.
+- **Measure success by adoption and usability:** Instead of focusing on storage and volume, organizations should prioritize how frequently data is accessed and how effectively it serves business use cases.
+- **Ensure accountability and ownership:** Data ownership should be embedded within domains rather than delegated to centralized IT teams.
+
+The evolution of data products mirrors the API revolution: just as APIs transformed from mere technical endpoints into robust, versioned products designed for reuse and scalability, data assets must undergo a similar metamorphosis to unlock their full potential across the organization.
+
+### Monolithic vs Decentralized Data Ownership
+
+One of the biggest challenges with traditional data architectures is the monolithic approach to data ownership.
+
+#### Monolithic Data Ownership:
+- Data is controlled by centralized IT or data teams, creating bottlenecks.
+- Business units must request access to data, delaying decision-making.
+- Complex pipelines are required to move data between teams, leading to high maintenance costs.
+- Data engineers often act as gatekeepers, leading to frustration and inefficiency.
+
+#### Decentralized Data Ownership (Data Mesh Approach):
+- Data is owned by domain-specific teams (business domains), who are responsible for its quality and governance and take full responsibility.
+- Business units have direct access to data, enabling faster decision-making.
+- Data products are designed to be interoperable and easily accessible across teams.
+- This shift eliminates bottlenecks and ensures that data is aligned with business needs.
+
+### Embedded Product Thinking Everywhere
+
+A key principle of Data as a Product is applying product management best practices to data assets. Just as modern software teams apply Agile and DevOps methodologies to improve software delivery, data teams must apply product thinking to their datasets.
+
+#### What does "Product Thinking" mean for data?
+- **Understand the user experience:** Who are the consumers of the data? What challenges do they face? What format do they need?
+- **Deliver iterative improvements:** Data products should evolve based on user feedback and changing business needs.
+- **Enable self-service:** Data should be as easy to access as modern SaaS applications without requiring complex integrations or IT intervention.
+- **Ensure clear SLAs (Service Level Agreements):** Just like APIs have performance guarantees, data products should define availability, freshness, and quality expectations.
+
+Embracing Data as a Product is not just about implementing new tools or technologies—it requires a cultural transformation within the organization:
+
+- Data should be treated as a first-class product designed with users in mind, governed with care, and optimized for adoption.
+- Ownership should shift from centralized data teams to business domains ensuring that data is aligned with real business needs.
+- Product-thinking must be embedded in how data is managed ensuring continuous improvements, usability, and trust.
+
+<h3 style="color: #34495e; font-size: 22px; font-weight: bold; margin-top: 25px;">
+5.2 Core Characteristics of a Data Product
+</h3>
+
+In a Data Mesh architecture, a Data Product is more than just a dataset; it is an independently managed, discoverable, and governed data entity that serves a specific business purpose. Each Data Product must be designed with usability in mind, ensuring that data consumers can find, trust, and seamlessly integrate the data into their workflows.
+
+To be part of a Data Mesh, a Data Product must adhere to key usability characteristics. These characteristics define the baseline quality standards for all domain-oriented data products.
+
+### Key Characteristics of a Data Product:
+
+#### 1. Discoverability
+
+The first step in a data consumer's journey is discovering the right data.
+
+- Data consumers must be able to search, explore, and find relevant data products easily.
+- In a Data Mesh, Data Products self-publish metadata, ensuring real-time visibility into availability, ownership, and usability.
+- Discoverability is critical for self-service analytics, allowing teams to find the right data without relying on IT bottlenecks.
+
+**Example:** A Regulatory Compliance Data Product containing Basel III liquidity risk metrics should be searchable by risk officers, auditors, and external regulators. Compliance teams should be able to directly discover and access risk metrics for their reporting needs without submitting manual requests to IT.
+
+#### 2. Addressability
+
+A Data Product must have a unique, consistent, and accessible interface.
+
+- Data consumers should be able to request and retrieve data via a well-defined API or query interface.
+- Each Data Product must have a unique identifier, much like an API endpoint.
+- Addressability ensures that data can be integrated into different analytical tools, AI models, and dashboards without heavy custom development.
+
+**Example:** A Market Risk Exposure Data Product should have a standardized API that portfolio managers, risk analysts, and auditors can query to retrieve daily Value at Risk (VaR) calculations across different asset classes.
+
+#### 3. Quality & Trust
+
+No one will use a product they can't trust; data is no different.
+
+- Trust in data comes from reliability, accuracy, and transparency.
+- Data Products must adhere to quality standards defined by SLAs, data governance policies, and domain-specific requirements.
+- A Data Product should communicate:
+  - **Freshness:** How up-to-date is the data?
+  - **Quality:** How accurate is the data?
+  - **Lineage:** Where did the data come from?
+
+**Example:** A Credit Risk Data Product containing loan default probabilities should provide clear lineage tracking from customer transaction history → risk scoring models → final loan approvals, ensuring complete transparency for internal auditors and regulators.
+
+#### 4. Interoperability
+
+Data Products must be designed for seamless integration with other tools and systems.
+
+- Data Products must be designed to work across different teams, tools, and cloud environments.
+- This requires standardized schemas, common data formats, and open interoperability protocols.
+- Interoperability ensures that data can be combined and reused across multiple teams without manual transformations.
+
+**Example:** A Customer Segmentation Data Product should provide standardized customer profiles that can be easily integrated into multiple systems:
+
+1. Tableau dashboards for visualizing customer segments and their financial behaviors.
+2. Python-based machine learning models in Databricks for predicting customer churn.
+3. Snowflake for ad-hoc SQL analysis of customer segments and their profitability.
+
+#### 5. Security & Compliance
+
+Data Products must enforce access controls, compliance, and governance.
+
+- Every Data Product must be secured by design, ensuring only authorized users can access it.
+- Access control should be automated and federated, rather than relying on manual approvals.
+- Governance should be embedded into the Data Product itself, not enforced via external bureaucratic processes.
+- Data Products must comply with regulatory standards (GDPR, PCI DSS, Basel III, etc.) and internal security policies.
+
+**Example:** A Customer PII Data Product containing sensitive personal information should enforce role-based access control (RBAC) to ensure that only authorized users (e.g., customer support agents, compliance officers) can access the data. The Data Product should also automatically mask or encrypt PII fields to prevent unauthorized exposure.
+
+<h3 style="color: #34495e; font-size: 22px; font-weight: bold; margin-top: 25px;">
+5.3 Domain-Driven Data Product Ownership
+</h3>
+
+In traditional data architectures, data ownership is typically centralized under a dedicated data engineering or analytics team. This structure often leads to delays, inefficiencies, and misalignment between data producers and consumers.
+
+A Data Mesh approach shifts data ownership to the business domains that generate and use the data. This means that each domain is responsible for its own data products, including their quality, usability, and accessibility.
+
+By aligning data ownership with business domains, organizations can ensure that data products remain relevant, up-to-date, and directly tied to business objectives.
+
+### Key Principles:
+
+#### 1. Data Ownership Aligned with Business Domains
+
+Those with generate and use the data should also own and govern it. 
+
+- Traditional Approach (Centralized Data Ownership)
+  - A central IT team is responsible for all data, leading to bottlenecks and slow decision-making.
+  - Business teams depend on IT for data access, reducing agility.
+  - Data models are often disconnected from real business needs. 
+- Data Mesh Approach (Domain-Driven Data Ownership)
+  - Data is owned by domain teams, the people closes to the business context.
+  - Business domains manage their own data products, ensuring relevance, accuracy and usability.
+  - This allows business teams to iterate and optimize their data independently without relying on a central IT function.
+
+#### 2. Localized Data Change to Business Domains
+
+A domain’s data model should evolve independently without breaking the entire system.
+
+- Traditional data architectures often require global schema changes, forcing multiple teams to synchronize updates, a slow and costly process.
+- Data Mesh enforces contracts that allow domains to indenpendently evolve their data models without impacting consumers.
+- Domains must provide versioned APIs and backward-compatible schemas to ensure smooth transitions.
+
+#### 3. Data Product Contracts & SLAs
+
+Data must be treated like a product, with well-defined service-level agreements (SLAs).
+
+- Each Data Product must have clear contracts defining:
+  - Data refresh frequency (e.g., hourly, daily).
+  - Schema guarantees (e.g., backward compatibility).
+  - Access policies (e.g., who can query the data). 
+  - Quality metrics (e.g., data completeness and accuracy).
+- These contracts ensure predictability and allow data consumers to rely on Data Products just like APIs
+
+#### 4. Domain-Specific Data Governance
+
+Governance is federated, each domain follows common policies while maintaining autonomy.
+
+- Instead of one size fits all governance enforced by IT, governance in a Data Mesh is federated.
+  - Each domain is responsible for compliance with regulations and internal policies.
+  - Data access and lineage are embedded into the domain’s governance processes.
+  - Standardized interoperability policies ensure data consistency across domains.
+
+#### 5. New Roles in a Domain-Driven Data Organization
+
+Data Mesh introduces new responsibilities to domain teams. These new roles embody the principles of product thinking ensuring data products continuously evolve based on user feedback, market demands, and business outcomes.
+
+- **Data Product Owner:** 
+  - Defines the vision and roadmap for the domain’s data products.
+  - Ensures that data products meet business objectives and user needs along with governance and compliance requirements.
+  - Trace KPIs and metrics to ensure data products are delivering value.
+
+- **Data Product Developer:**
+  - Works with business domain experts to build and maintain data pipelines and APIs.
+  - Ensures that Data Products meet defined SLAs and interoperability standards.
+  - Implements data transformations and quality controls.
+
+By adopting domain-driven data ownership, organizations not only accelerate decision-making but also foster accountability and agility at scale. This decentralized yet standardized approach is foundational to achieving a truly effective Data Mesh.
+
+<h3 style="color: #34495e; font-size: 22px; font-weight: bold; margin-top: 25px;">
+5.4 The Role of Data Catalogs in Data Products
+</h3>
+
+To effectively realize the vision of **Data as a Product**, organizations need more than just a traditional data catalog, they need a **Data Catalog 3.0**. This modern generation of data catalogs provides the foundation required to ensure that Data Products remain **discoverable, trustworthy, interoperable, and well-governed** across a decentralized Data Mesh architecture.
+
+### Why Data Mesh Needs Data Catalogs
+
+To successfully adopt Data Mesh and realize the benefits of decentralized, domain-driven data products, organizations require robust data catalogs built upon comprehensive metadata management.
+
+#### Why is metadata so essential?
+
+Data and business teams face overwhelming volumes of data every day. Simply collecting data is no longer sufficient; the primary challenge today is efficiently locating the right data quickly and easily when it's needed. This is precisely where metadata becomes critical.
+
+Metadata provides structure, context, and descriptive information about your data, making it Findable, Accessible, Interoperable, and Reusable (FAIR):
+
+- **Findable:** Effective metadata tagging allows users across the organization to easily search, explore, and identify relevant data, dramatically reducing the time and effort to find critical insights.
+- **Accessible:** Metadata clearly specifies how datasets can be accessed, who can access them, and under what conditions ensuring controlled yet efficient data consumption.
+- **Interoperable:** By providing standardized descriptions, schemas, and context, metadata ensures datasets from different domains can be seamlessly integrated and utilized together, preventing data silos.
+- **Reusable:** High-quality metadata ensures data products are consistently documented and described clearly, allowing reuse across multiple business contexts, improving decision-making, and driving innovation.
+
+Without effective metadata management, organizations face inefficiencies, reduced data trust, and severe governance challenges. For instance, business users struggle with ineffective searches, difficulty locating critical data, and uncertainty regarding the accuracy and relevance of data assets.
+
+Effective metadata management enabled by modern Data Catalogs is not just beneficial; it's foundational. It provides a unified, easy-to-use mechanism that makes data discovery fast, governance straightforward, and decision-making significantly more agile.
+
+### Why Traditional Data Catalogs (1.0 and 2.0) Fell Short
+
+To understand the need for a modern, federated Data Catalog 3.0, it's critical to examine why earlier generations of data catalogs struggled to meet the evolving demands of modern organizations.
+
+#### Data Catalog 1.0: IT-Controlled Metadata Repositories (1990s–2010s)
+
+In the initial wave of enterprise data management (1990s–2010s), data catalogs emerged as centralized repositories controlled by IT departments. They primarily focused on inventorying technical metadata, such as schemas, data locations, storage formats, and technical ownership. Tools like Oracle's Metadata Manager and Informatica's Metadata Repository typified this era, emphasizing centralized metadata documentation and control.
+
+##### Core Characteristics:
+- Static metadata inventory: Designed primarily to document and record metadata that seldom changed, reflecting an era when data was relatively stable.
+- IT-centric ownership: Exclusively maintained and governed by IT or data engineering teams, often disconnected from business needs and contexts.
+- Manual updates: Updates to metadata were typically manual, resulting in rapidly outdated information and metadata inconsistencies.
+- Limited accessibility: Business users lacked self-service access; interaction required requests to IT teams, leading to slow, frustrating processes.
+
+##### Limitations & Challenges:
+- Inefficient discovery: Users found it difficult or impossible to search and explore data on their own, creating dependencies on IT and significant delays in data-driven decision-making.
+- Data distrust: Outdated metadata led users to question the accuracy and relevance of data, creating mistrust and low adoption rates.
+- Maintenance overhead: IT teams became overwhelmed by manual documentation requirements, creating a metadata bottleneck and reducing the responsiveness of the data platform.
+
+In summary, Data Catalog 1.0 quickly became insufficient as organizations faced rapidly evolving and expanding data environments, driven by the advent of big data and cloud adoption.
+
+#### Data Catalog 2.0: Governance-Focused but Centralized
+
+The emergence of cloud computing, big data platforms (e.g., Hadoop), and increased regulatory demands (such as GDPR and financial compliance standards like Basel III) drove the evolution of data catalogs into their second generation. Tools such as Collibra, Alation, and Apache Atlas were introduced to address governance, compliance, and stewardship issues that arose due to rapid data growth and complexity.
+
+##### Core Characteristics:
+- Governance-focused: Second-generation catalogs provided improved mechanisms for data governance, tracking data lineage, compliance reporting, and managing data quality and regulatory compliance.
+- Introduction of Data Stewards: Specialized roles were created to oversee data quality, manage access, and maintain the context and metadata.
+- Improved metadata capture: Provided automated ingestion of metadata, reducing some manual overhead associated with catalog maintenance.
+- Business context addition: These tools captured business terms and definitions, providing greater context to data beyond technical metadata alone.
+
+##### Limitations & Challenges:
+- Centralization bottlenecks persisted: Despite improvements, metadata governance still largely rested within central IT teams or specialized Data Stewardship groups. This centralized control resulted in delays and inefficiencies, particularly in large or complex organizations with many distributed data teams.
+- Lack of agility and flexibility: Governance processes remained rigid, limiting the ability of business domains to independently evolve their data models and metadata structures. Changes still required central approvals, slowing innovation.
+- Struggles with complexity and volume: These catalogs struggled to effectively manage and govern metadata across distributed cloud environments, real-time streaming data, and emerging complex ecosystems (multi-cloud, hybrid, and real-time use cases).
+
+Consequently, although Data Catalog 2.0 addressed many governance-related needs, the inherent limitations of centralization remained a significant obstacle. This shortcoming highlighted the need for a new generation of data catalogs built explicitly for decentralized governance, interoperability, and dynamic, real-time environments—precisely the scenario that Data Mesh aims to address.
+
+### Introducing Data Catalog 3.0: The Modern Foundation for Data Mesh
+
+![Data Catalog 3.png](Data Catalog 3.png)
+
+To overcome the challenges posed by traditional data catalogs, a new generation Data Catalog 3.0 has emerged, specifically designed for the complexities of modern data ecosystems and the federated nature of Data Mesh architectures. Unlike its predecessors, Data Catalog 3.0 places metadata at the core of data management, enabling organizations to achieve true decentralization, agility, and governance.
+
+#### Key Features of Data Catalog 3.0:
+
+##### Active, Real-Time Metadata:
+Modern data environments in financial institutions are dynamic and rapidly evolving—legacy metadata approaches simply cannot keep pace.
+Data Catalog 3.0 solves this through:
+- **Continuous metadata updates:** Automatically capturing changes, data usage patterns, and lineage in real-time, so metadata is always current and trustworthy.
+- Enables analysts, traders, and compliance teams to rapidly discover the most accurate and relevant datasets.
+
+##### Embedded Collaboration & Crowdsourced Stewardship:
+Traditional catalogs relied heavily on centralized data stewards, causing delays and inaccuracies. Data Catalog 3.0 shifts this paradigm by empowering domain experts to collaborate directly through intuitive, modern user interfaces. Data consumers contribute metadata directly, enhancing trust and relevance.
+
+##### Federated Computational Governance:
+Rather than enforcing governance through centralized, manual processes, Data Catalog 3.0 enables federated, automated governance embedded within each data product.
+- Allows each financial domain to maintain autonomy while adhering to enterprise-wide standards and regulatory compliance requirements (Basel III, GDPR, PCI DSS, CCAR).
+- Automates access control, lineage tracing, data masking, and regulatory reporting, eliminating bureaucratic overhead and reducing compliance risk.
+
+##### Built for Interoperability and Decentralization:
+Designed explicitly for decentralized data architectures, Data Catalog 3.0 ensures seamless interoperability across tools, platforms, and clouds, effectively preventing data silos.
+- Supports open standards and common data formats (e.g., Delta Lake, Iceberg, FIX, XBRL).
+- Allows domain teams autonomy while maintaining enterprise-wide consistency through standard protocols and APIs.
+
+### How Data Catalog 3.0 Enables Data Mesh Success
+
+Data Catalog 3.0 directly addresses the critical limitations of traditional approaches:
+
+| Traditional Catalogs (1.0 & 2.0)    | Data Catalog 3.0 (Modern & Federated)                     |
+|-------------------------------------|-----------------------------------------------------------|
+| Static metadata, quickly outdated   | Real-time, continuously updated metadata                  |
+| Centralized, IT-driven bottlenecks  | Decentralized, federated governance                       |
+| Slow, manual compliance enforcement | Automated, embedded regulatory compliance                 |
+| Limited interoperability            | Interoperability across platforms, tools, and domains     |
+| Poor usability, adoption barriers   | User-friendly, collaborative, embedded in daily workflows |
+
+By using **Data Catalog 3.0**, organizations effectively enable **domain autonomy**, democratize **data discovery**, and facilitate the creation of trusted **data products**—all critical foundations for implementing a successful Data Mesh architecture.
+
+### Why Data Catalog 3.0 is Essential for Organizations
+
+Adopting a Data Catalog 3.0 is vital for any organization aiming to become genuinely data-driven. By eliminating traditional barriers such as centralized bottlenecks, outdated metadata, and rigid governance processes it empowers domain teams to innovate quickly, collaborate effectively, and align data directly with strategic business outcomes.
+
+Organizations leveraging Data Catalog 3.0 benefit from significantly enhanced agility, stronger regulatory compliance, and seamless interoperability, laying a resilient and scalable foundation that turns data from a mere operational asset into a genuine competitive advantage. In essence, Data Catalog 3.0 is the cornerstone for building an effective, adaptable, and sustainable Data Mesh.
+
+
+WIP
+
 
 <h2 style="color: #2c3e50; font-size: 28px; font-weight: bold; margin-top: 30px; border-bottom: 2px solid #3498db; padding-bottom: 10px;">
-   6. AI/ML Integration & Advanced Use Cases
+         6. AI/ML Integration & Advanced Use Cases
 </h2>
 
-	•	How AI/ML Fits into the Lakehouse Model
-	•	Feature Engineering & Model Training
-	•	MLOps: Model Deployment & Governance
-	•	Generative AI & Large-Scale Analytics
+          •	How AI/ML Fits into the Lakehouse Model
+          •	Feature Engineering & Model Training
+          •	MLOps: Model Deployment & Governance
+          •	Generative AI & Large-Scale Analytics
 
 
 <h2 style="color: #2c3e50; font-size: 28px; font-weight: bold; margin-top: 30px; border-bottom: 2px solid #3498db; padding-bottom: 10px;">
@@ -1018,3 +1319,6 @@ This section contains links to resources that were instrumental in the creation 
 - https://www.montecarlodata.com/blog-data-lakehouse-architecture-5-layers/
 - https://renta.im/blog/data-warehouse-vs-data-lake-vs-data-lakehouse/
 - https://www.altexsoft.com/blog/data-lakehouse/
+- https://atlan.com/business-data-catalog/#what-is-a-business-data-catalog
+- https://hevodata.com/learn/data-catalog-3-0/
+- https://medium.com/data-governed/how-generative-ai-will-revolutionize-data-catalogs-6a3127f832bd
