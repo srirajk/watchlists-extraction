@@ -984,7 +984,6 @@ Unlike traditional data warehouses, which primarily serve structured datasets th
 </h2>
 
 
-
 <h2 style="color: #2c3e50; font-size: 28px; font-weight: bold; margin-top: 30px; border-bottom: 2px solid #3498db; padding-bottom: 10px;">
    6. AI/ML Integration & Advanced Use Cases
 </h2>
@@ -994,6 +993,7 @@ Unlike traditional data warehouses, which primarily serve structured datasets th
 	•	MLOps: Model Deployment & Governance
 	•	Generative AI & Large-Scale Analytics
 
+
 <h2 style="color: #2c3e50; font-size: 28px; font-weight: bold; margin-top: 30px; border-bottom: 2px solid #3498db; padding-bottom: 10px;">
    7. Bringing It All Together (Summary)
 
@@ -1002,3 +1002,17 @@ Unlike traditional data warehouses, which primarily serve structured datasets th
 	•	Future Roadmap & Evolving Trends (How modern data architectures will evolve further)
 	•	Call to Action for Teams (Next steps for different teams to enable success in the organization)
 </h2>
+
+<h2 style="color: #2c3e50; font-size: 28px; font-weight: bold; margin-top: 30px; border-bottom: 2px solid #3498db; padding-bottom: 10px;">
+   8. References and Additional Resources
+</h2>
+
+This section contains links to resources that were instrumental in the creation of this document:
+
+- https://www.dremio.com/blog/lakehouse-governance/
+- https://www.dremio.com/topics/data-lakehouse/features/data-governance/
+- https://www.e6data.com/blog/low-level-metadata-catalogs-lakehouses
+- https://www.onehouse.ai/blog/open-table-formats-and-the-open-data-lakehouse-in-perspective
+- https://www.montecarlodata.com/blog-data-lakehouse-architecture-5-layers/
+- https://renta.im/blog/data-warehouse-vs-data-lake-vs-data-lakehouse/
+- https://www.altexsoft.com/blog/data-lakehouse/
