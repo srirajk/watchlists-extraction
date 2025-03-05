@@ -8,3 +8,5 @@ output/
 .idea/
 
 /src/vectorized_udf_examples/spark_regex.py
+
+Data Products.pdf

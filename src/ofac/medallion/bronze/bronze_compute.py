@@ -6,7 +6,7 @@ from pyspark.sql import SparkSession
 from pyspark.sql.functions import col, explode, current_timestamp, lit, date_format, date_trunc
 from pyspark.sql.utils import AnalysisException
 
-from src.ofac.schemas import distinct_party_schema, id_reg_documents_schema
+from src.ofac.schemas import distinct_party_schema, id_reg_documents_schema, location_schema
 from src.ofac.utility import load_config
 
 def create_spark_session():
@@ -45,6 +45,8 @@ def process_bronze_layer(spark, config, input_file, current_ts):
     
     # Create bronze database if not exists
     spark.sql("CREATE DATABASE IF NOT EXISTS bronze")
+
+
     
     # Process DistinctParty data
     distinct_parties_df = spark.read \
@@ -82,6 +84,25 @@ def process_bronze_layer(spark, config, input_file, current_ts):
     
     # Create or append to bronze.identities table
     create_or_append(spark, id_reg_documents_df, "bronze.identities")
+    
+
+
+    # Process Locations data
+    locations_df = spark.read \
+        .format("com.databricks.spark.xml") \
+        .option("rowTag", "Location") \
+        .schema(location_schema) \
+        .load(distinct_party_xml)
+
+    locations_df.printSchema()
+
+    # Add extraction timestamp and source name
+    locations_df = locations_df.withColumn("extraction_timestamp", lit(current_ts)) \
+        .withColumn("source_name", lit("OFAC")) \
+        .withColumn("input_file", lit(input_file))
+
+    create_or_append(spark, locations_df, "bronze.locations")
+
 
 def main():
     if len(sys.argv) != 2:

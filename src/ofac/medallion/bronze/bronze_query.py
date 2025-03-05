@@ -34,6 +34,8 @@ df = spark.sql("select * from bronze.distinct_parties LIMIT 30")
 #df.printSchema()
 df.show()
 
+spark.sql("select distinct extraction_timestamp from bronze.distinct_parties").show()
+
 print("Identities Table")
 identities_df = spark.sql("select * from bronze.identities LIMIT 30")
 #identities_df.printSchema()

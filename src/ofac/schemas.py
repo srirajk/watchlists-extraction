@@ -1,4 +1,4 @@
-from pyspark.sql.types import StructType, StructField, StringType, LongType, BooleanType, ArrayType
+from pyspark.sql.types import StructType, StructField, StringType, LongType, BooleanType, ArrayType, MapType
 
 distinct_party_schema = StructType([
     StructField("_FixedRef", StringType(), True),
@@ -46,18 +46,23 @@ distinct_party_schema = StructType([
         StructField("Feature", ArrayType(StructType([
             StructField("_ID", LongType(), True),
             StructField("_FeatureTypeID", LongType(), True),
-            StructField("FeatureVersion", StructType([
+            StructField("FeatureVersion", ArrayType(StructType([
                 StructField("_ReliabilityID", LongType(), True),
                 StructField("_ID", LongType(), True),
                 StructField("Comment", StringType(), True),
-                StructField("VersionLocation", StructType([
+                StructField("VersionDetail", ArrayType(StructType([
+                  StructField("_DetailReferenceID", StringType(), True),
+                  StructField("_DetailTypeID", LongType(), True),
+                  StructField("_VALUE", StringType(), True)
+                ])), True),
+                StructField("VersionLocation", ArrayType(StructType([
                     StructField("_LocationID", LongType(), True)
-                ]))
-            ])),
-            StructField("IdentityReference", StructType([
+                ])), True)
+            ])), True),
+            StructField("IdentityReference", ArrayType(StructType([
                 StructField("_IdentityID", LongType(), True),
                 StructField("_IdentityFeatureLinkTypeID", LongType(), True)
-            ]))
+            ])), True)
         ]))),
         StructField("SanctionsEntryReference", ArrayType(StructType([
             StructField("_SanctionsEntryID", LongType(), True),
@@ -149,6 +154,119 @@ id_reg_documents_schema = StructType([
         StructField("_DocumentedNameID", LongType(), True)
     ])), True)
 ])
+
+
+
+# Location Schema
+
+location_schema = StructType([
+    StructField("_ID", LongType(), True),
+    StructField("FeatureVersionReference", ArrayType(StructType([
+        StructField("_FeatureVersionID", LongType(), True),
+        StructField("_VALUE", StringType(), True)
+    ])), True),
+    StructField("IDRegDocumentReference", ArrayType(StructType([
+        StructField("_IDRegDocumentID", LongType(), True),
+        StructField("_VALUE", StringType(), True)
+    ])), True),
+    StructField("LocationAreaCode", ArrayType(StructType([
+        StructField("_AreaCodeID", LongType(), True),
+        StructField("_VALUE", StringType(), True)
+    ])), True),
+    StructField("LocationCountry", ArrayType(StructType([
+        StructField("_CountryID", LongType(), True),
+        StructField("_CountryRelevanceID", LongType(), True),
+        StructField("_VALUE", StringType(), True)
+    ])), True),
+    StructField("LocationPart", ArrayType(StructType([
+        StructField("_LocPartTypeID", LongType(), True),
+        StructField("LocationPartValue", ArrayType(StructType([
+            StructField("Comment", StringType(), True),
+            StructField("Value", StringType(), True),
+            StructField("_LocPartValueStatusID", LongType(), True),
+            StructField("_LocPartValueTypeID", LongType(), True),
+            StructField("_Primary", BooleanType(), True)
+        ])), True)
+    ])), True)
+])
+
+
+# Schema for version details in feature_versions
+version_detail_schema = StructType([
+    StructField("value", StringType(), True),
+    StructField("detail_type_id", LongType(), True),
+    StructField("detail_type", StringType(), True),
+    StructField("detail_reference_id", LongType(), True),
+    StructField("detail_reference", StringType(), True)
+])
+
+# Schema for feature versions
+feature_version_schema = StructType([
+    StructField("reliability_id", LongType(), True),
+    StructField("reliability_value", StringType(), True),
+    StructField("version_id", LongType(), True),
+    StructField("versions", ArrayType(version_detail_schema), True),
+    StructField("locations", ArrayType(LongType()), True)
+])
+
+# Schema for feature
+feature_schema = ArrayType(StructType([
+    StructField("feature_id", LongType(), True),
+    StructField("feature_type_id", LongType(), True),
+    StructField("feature_type_value", MapType(StringType(), StringType()), True),
+    StructField("feature_type_group_id", LongType(), True),
+    StructField("feature_type_group_value", StringType(), True),
+    StructField("feature_versions", ArrayType(feature_version_schema), True)
+]), True)
+
+enriched_location_schema = StructType([
+    StructField("location_id", LongType(), True),
+    StructField("location_area", ArrayType(StructType([
+        StructField("area_code", MapType(StringType(), StringType()), True),
+        StructField("area_code_type", StringType(), True)
+    ])), True),
+    StructField("location_country", ArrayType(StructType([
+        StructField("country", MapType(StringType(), StringType()), True),
+        StructField("country_relevance", StringType(), True)
+    ])), True),
+    StructField("location_parts", ArrayType(StructType([
+        StructField("location_part_type_id", LongType(), True),
+        StructField("location_part_type", StringType(), True),
+        StructField("parts", ArrayType(StructType([
+            StructField("location_party_type_value_id", LongType(), True),
+            StructField("location_party_type_value", StringType(), True),
+            StructField("location_part_value_status_id", LongType(), True),
+            StructField("location_part_value_status", StringType(), True),
+            StructField("location_value", StringType(), True),
+            StructField("is_primary", BooleanType(), True)
+        ])), True)
+    ])), True)
+])
+
+enriched_feature_version_schema = StructType([
+    StructField("reliability_id", LongType(), True),
+    StructField("reliability_value", StringType(), True),
+    StructField("version_id", LongType(), True),
+    StructField("versions", ArrayType(StructType([
+        StructField("value", StringType(), True),
+        StructField("detail_type_id", LongType(), True),
+        StructField("detail_type", StringType(), True),
+        StructField("detail_reference_id", LongType(), True),
+        StructField("detail_reference", StringType(), True),
+    ])), True),
+    StructField("locations", ArrayType(enriched_location_schema), True)  # This will be enriched
+])
+
+# Schema for return feature_versions
+enriched_feature_schema = ArrayType(StructType([
+    StructField("feature_id", LongType(), True),
+    StructField("feature_type_id", LongType(), True),
+    StructField("feature_type_value", MapType(StringType(), StringType()), True),
+    StructField("feature_type_group_id", LongType(), True),
+    StructField("feature_type_group_value", StringType(), True),
+    StructField("feature_versions", ArrayType(enriched_feature_version_schema), True)
+]), True)
+
 
 
 # # Define the schema for DateBoundarySchemaType

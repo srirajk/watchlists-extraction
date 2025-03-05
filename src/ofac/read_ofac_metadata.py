@@ -20,7 +20,7 @@ reference_data_base_path = "/Users/srirajkadimisetty/projects/watchlists-extract
 
 
 # Define the output file path
-output_file_path = f"{reference_data_base_path}/reference_values_map_new.json"
+output_file_path = f"{reference_data_base_path}/reference_values_map.json"
 
 # Define the schema if known, otherwise Spark will infer it
 # Reading XML Data

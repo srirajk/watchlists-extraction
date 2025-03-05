@@ -1,11 +1,15 @@
+import copy
 import sys
 
 from pyspark.sql import SparkSession
+from pyspark.sql import functions as F
 from pyspark.sql.functions import col, struct, collect_list, udf, explode, lit, md5, concat, when, to_json, concat_ws, \
-    monotonically_increasing_id, size, date_format, date_trunc
+    monotonically_increasing_id, size, date_format, date_trunc, explode_outer, array
 from pyspark.sql.types import ArrayType, StructType, StructField, StringType, BooleanType, LongType, MapType
 
-from src.ofac.custom_udfs import enrich_profile_data_udf, transform_document
+from src.ofac.custom_udfs import enrich_profile_data_udf, transform_document, enrich_location, enrich_features, \
+    deep_asdict
+from src.ofac.schemas import feature_schema, enriched_feature_schema
 
 from src.ofac.utility import load_config
 
@@ -43,6 +47,8 @@ record_schema = StructType([
         StructField("id_registration_number", StringType(), nullable=True),
         StructField("document_dates", StringType(), nullable=True)
     ])), nullable=True),
+    StructField("feature_updated_hash", StringType(), nullable=True),
+    StructField("feature_updated", enriched_feature_schema, nullable=True),
     StructField("documents_hash", StringType(), nullable=True),
     StructField("version", LongType(), nullable=True),  # Added for old data
     StructField("active_flag", StringType(), nullable=True),  # Added for old data
@@ -51,30 +57,210 @@ record_schema = StructType([
 ])
 
 
+def get_locations_by_location_ref_id(spark, locations_df):
+
+   # locations_df = locations_df.filter(col("IDRegDocumentReference").isNotNull())
+
+    process_locations_udf = udf(lambda row: enrich_location(row),
+                                StructType([
+                                    StructField("location_id", LongType(), True),
+                                    StructField("feature_version_refs", ArrayType(LongType()), True),
+                                    StructField("id_document_refs", ArrayType(LongType()), True),
+                                    StructField("location_area", ArrayType(
+                                        StructType([
+                                            StructField("area_code", MapType(StringType(), StringType()), True),
+                                            StructField("area_code_type", StringType(), True)
+                                        ])
+                                    ), True),
+                                    StructField("location_country", ArrayType(
+                                        StructType([
+                                            StructField("country", MapType(StringType(), StringType()), True),
+                                            StructField("country_relevance", StringType(), True)
+                                        ])
+                                    ), True),
+                                    StructField("location_parts", ArrayType(
+                                        StructType([
+                                            StructField("location_part_type_id", LongType(), True),
+                                            StructField("location_part_type", StringType(), True),
+                                            StructField("parts", ArrayType(
+                                                StructType([
+                                                    StructField("location_party_type_value_id", LongType(), True),
+                                                    StructField("location_party_type_value", StringType(), True),
+                                                    StructField("location_part_value_status_id", LongType(), True),
+                                                    StructField("location_part_value_status", StringType(), True),
+                                                    StructField("location_value", StringType(), True),
+                                                    StructField("is_primary", BooleanType(), True)
+                                                ])
+                                            ), True)
+                                        ])
+                                    ), True),
+                                ])
+                                )
+
+    locations_enriched_df = locations_df.withColumn("enriched_location",
+                                                    process_locations_udf(struct(*locations_df.columns)))
+
+    locations_enriched_df = locations_enriched_df.select(
+        col("enriched_location.location_id").alias("location_id"),
+        col("enriched_location.feature_version_refs").alias("feature_version_refs"),
+        col("enriched_location.id_document_refs").alias("id_document_refs"),
+        col("enriched_location.location_area").alias("location_area"),
+        col("enriched_location.location_country").alias("location_country"),
+        col("enriched_location.location_parts").alias("location_parts"),
+    )
+
+    return locations_enriched_df
+
+
+from pyspark.sql.functions import col, explode, struct, collect_list, when, lit, first
+
+def enrich_profiles_with_locations(spark, profiles_df, locations_df):
+    """
+    Enhances profiles_df with location information from locations_df
+    while preserving the original `feature` column and ensuring nested feature updates
+    only apply to primary records.
+    """
+
+    # print("Before merge")
+    # profiles_df.filter(col("profile_id") == 735).show(truncate=False, vertical=True)
+
+    # Step 1: Preserve the original `feature` column before transformations
+    profiles_df = profiles_df.withColumn("original_feature", col("feature"))
+
+    # Step 2: Separate primary and non-primary records
+    primary_profiles_df = profiles_df.filter(col("is_primary") == True)
+    non_primary_profiles_df = profiles_df.filter(col("is_primary") == False)
+
+    # Step 3: Explode feature array (each feature gets its own row)
+    exploded_profiles_df = primary_profiles_df.withColumn("feature", explode(col("feature")))
+
+    # Step 4: Extract feature_id since we need to group by it later
+    exploded_profiles_df = exploded_profiles_df.withColumn("feature_id", col("feature.feature_id"))
+
+    # Step 5: Explode feature_versions array (each feature_version gets its own row)
+    exploded_profiles_df = exploded_profiles_df.withColumn("feature_version", explode(col("feature.feature_versions")))
+
+    # Step 6: Extract feature_version_id
+    exploded_profiles_df = exploded_profiles_df.withColumn("feature_version_id", col("feature_version.version_id"))
+
+    # Step 7: Explode locations array (extract location_id for joining)
+    exploded_profiles_df = exploded_profiles_df.withColumn(
+        "location_id",
+        explode(when(col("feature_version.locations").isNotNull(), col("feature_version.locations")).otherwise(array()))
+    )
+
+    # Step 8: Perform left join to bring location data
+    joined_df = exploded_profiles_df.join(locations_df, on=["location_id"], how="left")
+
+    #joined_df.filter(col("profile_id") == 735).show(truncate=False, vertical=True)
+
+    # Step 9: Aggregate locations per feature_version_id
+    feature_version_grouped = joined_df.groupBy("profile_id", "feature_id", "feature_version_id").agg(
+        collect_list(
+            struct(
+                col("location_id"),
+                col("location_area"),
+                col("location_country"),
+                col("location_parts")
+            )
+        ).alias("locations")
+    )
+
+    # Step 10: Merge enriched locations back into feature_versions
+    feature_versions_enriched_df = (
+        exploded_profiles_df
+        .join(feature_version_grouped, ["profile_id", "feature_id", "feature_version_id"], how="left")
+        .groupBy("profile_id", "feature_id")
+        .agg(
+            collect_list(
+                struct(
+                    col("feature_version.reliability_id"),
+                    col("feature_version.reliability_value"),
+                    col("feature_version.version_id"),
+                    col("feature_version.versions"),
+                    col("locations")  # Assign enriched locations
+                )
+            ).alias("feature_versions")
+        )
+    )
+
+    # Step 11: Merge enriched `feature_versions` back into `feature`
+    feature_enriched_df = (
+        feature_versions_enriched_df
+        .groupBy("profile_id")  # Group all features under each profile
+        .agg(
+            collect_list(
+                struct(
+                    col("feature_id"),
+                    col("feature_versions")  # Enriched feature_versions with locations
+                )
+            ).alias("feature_enriched")  # Reconstruct the `feature` array
+        )
+    )
+
+    # Step 12: Merge `feature` **only into primary records**
+    enriched_primary_df = primary_profiles_df.join(feature_enriched_df, on=["profile_id"], how="left")
+
+    # Step 13: Restore non-primary records **without modification**
+    enriched_df = enriched_primary_df.unionByName(non_primary_profiles_df, allowMissingColumns=True)
+
+    # Step 14: Apply the UDF to enrich the original feature column
+    final_df = enriched_df.withColumn(
+        "feature_updated",
+        enrich_features(col("original_feature"), col("feature_enriched"), col("is_primary"))
+    ).drop("feature_enriched", "original_feature", "feature")  # Drop temporary columns
+
+    final_df = final_df.withColumn("feature_updated_hash",
+                       when(col("feature_updated").isNotNull(),
+                            md5(to_json(col("feature_updated"))))
+                       .otherwise(lit(None)))
+
+
+    return final_df
+
 def enrich_current_data_extraction(spark, extraction_timestamp):
+
+    locations_df = spark.read.format("iceberg").table("bronze.locations").filter(
+        col("extraction_timestamp") == extraction_timestamp)
+
+    locations_df = get_locations_by_location_ref_id(spark, locations_df)
+
+    locations_df.show(truncate=False)
+    locations_df.printSchema()
+
     distinct_parties_df = spark.read.format("iceberg").table("bronze.distinct_parties").filter(
         col("extraction_timestamp") == extraction_timestamp)
     #distinct_parties_df.show(truncate=False)
     distinct_parties_enriched_df = get_profile_df(spark, distinct_parties_df)
 
+    distinct_parties_enriched_df.show(truncate=False)
+
+    distinct_parties_enriched_df.printSchema()
+
+    distinct_parties_with_locations_enriched_df = enrich_profiles_with_locations(spark, distinct_parties_enriched_df, locations_df)
+
+    #print("Distinct Parties with Locations Enriched")
+    #distinct_parties_with_locations_enriched_df.show(truncate=False)
+    #distinct_parties_with_locations_enriched_df.printSchema()
+
     identities_df = spark.read.format("iceberg").table("bronze.identities").filter(
         col("extraction_timestamp") == extraction_timestamp)
-    #identities_df.show(truncate=False)
-    id_documents_grouped_by_identity_df = get_id_reg_documents_df(spark, identities_df)
 
-    # Merge distinct_parties_enriched_df and id_documents_grouped_by_identity_df
-    ofac_enriched_data_df = distinct_parties_enriched_df.join(
+    id_documents_grouped_by_identity_df = get_id_reg_documents_df(spark, identities_df, locations_df)
+
+    # Merge distinct_parties_with_locations_enriched_df and id_documents_grouped_by_identity_df
+    ofac_enriched_data_df = distinct_parties_with_locations_enriched_df.join(
         id_documents_grouped_by_identity_df,
-        (distinct_parties_enriched_df["identity_id"] == id_documents_grouped_by_identity_df["identity_id"]) & (
-                    distinct_parties_enriched_df["is_primary"] == True),  # Join on identity_id and is_primary
+        (distinct_parties_with_locations_enriched_df["identity_id"] == id_documents_grouped_by_identity_df["identity_id"]) & (
+                distinct_parties_with_locations_enriched_df["is_primary"] == True),  # Join on identity_id and is_primary
         "left"
     ).drop(id_documents_grouped_by_identity_df["identity_id"])  # Drop the duplicate identity_id column
 
     return ofac_enriched_data_df
 
 
+def get_id_reg_documents_df(spark, identities_df, locations_df):
 
-def get_id_reg_documents_df(spark, identities_df):
     # UDF to transform id_reg_documents_df rows
     id_reg_documents_transformed_udf = udf(lambda row: transform_document(row), MapType(StringType(), StringType()))
 
@@ -89,7 +275,8 @@ def get_id_reg_documents_df(spark, identities_df):
             col("DocumentDate"),
             col("Comment"),
             col("IDRegistrationNo"),
-            col("IssuingAuthority")
+            col("IssuingAuthority"),
+            col("_IssuedIn-LocationID")
         ))
     )
 
@@ -100,8 +287,24 @@ def get_id_reg_documents_df(spark, identities_df):
         col("transformed_document.issuing_country").alias("issuing_country"),
         col("transformed_document.id_reg_document_id").alias("id_reg_document_id"),
         col("transformed_document.id_registration_number").alias("id_registration_number"),
-        col("transformed_document.document_dates").alias("document_dates")
+        col("transformed_document.document_dates").alias("document_dates"),
+        col("transformed_document.location_id").alias("issued_in_location_id")
     )
+
+    # Join with Location df to enrich the issued_in_location_id
+    id_reg_documents_enriched_df = id_reg_documents_enriched_df.join(
+        locations_df,
+        id_reg_documents_enriched_df["issued_in_location_id"] == locations_df["location_id"],
+        "left"
+    ).select(
+        id_reg_documents_enriched_df["*"],
+        struct(
+            col("location_id").alias("id"),
+            col("location_area").alias("area"),
+            col("location_country").alias("country"),
+            col("location_parts").alias("parts")
+        ).alias("issued_in_location")
+    ).drop("issued_in_location_id")
 
     id_documents_grouped_by_identity_df = id_reg_documents_enriched_df.groupBy("identity_id").agg(
         collect_list(
@@ -110,15 +313,18 @@ def get_id_reg_documents_df(spark, identities_df):
                 col("issuing_country"),
                 col("id_reg_document_id"),
                 col("id_registration_number"),
-                col("document_dates")
+                col("document_dates"),
+                col("issued_in_location")
             )
         ).alias("id_documents"))
 
-    # id_reg_documents_enriched_df = id_reg_documents_enriched_df.withColumn("documents_hash", md5(to_json(col("id_documents"))))
-    #id_documents_grouped_by_identity_df.show(truncate=False)
+
     id_documents_grouped_by_identity_df = id_documents_grouped_by_identity_df.withColumn("documents_hash", md5(to_json(
         col("id_documents"))))
-    #id_documents_grouped_by_identity_df.show(truncate=False)
+
+    id_documents_grouped_by_identity_df.show(truncate=False)
+
+    id_documents_grouped_by_identity_df.filter(col("identity_id") == 7157).show(truncate=False)
     return id_documents_grouped_by_identity_df
 
 
@@ -134,6 +340,7 @@ def get_profile_df(spark, distinct_parties_df):
                 StructField("documented_names", ArrayType(MapType(StringType(), StringType()))),
                 StructField("party_sub_type", StringType(), True),
                 StructField("party_type", StringType(), True),
+                StructField("feature", feature_schema, True)
             ])
         )
     )
@@ -156,6 +363,7 @@ def get_profile_df(spark, distinct_parties_df):
         col("_FixedRef"),
         col("enriched_party_data.party_sub_type").alias("party_sub_type"),
         col("enriched_party_data.party_type").alias("party_type"),
+        col("enriched_party_data.feature").alias("feature")
     )
 
     distinct_parties_enriched_df = distinct_parties_enriched_df.withColumn(
@@ -226,7 +434,8 @@ from pyspark.sql.types import ArrayType
 # Define the schema for the decision records
 decision_schema = StructType([
     StructField("action", StringType(), True),
-    StructField("data", record_schema, True)  # Use the record_schema here
+    StructField("data", record_schema, True), # Use the record_schema here
+    StructField("update_type", StringType(), True),
 ])
 
 # Define the schema for the UDF output
@@ -251,7 +460,6 @@ def compare_alias_data(new_data, existing_data):
     decisions = []
     active_existing_data = []
     processed_deletes_aliases = []
-
     #print(f"New Data: {new_data}")
     #print(f"Existing Data: {existing_data}")
 
@@ -262,10 +470,11 @@ def compare_alias_data(new_data, existing_data):
     if not active_existing_data:
         # If no active records exist, insert all new records
         for record in new_data:
-            new_record = record.asDict()
+            #new_record = record.asDict()
+            new_record = deep_asdict(record)
             new_record["version"] = 1
             new_record["active_flag"] = "Y"
-            decisions.append(Row(action="insert", data=new_record))  # Convert Row to dict using asDict()
+            decisions.append(Row(action="insert", data=new_record, update_type=None))  # Convert Row to dict using asDict()
     else:
         # Existing active alias records (indexed by alias_hash)
         existing_aliases = {rec["alias_hash"]: rec for rec in active_existing_data}
@@ -278,38 +487,55 @@ def compare_alias_data(new_data, existing_data):
                 existing_record = existing_aliases[alias_hash]
 
                 if new_record["is_primary"]:
-                    if new_record["documents_hash"] != existing_record["documents_hash"]:
+                    documents_updated = new_record["documents_hash"] != existing_record["documents_hash"]
+                    features_updated = new_record["feature_updated_hash"] != existing_record["feature_updated_hash"]
+                    #if new_record["documents_hash"] != existing_record["documents_hash"]:
+                    if documents_updated or features_updated:
                         #Deactivate existing primary record
-                        existing_inactive = existing_record.asDict()  # Convert Row to dict
+                        #existing_inactive = existing_record.asDict()  # Convert Row to dict
+                        existing_inactive = deep_asdict(existing_record)
                         existing_inactive["active_flag"] = "N"
-                        decisions.append(Row(action="delete", data=existing_inactive))
+                        decisions.append(Row(action="delete", data=existing_inactive, update_type=None))
 
                         # Store as dict inside Row
 
                         # Insert updated version
-                        updated_record = new_record.asDict()  # Convert Row to dict
+                        #updated_record = new_record.asDict()  # Convert Row to dict
+                        updated_record = deep_asdict(new_record)
+                        # TODO add a column to mention if the feature or documents are updated
+                        # Instead of two separate flags, create a single update_type column
+                        update_type = None
+                        if documents_updated and features_updated:
+                            update_type = "BOTH"
+                        elif documents_updated:
+                            update_type = "DOCUMENTS"
+                        elif features_updated:
+                            update_type = "FEATURES"
+
                         updated_record["alias_id"] = existing_record["alias_id"]
                         updated_record["app_profile_id"] = existing_record["app_profile_id"]
                         updated_record["version"] = existing_record["version"] + 1
                         updated_record["active_flag"] = "Y"
-                        decisions.append(Row(action="update", data=updated_record))
+                        decisions.append(Row(action="update", data=updated_record, update_type=update_type))
 
                     # If the primary record exists and has the same documents, do nothing (skip "no_change" records)
             else:
                 # New alias → Insert as a new record
-                new_record_dict = new_record.asDict()
+                #new_record_dict = new_record.asDict()
+                new_record_dict = deep_asdict(new_record)
                 new_record_dict["version"] = 1
                 new_record_dict["active_flag"] = "Y"
-                decisions.append(Row(action="insert", data=new_record_dict))
+                decisions.append(Row(action="insert", data=new_record_dict, update_type=None))
 
         # Handle deletions: If an existing active record is no longer in new_data, mark it as deleted
         new_data_alias_hashes = {r["alias_hash"] for r in new_data}
         for existing_record in active_existing_data:
             hash_ = existing_record["alias_hash"]
             if hash_ not in new_data_alias_hashes :
-                existing_inactive = existing_record.asDict()  # Convert Row to dict
+                #existing_inactive = existing_record.asDict()  # Convert Row to dict
+                existing_inactive = deep_asdict(existing_record)  # Convert Row to dict
                 existing_inactive["active_flag"] = "N"
-                decisions.append(Row(action="delete", data=existing_inactive))
+                decisions.append(Row(action="delete", data=existing_inactive, update_type=None))
 
     #print(f"Final Decisions: {decisions}")
     return decisions
@@ -386,7 +612,12 @@ def merge_ofac_data(spark, new_data_df, table_name, branch_name):
         col("decision.data.active_flag").alias("active_flag"),
         col("decision.data.updated_at").alias("updated_at"),
         col("decision.data.end_date").alias("end_date"),
+        col("decision.data.feature_updated_hash").alias("feature_updated_hash"),
+        col("decision.data.feature_updated").alias("feature_updated"),
+        col("decision.update_type").alias("update_type"),
+
         col("decision.action").alias("action"),# Extract `action` separately
+
     )
 
     final_df.show(truncate=False)
@@ -426,6 +657,7 @@ def merge_ofac_data(spark, new_data_df, table_name, branch_name):
     print("after merge")
     merged_df = spark.sql(f"SELECT * FROM {table_name}.branch_{branch_name}")
     merged_df.show(truncate=False)
+    merged_df.printSchema()
     pass
 
 
@@ -453,7 +685,9 @@ def main():
         .config("spark.sql.defaultCatalog", "local") \
         .getOrCreate()
 
-    extraction_timestamp = "2025-02-05T14:55:00"
+# 2025-03-05T10:48:00|
+# | 2025-03-05T10:18:00|
+    extraction_timestamp = "2025-03-05T10:48:00"
 
     # create table if not existing with the schema defined record_schema (scd2 covered schema)
     table_name = "silver.ofac_enriched"
@@ -466,6 +700,11 @@ def main():
     # Enrich current data extraction
     enrich_ofac_silver_latest_data = enrich_current_data_extraction(spark, extraction_timestamp)
 
+    #enrich_ofac_silver_latest_data.filter(col("profile_id") == 735).write.mode("overwrite").json(f"{output_base_path}/profile_df_735")
+    #enrich_ofac_silver_latest_data.filter(col("identity_id") == 7157).write.mode("overwrite").json(f"{output_base_path}/profile_df_7157")
+    #enrich_ofac_silver_latest_data.printSchema()
+
+
     enrich_ofac_silver_latest_data.show(truncate=False)
 
     enrich_ofac_silver_latest_data.printSchema()
@@ -473,6 +712,8 @@ def main():
 
     # Merge OFAC data
     merge_ofac_data(spark, enrich_ofac_silver_latest_data, table_name, branch_name)
+    
+
 
 
 

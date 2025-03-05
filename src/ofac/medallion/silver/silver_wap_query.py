@@ -46,10 +46,15 @@ spark.sql("SELECT * FROM silver.ofac_enriched.refs").show()
 
 #silver.ofac_enriched.branch_20250202_175100
 
-
+#silver.ofac_enriched.branch_20250305T101800
 print("Delta Changes")
-spark.sql(''' select * from silver.ofac_enriched_audit_logs_20250205T145500 where profile_id = 173''').show()
+spark.sql(''' select * from silver.ofac_enriched_audit_logs_20250305T104800 where profile_id = 17013 ''').show()
 
+spark.sql('''
+  select distinct(update_type) from silver.ofac_enriched_audit_logs_20250305T104800
+''').show()
+
+spark.sql(''' select * from silver.ofac_enriched_audit_logs_20250305T104800 where update_type = "BOTH" ''').show() #31922
 
 #silver.ofac_enriched.branch_20250205T145100
 
@@ -68,15 +73,17 @@ spark.sql('''
         alias_type_value,
         documented_names,
         app_profile_id,
+        feature_updated_hash, 
         alias_hash,
-        id_documents
-    FROM silver.ofac_enriched.branch_20250205T145500
-    where profile_id = 173
+        documents_hash,
+        id_documents,
+        feature_updated
+    FROM silver.ofac_enriched.branch_20250305T104800
+    where profile_id = 17013
 ''').show(truncate=False)
 
 
-
-spark.sql("CALL local.system.fast_forward('silver.ofac_enriched', 'main', '20250205T145500')").show()
+spark.sql("CALL local.system.fast_forward('silver.ofac_enriched', 'main', '20250305T104800')").show()
 
 print("main table ")
 
@@ -93,11 +100,15 @@ spark.sql('''
         alias_type_value,
         documented_names,
         app_profile_id,
+        feature_updated_hash, 
         alias_hash,
-        id_documents
+        documents_hash,
+        id_documents,
+        feature_updated
     FROM silver.ofac_enriched
-    where profile_id = 173
+    where profile_id = 17013
 ''').show(truncate=False)
+
 
 
 

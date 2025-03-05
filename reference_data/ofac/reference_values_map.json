@@ -13,6 +13,11 @@
       "_VALUE": "Name"
     }
   },
+  "AreaCodeType": {
+    "1": {
+      "_VALUE": "ISO 3166 (2)"
+    }
+  },
   "AreaCode": {
     "11029": {
       "_AreaCodeTypeID": 1,
@@ -1119,6 +1124,16 @@
       "_VALUE": null
     }
   },
+  "CalendarType": {
+    "1": {
+      "_VALUE": "Gregorian"
+    }
+  },
+  "CountryRelevance": {
+    "1413": {
+      "_VALUE": "PRIMARY"
+    }
+  },
   "Country": {
     "11029": {
       "_ISO2": "AF",
@@ -1857,6 +1872,12 @@
       "_VALUE": "Region: Gaza"
     }
   },
+  "DecisionMakingBody": {
+    "1": {
+      "_OrganisationID": 1,
+      "_VALUE": "United States Treasury Department"
+    }
+  },
   "DetailReference": {
     "702": {
       "_VALUE": "Bulk Carrier"
@@ -2502,6 +2523,18 @@
       "_VALUE": "Others"
     }
   },
+  "EntryEventType": {
+    "1": {
+      "_VALUE": "Created"
+    }
+  },
+  "EntryLinkTypeValues": {},
+  "ExRefTypeValues": {},
+  "FeatureTypeGroup": {
+    "1": {
+      "_VALUE": "Unknown"
+    }
+  },
   "FeatureType": {
     "1": {
       "_FeatureTypeGroupID": 1,
@@ -3111,6 +3144,16 @@
       "_VALUE": "Russian State Individual Business Registration Number Pattern (OGRNIP)"
     }
   },
+  "IdentityFeatureLinkType": {
+    "1": {
+      "_VALUE": "Unknown"
+    }
+  },
+  "LegalBasisType": {
+    "1": {
+      "_VALUE": "Unknown"
+    }
+  },
   "LegalBasis": {
     "1": {
       "_LegalBasisShortRef": "Unknown",
@@ -3681,6 +3724,16 @@
       "_VALUE": "POSTAL CODE"
     }
   },
+  "LocPartValueStatus": {
+    "1": {
+      "_VALUE": "Main"
+    }
+  },
+  "LocPartValueType": {
+    "1": {
+      "_VALUE": "Unknown"
+    }
+  },
   "NamePartType": {
     "1520": {
       "_VALUE": "Last Name"
@@ -3711,6 +3764,12 @@
     },
     "91709": {
       "_VALUE": "Matronymic"
+    }
+  },
+  "Organisation": {
+    "1": {
+      "_CountryID": 11212,
+      "_VALUE": "State"
     }
   },
   "PartySubType": {
@@ -4156,6 +4215,11 @@
       "_VALUE": "Program"
     }
   },
+  "ScriptStatus": {
+    "1": {
+      "_VALUE": "Unknown"
+    }
+  },
   "Script": {
     "160": {
       "_ScriptCode": "Arab",
@@ -4202,6 +4266,15 @@
       "_VALUE": "Latin"
     }
   },
+  "SubsidiaryBody": {
+    "1": {
+      "_DecisionMakingBodyID": 1,
+      "_Notional": false,
+      "_VALUE": "Office of Foreign Assets Control"
+    }
+  },
+  "SupInfoTypeValues": {},
+  "TargetTypeValues": {},
   "Validity": {
     "1": {
       "_VALUE": "Valid"
