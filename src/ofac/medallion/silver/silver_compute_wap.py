@@ -214,8 +214,6 @@ def enrich_profiles_with_locations(spark, profiles_df, locations_df):
                        when(col("feature_updated").isNotNull(),
                             md5(to_json(col("feature_updated"))))
                        .otherwise(lit(None)))
-
-
     return final_df
 
 def enrich_current_data_extraction(spark, extraction_timestamp):
@@ -685,9 +683,7 @@ def main():
         .config("spark.sql.defaultCatalog", "local") \
         .getOrCreate()
 
-# 2025-03-05T10:48:00|
-# | 2025-03-05T10:18:00|
-    extraction_timestamp = "2025-03-05T10:48:00"
+    extraction_timestamp = "2025-03-10T19:11:00"
 
     # create table if not existing with the schema defined record_schema (scd2 covered schema)
     table_name = "silver.ofac_enriched"

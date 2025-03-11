@@ -113,7 +113,18 @@ def enrich_profile_data_udf(profile_row):
                         group_id = name_part_value["_NamePartGroupID"]
                         mapped_value = name_part_values_with_ref.get(str(group_id), "Unknown")
                         documented_name_json[mapped_value] = name_part_value["_VALUE"]
-
+                        script_id = name_part_value["_ScriptID"]
+                        script_value = get_reference_obj_by_key("Script", script_id)
+                        script_status_id = name_part_value["_ScriptStatusID"]
+                        script_status_value = get_reference_value("ScriptStatus", script_status_id)
+                        documented_name_json["Script"] = {
+                            "scriptId": script_id,
+                            "scriptValue": script_value,
+                        }
+                        documented_name_json["ScriptStatus"] = {
+                            "scriptStatusId": script_status_id,
+                            "scriptStatusValue": script_status_value
+                        }
                     documented_names.append(documented_name_json)
                 alias_dict = {
                     "profile_id": profile_id,
