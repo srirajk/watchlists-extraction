@@ -364,6 +364,8 @@ def get_profile_df(spark, distinct_parties_df):
         col("enriched_party_data.feature").alias("feature")
     )
 
+    distinct_parties_enriched_df.filter(col("profile_id") == 51311).show(truncate=False, vertical=True)
+
     distinct_parties_enriched_df = distinct_parties_enriched_df.withColumn(
         "documented_names_hash", md5(to_json(col("documented_names")))
     )
@@ -683,7 +685,7 @@ def main():
         .config("spark.sql.defaultCatalog", "local") \
         .getOrCreate()
 
-    extraction_timestamp = "2025-03-10T19:11:00"
+    extraction_timestamp = "2025-03-11T09:44:00"
 
     # create table if not existing with the schema defined record_schema (scd2 covered schema)
     table_name = "silver.ofac_enriched"

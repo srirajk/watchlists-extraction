@@ -1,5 +1,50 @@
 from pyspark.sql.types import StructType, StructField, StringType, LongType, BooleanType, ArrayType, MapType
 
+# Define the schema for Start and End fields within DatePeriod
+boundary_struct_schema = StructType([
+    StructField("From", StructType([
+        StructField("Year", LongType(), True),
+        StructField("Month", LongType(), True),
+        StructField("Day", LongType(), True)
+    ]), True),
+    StructField("To", StructType([
+        StructField("Year", LongType(), True),
+        StructField("Month", LongType(), True),
+        StructField("Day", LongType(), True)
+    ]), True),
+    StructField("_Approximate", BooleanType(), True),
+    StructField("_YearFixed", BooleanType(), True),
+    StructField("_MonthFixed", BooleanType(), True),
+    StructField("_DayFixed", BooleanType(), True)
+])
+
+# Define the schema for DatePeriod
+date_period_schema = StructType([
+    StructField("Start", boundary_struct_schema, True),  # Start boundary
+    StructField("End", boundary_struct_schema, True),  # End boundary
+    StructField("_CalendarTypeID", LongType(), True),
+    StructField("_YearFixed", BooleanType(), True),
+    StructField("_MonthFixed", BooleanType(), True),
+    StructField("_DayFixed", BooleanType(), True)
+])
+
+return_date_boundary_schema = StructType([
+        StructField("fixed", StringType(), True),
+        StructField("range", StructType([
+            StructField("from", StringType(), True),
+            StructField("to", StringType(), True)
+        ]), True),
+    ]
+)
+
+return_date_period_schema = StructType(
+    [
+        StructField("start_date", return_date_boundary_schema, True),
+        StructField("end_date", return_date_boundary_schema, True)
+    ]
+)
+
+
 distinct_party_schema = StructType([
     StructField("_FixedRef", StringType(), True),
     StructField("_DeltaAction", StringType(), True),
@@ -50,6 +95,7 @@ distinct_party_schema = StructType([
                 StructField("_ReliabilityID", LongType(), True),
                 StructField("_ID", LongType(), True),
                 StructField("Comment", StringType(), True),
+                StructField("DatePeriod", ArrayType(date_period_schema), True),
                 StructField("VersionDetail", ArrayType(StructType([
                   StructField("_DetailReferenceID", StringType(), True),
                   StructField("_DetailTypeID", LongType(), True),
@@ -91,33 +137,6 @@ distinct_party_schema = StructType([
 ])
 
 
-# Define the schema for Start and End fields within DatePeriod
-boundary_struct_schema = StructType([
-    StructField("From", StructType([
-        StructField("Year", LongType(), True),
-        StructField("Month", LongType(), True),
-        StructField("Day", LongType(), True)
-    ]), True),
-    StructField("To", StructType([
-        StructField("Year", LongType(), True),
-        StructField("Month", LongType(), True),
-        StructField("Day", LongType(), True)
-    ]), True),
-    StructField("_Approximate", BooleanType(), True),
-    StructField("_YearFixed", BooleanType(), True),
-    StructField("_MonthFixed", BooleanType(), True),
-    StructField("_DayFixed", BooleanType(), True)
-])
-
-# Define the schema for DatePeriod
-date_period_schema = StructType([
-    StructField("Start", boundary_struct_schema, True),  # Start boundary
-    StructField("End", boundary_struct_schema, True),  # End boundary
-    StructField("_CalendarTypeID", LongType(), True),
-    StructField("_YearFixed", BooleanType(), True),
-    StructField("_MonthFixed", BooleanType(), True),
-    StructField("_DayFixed", BooleanType(), True)
-])
 
 # Define the schema for DocumentDate
 document_date_schema = StructType([
@@ -132,6 +151,8 @@ document_date_schema = StructType([
     StructField("_IDRegDocDateTypeID", LongType(), True),
     StructField("_DeltaAction", StringType(), True)
 ])
+
+
 
 # Integrate into the IDRegDocument schema
 id_reg_documents_schema = StructType([
@@ -205,6 +226,7 @@ feature_version_schema = StructType([
     StructField("reliability_id", LongType(), True),
     StructField("reliability_value", StringType(), True),
     StructField("version_id", LongType(), True),
+    StructField("date_period", ArrayType(return_date_period_schema), True),
     StructField("versions", ArrayType(version_detail_schema), True),
     StructField("locations", ArrayType(LongType()), True)
 ])
@@ -247,6 +269,7 @@ enriched_feature_version_schema = StructType([
     StructField("reliability_id", LongType(), True),
     StructField("reliability_value", StringType(), True),
     StructField("version_id", LongType(), True),
+    StructField("date_period", ArrayType(return_date_period_schema), True),
     StructField("versions", ArrayType(StructType([
         StructField("value", StringType(), True),
         StructField("detail_type_id", LongType(), True),
