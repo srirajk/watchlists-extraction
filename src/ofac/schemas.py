@@ -18,6 +18,13 @@ boundary_struct_schema = StructType([
     StructField("_DayFixed", BooleanType(), True)
 ])
 
+duration_schema = StructType([
+    StructField("Years", LongType(), True),
+    StructField("Months", LongType(), True),
+    StructField("Days", LongType(), True),
+    StructField("_Approximate", BooleanType(), True)
+])
+
 # Define the schema for DatePeriod
 date_period_schema = StructType([
     StructField("Start", boundary_struct_schema, True),  # Start boundary
@@ -25,7 +32,9 @@ date_period_schema = StructType([
     StructField("_CalendarTypeID", LongType(), True),
     StructField("_YearFixed", BooleanType(), True),
     StructField("_MonthFixed", BooleanType(), True),
-    StructField("_DayFixed", BooleanType(), True)
+    StructField("_DayFixed", BooleanType(), True),
+    StructField("DurationMinimum", duration_schema, True),
+    StructField("DurationMaximum", duration_schema, True),
 ])
 
 return_date_boundary_schema = StructType([
@@ -211,6 +220,38 @@ location_schema = StructType([
     ])), True)
 ])
 
+date_schema = StructType([
+    StructField("Day", LongType(), True),
+    StructField("Month", LongType(), True),
+    StructField("Year", LongType(), True),
+    StructField("_CalendarTypeID", LongType(), True)
+])
+
+# Define the schema for EntryEvent
+entry_event_schema = StructType([
+    StructField("Comment", ArrayType(StringType()), True),
+    StructField("Date", date_schema, True),
+    StructField("_EntryEventTypeID", LongType(), True),
+    StructField("_ID", LongType(), True),
+    StructField("_LegalBasisID", LongType(), True)
+])
+
+# Define the schema for SanctionsMeasure
+sanctions_measure_schema = StructType([
+    StructField("Comment", ArrayType(StringType()), True),
+    StructField("DatePeriod", date_period_schema, True),
+    StructField("_ID", LongType(), True),
+    StructField("_SanctionsTypeID", LongType(), True)
+])
+
+sanctions_entry_schema = StructType([
+    StructField("EntryEvent", ArrayType(entry_event_schema), True),
+    StructField("SanctionsMeasure", ArrayType(sanctions_measure_schema), True),
+    StructField("_ID", LongType(), True),
+    StructField("_ListID", LongType(), True),
+    StructField("_ProfileID", LongType(), True)
+])
+
 
 # Schema for version details in feature_versions
 version_detail_schema = StructType([
@@ -291,123 +332,77 @@ enriched_feature_schema = ArrayType(StructType([
 ]), True)
 
 
+enriched_sanction_entry_legals_basis_schema = StructType([
+    StructField("legal_basis_id", StringType(), True),
+    StructField("legal_basis_value", StringType(), True),
+    StructField("legal_basis_type_id", StringType(), True),
+    StructField("legal_basis_type_value", StringType(), True),
+    StructField("legal_basis_short_ref", StringType(), True),
+    StructField("sanctions_program", StructType([
+        StructField("sanctions_program_id", LongType(), True),
+        StructField("sanctions_program_value", StringType(), True),
+        StructField("subsidiary_body_id", StringType(), True),
+        StructField("subsidiary_body_value", StringType(), True),
+        StructField("decision_making_body_id", LongType(), True),
+        StructField("decision_making_body_organization_id", StringType(), True),
+        StructField("decision_making_body_value", StringType(), True)
+    ]), True)
+])
 
-# # Define the schema for DateBoundarySchemaType
-# date_boundary_schema = StructType([
-#     StructField("_DeltaAction", StringType(), True),  # Attribute: DeltaAction
-#     StructField("_BoundaryQualifierTypeID", LongType(), True),  # Attribute: BoundaryQualifierTypeID
-#     StructField("_VALUE", StringType(), True)  # Element value (actual date string)
-# ])
-#
-# # Define the schema for DurationSchemaType
-# duration_schema = StructType([
-#     StructField("Years", StructType([
-#         StructField("_DeltaAction", StringType(), True),  # Attribute: DeltaAction
-#         StructField("_VALUE", LongType(), True)  # Element value: Years
-#     ]), True),
-#     StructField("Months", StructType([
-#         StructField("_DeltaAction", StringType(), True),  # Attribute: DeltaAction
-#         StructField("_VALUE", LongType(), True)  # Element value: Months
-#     ]), True),
-#     StructField("Days", StructType([
-#         StructField("_DeltaAction", StringType(), True),  # Attribute: DeltaAction
-#         StructField("_VALUE", LongType(), True)  # Element value: Days
-#     ]), True),
-#     StructField("_Approximate", BooleanType(), True),  # Attribute: Approximate
-#     StructField("_DeltaAction", StringType(), True)  # Attribute: DeltaAction
-# ])
-#
-# # Define the schema for DatePeriod
-# date_period_schema = StructType([
-#     StructField("Comment", StringType(), True),  # Optional Comment
-#     StructField("Start", StructType([
-#         StructField("From", StructType([
-#             StructField("Year", LongType(), True),
-#             StructField("Month", LongType(), True),
-#             StructField("Day", LongType(), True)
-#         ]), True),
-#         StructField("To", StructType([
-#             StructField("Year", LongType(), True),
-#             StructField("Month", LongType(), True),
-#             StructField("Day", LongType(), True)
-#         ]), True),
-#         StructField("_Approximate", BooleanType(), True),  # Approximate attribute in Start
-#         StructField("_DeltaAction", StringType(), True)  # DeltaAction in Start
-#     ]), True),
-#     StructField("End", StructType([
-#         StructField("From", StructType([
-#             StructField("Year", LongType(), True),
-#             StructField("Month", LongType(), True),
-#             StructField("Day", LongType(), True)
-#         ]), True),
-#         StructField("To", StructType([
-#             StructField("Year", LongType(), True),
-#             StructField("Month", LongType(), True),
-#             StructField("Day", LongType(), True)
-#         ]), True),
-#         StructField("_Approximate", BooleanType(), True),  # Approximate attribute in End
-#         StructField("_DeltaAction", StringType(), True)  # DeltaAction in End
-#     ]), True),
-#     StructField("DurationMinimum", duration_schema, True),  # Nested DurationMinimum
-#     StructField("DurationMaximum", duration_schema, True),  # Nested DurationMaximum
-#     StructField("_CalendarTypeID", LongType(), True),  # Attribute: CalendarTypeID
-#     StructField("_YearFixed", BooleanType(), True),  # Attribute: YearFixed
-#     StructField("_MonthFixed", BooleanType(), True),  # Attribute: MonthFixed
-#     StructField("_DayFixed", BooleanType(), True),  # Attribute: DayFixed
-#     StructField("_DeltaAction", StringType(), True)  # Attribute: DeltaAction
-# ])
-#
-# # Define the schema for DocumentDate, including DatePeriod
-# document_date_schema = StructType([
-#     StructField("DatePeriod", ArrayType(date_period_schema), True),  # Nested DatePeriod structure
-#     StructField("_IDRegDocDateTypeID", LongType(), True),  # Attribute: IDRegDocDateTypeID
-#     StructField("_DeltaAction", StringType(), True)  # Attribute: DeltaAction
-# ])
-#
-# # Define the complete schema for <IDRegDocuments>
-# id_reg_documents_schema = StructType([
-#     StructField("_ID", LongType(), True),  # Attribute: ID
-#     StructField("_IDRegDocTypeID", LongType(), True),  # Attribute: IDRegDocTypeID
-#     StructField("_IdentityID", LongType(), True),  # Attribute: IdentityID
-#     StructField("_IssuedBy-CountryID", LongType(), True),  # Attribute: IssuedBy-CountryID
-#     StructField("_IssuedIn-LocationID", LongType(), True),  # Attribute: IssuedIn-LocationID
-#     StructField("_ValidityID", LongType(), True),  # Attribute: ValidityID
-#     StructField("_DeltaAction", StringType(), True),  # Attribute: DeltaAction
-#
-#     # Comment element
-#     StructField("Comment", StringType(), True),
-#
-#     # IDRegistrationNo element
-#     StructField("IDRegistrationNo", StructType([
-#         StructField("_DeltaAction", StringType(), True),  # Attribute: DeltaAction
-#         StructField("_VALUE", StringType(), True)  # Element value
-#     ]), True),
-#
-#     # IssuingAuthority element
-#     StructField("IssuingAuthority", StructType([
-#         StructField("_DeltaAction", StringType(), True),  # Attribute: DeltaAction
-#         StructField("_VALUE", StringType(), True)  # Element value
-#     ]), True),
-#
-#     # DocumentDate element with DatePeriod structure
-#     StructField("DocumentDate", ArrayType(document_date_schema), True),
-#
-#     # IDRegDocumentMention element
-#     StructField("IDRegDocumentMention", ArrayType(StructType([
-#         StructField("_IDRegDocumentID", LongType(), True),  # Attribute: IDRegDocumentID
-#         StructField("_ReferenceType", StringType(), True),  # Attribute: ReferenceType
-#         StructField("_DeltaAction", StringType(), True)  # Attribute: DeltaAction
-#     ])), True),
-#
-#     # FeatureVersionReference (reference element)
-#     StructField("FeatureVersionReference", ArrayType(StringType()), True),
-#
-#     # DocumentedNameReference element
-#     StructField("DocumentedNameReference", ArrayType(StructType([
-#         StructField("_DocumentedNameID", LongType(), True),  # Attribute: DocumentedNameID
-#         StructField("_DeltaAction", StringType(), True)  # Attribute: DeltaAction
-#     ])), True),
-#
-#     # ProfileRelationshipReference (reference element)
-#     StructField("ProfileRelationshipReference", ArrayType(StringType()), True)
-# ])
+enriched_sanction_entry_events_schema = StructType([
+    StructField("entry_event_id", StringType(), True),
+    StructField("comments", ArrayType(StringType()), True),
+    StructField("entry_event_type_id", StringType(), True),
+    StructField("entry_event_type_value", StringType(), True),
+    StructField("legal_basis_details", enriched_sanction_entry_legals_basis_schema, True),
+    StructField("date", StructType([
+        StructField("year", StringType(), True),
+        StructField("month", StringType(), True),
+        StructField("day", StringType(), True),
+        StructField("calendar_type_id", StringType(), True),
+        StructField("calendar_type_value", StringType(), True),
+    ]), True)
+])
+
+
+"""
+enriched_sanction_measures_schema = StructType([
+    StructType([
+        StructField("sanctions_measure_id", LongType(), True),
+        StructField("sanctions_type_id", LongType(), True),
+        StructField("sanctions_type_value", StringType(), True),
+        StructField("comments", ArrayType(StringType()), True),
+        StructField("date_period", StructType([
+            StructField("start_date", return_date_boundary_schema, True),
+            StructField("end_date", return_date_boundary_schema, True),
+            StructField("calendar_type_id", StringType(), True),
+            StructField("calendar_type_value", StringType(), True),
+        ]), True)
+    ])
+])
+"""
+
+enriched_sanction_measures_schema = StructType([
+    StructField("sanctions_measure_id", LongType(), True),
+    StructField("sanctions_type_id", LongType(), True),
+    StructField("sanctions_type_value", StringType(), True),
+    StructField("comments", ArrayType(StringType()), True),
+    StructField("date_period", StructType([
+        StructField("start_date", return_date_boundary_schema, True),
+        StructField("end_date", return_date_boundary_schema, True),
+        StructField("calendar_type_id", StringType(), True),
+        StructField("calendar_type_value", StringType(), True),
+    ]), True)
+])
+
+enrich_sanction_entries_schema = StructType([
+    StructField("profile_id", StringType(), True),
+    StructField("list_id", StringType(), True),
+    StructField("list_value", StringType(), True),
+    StructField("sanction_entry_id", StringType(), True),
+    StructField("entry_events", ArrayType(enriched_sanction_entry_events_schema), True),
+    StructField("sanctions_measures", ArrayType(enriched_sanction_measures_schema), True),
+    #StructField("sanctions_measures", ArrayType(MapType(StringType(), StringType())), True)
+])
+
+

@@ -3,7 +3,7 @@ from pyspark.sql import SparkSession
 
 from pyspark.sql.functions import col, explode, current_timestamp, lit, concat_ws, sha2
 
-from src.ofac.schemas import distinct_party_schema
+from src.ofac.schemas import distinct_party_schema, sanctions_entry_schema
 
 from src.ofac.utility import load_config, pretty_print_spark_df
 
@@ -42,6 +42,22 @@ identities_df = spark.sql("select * from bronze.identities LIMIT 30")
 identities_df.show()
 
 spark.sql("select distinct extraction_timestamp from bronze.identities").show()
+
+
+# Process DistinctParty data
+sanction_entries_raw_df = spark.read \
+    .format("com.databricks.spark.xml") \
+    .option("rowTag", "SanctionsEntry") \
+    .schema(sanctions_entry_schema) \
+    .load("/Users/srirajkadimisetty/projects/watchlists-extraction/source_data/ofac/sdn_advanced_jan_30.xml")
+
+sanction_entries_raw_df.count()
+
+sanction_entries_raw_df.show(vertical=False, truncate=False)
+
+sanction_entries_raw_df.filter(col("_ID") == 36).write.mode("overwrite").json(f"{output_base_path}/sanction_entry_36")
+
+sanction_entries_raw_df.printSchema()
 
 
 """

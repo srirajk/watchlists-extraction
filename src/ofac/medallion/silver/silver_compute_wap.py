@@ -8,8 +8,8 @@ from pyspark.sql.functions import col, struct, collect_list, udf, explode, lit, 
 from pyspark.sql.types import ArrayType, StructType, StructField, StringType, BooleanType, LongType, MapType
 
 from src.ofac.custom_udfs import enrich_profile_data_udf, transform_document, enrich_location, enrich_features, \
-    deep_asdict
-from src.ofac.schemas import feature_schema, enriched_feature_schema
+    deep_asdict, enrich_sanction_entries
+from src.ofac.schemas import feature_schema, enriched_feature_schema, enrich_sanction_entries_schema
 
 from src.ofac.utility import load_config
 
@@ -50,11 +50,48 @@ record_schema = StructType([
     StructField("feature_updated_hash", StringType(), nullable=True),
     StructField("feature_updated", enriched_feature_schema, nullable=True),
     StructField("documents_hash", StringType(), nullable=True),
+
+    StructField("sanctions_entries_hash", StringType(), nullable=True),
+    StructField("sanction_entries", ArrayType(enrich_sanction_entries_schema), nullable=True),
+
     StructField("version", LongType(), nullable=True),  # Added for old data
     StructField("active_flag", StringType(), nullable=True),  # Added for old data
     StructField("updated_at", StringType(), True),  # Added this field
     StructField("end_date", StringType(), True)  # Added this field
 ])
+
+
+
+def get_sanction_entries_by_profile_id(sanction_entries_df):
+    enriched_sanctions_entries_df = sanction_entries_df.withColumn("enriched_sanction_entries",
+                                                                   enrich_sanction_entries(
+                                                                       struct(*sanction_entries_df.columns)))
+    #enriched_sanctions_entries_df.show(truncate=False)
+    enriched_sanctions_entries_df.filter(col("enriched_sanction_entries.profile_id") == 36).write.mode("overwrite").json(f"{output_base_path}/sanction_entries_df_36")
+    enriched_sanctions_entries_df.printSchema()
+    enriched_sanctions_entries_df.show(truncate=False, vertical=True)
+
+    print()
+    print("************")
+    print("************")
+    enriched_sanctions_entries_df = enriched_sanctions_entries_df.select(
+        col("_ProfileID").alias("profile_id"),
+        col("enriched_sanction_entries").alias("sanction_entry"),
+    )
+
+    # group by profile_id and collect sanction_entries
+    enriched_sanctions_entries_df = enriched_sanctions_entries_df.groupBy("profile_id").agg(
+        collect_list("sanction_entry").alias("sanction_entries"))
+
+    #enriched_sanctions_entries_df.printSchema()
+
+    enriched_sanctions_entries_df = enriched_sanctions_entries_df.withColumn("sanctions_entries_hash", md5(to_json(col("sanction_entries"))))
+
+    #enriched_sanctions_entries_df.filter(size(col("sanction_entries")) > 1).select(col("profile_id")).show(truncate=False)
+
+
+    #enriched_sanctions_entries_df.filter(col("profile_id") == 9647).write.mode("overwrite").json(f"{output_base_path}/enriched_sanction_entries_df_9647")
+    return enriched_sanctions_entries_df
 
 
 def get_locations_by_location_ref_id(spark, locations_df):
@@ -216,6 +253,20 @@ def enrich_profiles_with_locations(spark, profiles_df, locations_df):
                        .otherwise(lit(None)))
     return final_df
 
+
+def enrich_profiles_with_sanction_entries(spark, profiles_df, sanction_entries_df):
+
+    primary_profiles_df = profiles_df.filter(col("is_primary") == True)
+    non_primary_profiles_df = profiles_df.filter(col("is_primary") == False)
+
+    joined_df = primary_profiles_df.join(sanction_entries_df, on=["profile_id"], how="left")
+
+    print("****After Joining the DF with the sanctions df****")
+    joined_df.filter(col("profile_id") == 9647).write.mode("overwrite").json(f"{output_base_path}/joined_df_9647")
+
+    return joined_df.unionByName(non_primary_profiles_df, allowMissingColumns=True)
+
+
 def enrich_current_data_extraction(spark, extraction_timestamp):
 
     locations_df = spark.read.format("iceberg").table("bronze.locations").filter(
@@ -225,6 +276,12 @@ def enrich_current_data_extraction(spark, extraction_timestamp):
 
     locations_df.show(truncate=False)
     locations_df.printSchema()
+
+    sanction_entries_df = spark.read.format("iceberg").table("bronze.sanctions_entries").filter(
+        col("extraction_timestamp") == extraction_timestamp)
+
+    sanction_entries_df = get_sanction_entries_by_profile_id(sanction_entries_df)
+
 
     distinct_parties_df = spark.read.format("iceberg").table("bronze.distinct_parties").filter(
         col("extraction_timestamp") == extraction_timestamp)
@@ -237,9 +294,7 @@ def enrich_current_data_extraction(spark, extraction_timestamp):
 
     distinct_parties_with_locations_enriched_df = enrich_profiles_with_locations(spark, distinct_parties_enriched_df, locations_df)
 
-    #print("Distinct Parties with Locations Enriched")
-    #distinct_parties_with_locations_enriched_df.show(truncate=False)
-    #distinct_parties_with_locations_enriched_df.printSchema()
+    distinct_parties_full_df = enrich_profiles_with_sanction_entries(spark, distinct_parties_with_locations_enriched_df, sanction_entries_df)
 
     identities_df = spark.read.format("iceberg").table("bronze.identities").filter(
         col("extraction_timestamp") == extraction_timestamp)
@@ -247,10 +302,10 @@ def enrich_current_data_extraction(spark, extraction_timestamp):
     id_documents_grouped_by_identity_df = get_id_reg_documents_df(spark, identities_df, locations_df)
 
     # Merge distinct_parties_with_locations_enriched_df and id_documents_grouped_by_identity_df
-    ofac_enriched_data_df = distinct_parties_with_locations_enriched_df.join(
+    ofac_enriched_data_df = distinct_parties_full_df.join(
         id_documents_grouped_by_identity_df,
-        (distinct_parties_with_locations_enriched_df["identity_id"] == id_documents_grouped_by_identity_df["identity_id"]) & (
-                distinct_parties_with_locations_enriched_df["is_primary"] == True),  # Join on identity_id and is_primary
+        (distinct_parties_full_df["identity_id"] == id_documents_grouped_by_identity_df["identity_id"]) & (
+                distinct_parties_full_df["is_primary"] == True),  # Join on identity_id and is_primary
         "left"
     ).drop(id_documents_grouped_by_identity_df["identity_id"])  # Drop the duplicate identity_id column
 
@@ -489,8 +544,10 @@ def compare_alias_data(new_data, existing_data):
                 if new_record["is_primary"]:
                     documents_updated = new_record["documents_hash"] != existing_record["documents_hash"]
                     features_updated = new_record["feature_updated_hash"] != existing_record["feature_updated_hash"]
+                    sanctions_entries_updated = new_record["sanctions_entries_hash"] != existing_record["sanctions_entries_hash"]
+
                     #if new_record["documents_hash"] != existing_record["documents_hash"]:
-                    if documents_updated or features_updated:
+                    if documents_updated or features_updated or sanctions_entries_updated:
                         #Deactivate existing primary record
                         #existing_inactive = existing_record.asDict()  # Convert Row to dict
                         existing_inactive = deep_asdict(existing_record)
@@ -505,12 +562,14 @@ def compare_alias_data(new_data, existing_data):
                         # TODO add a column to mention if the feature or documents are updated
                         # Instead of two separate flags, create a single update_type column
                         update_type = None
-                        if documents_updated and features_updated:
-                            update_type = "BOTH"
+                        if documents_updated and features_updated and sanctions_entries_updated:
+                            update_type = "ALL"
                         elif documents_updated:
                             update_type = "DOCUMENTS"
                         elif features_updated:
                             update_type = "FEATURES"
+                        elif sanctions_entries_updated:
+                            update_type = "SANCTIONS_ENTRIES"
 
                         updated_record["alias_id"] = existing_record["alias_id"]
                         updated_record["app_profile_id"] = existing_record["app_profile_id"]
@@ -614,8 +673,9 @@ def merge_ofac_data(spark, new_data_df, table_name, branch_name):
         col("decision.data.end_date").alias("end_date"),
         col("decision.data.feature_updated_hash").alias("feature_updated_hash"),
         col("decision.data.feature_updated").alias("feature_updated"),
+        col("decision.data.sanctions_entries_hash").alias("sanctions_entries_hash"),
+        col("decision.data.sanction_entries").alias("sanction_entries"),
         col("decision.update_type").alias("update_type"),
-
         col("decision.action").alias("action"),# Extract `action` separately
 
     )
@@ -685,7 +745,7 @@ def main():
         .config("spark.sql.defaultCatalog", "local") \
         .getOrCreate()
 
-    extraction_timestamp = "2025-03-11T09:44:00"
+    extraction_timestamp = "2025-03-11T18:14:00"
 
     # create table if not existing with the schema defined record_schema (scd2 covered schema)
     table_name = "silver.ofac_enriched"
@@ -697,10 +757,6 @@ def main():
 
     # Enrich current data extraction
     enrich_ofac_silver_latest_data = enrich_current_data_extraction(spark, extraction_timestamp)
-
-    #enrich_ofac_silver_latest_data.filter(col("profile_id") == 735).write.mode("overwrite").json(f"{output_base_path}/profile_df_735")
-    #enrich_ofac_silver_latest_data.filter(col("identity_id") == 7157).write.mode("overwrite").json(f"{output_base_path}/profile_df_7157")
-    #enrich_ofac_silver_latest_data.printSchema()
 
 
     enrich_ofac_silver_latest_data.show(truncate=False)

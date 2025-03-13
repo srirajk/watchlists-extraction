@@ -1,8 +1,9 @@
 import json
 
 from pyspark.sql.functions import udf
+from pyspark.sql.types import StringType, MapType
 
-from src.ofac.schemas import enriched_feature_schema
+from src.ofac.schemas import enriched_feature_schema, enrich_sanction_entries_schema
 
 reference_values_json = "/Users/srirajkadimisetty/projects/watchlists-extraction/reference_data/ofac/reference_values_map.json"
 
@@ -71,7 +72,130 @@ def parse_date_period(date_period):
         "end_date": end_date,
     }
 
+def parse_date(date):
+    year = date["Year"]
+    month = date["Month"]
+    day = date["Day"]
+    calendar_type_id = date["_CalendarTypeID"]
+    calendar_type_value = get_reference_value("CalendarType", calendar_type_id)
 
+    return {
+        "year": year,
+        "month": month,
+        "day": day,
+        "calendar_type_id": calendar_type_id,
+        "calendar_type_value": calendar_type_value
+    }
+
+
+def get_legal_details(legal_basis_id):
+    legal_basis_obj = get_reference_obj_by_key("LegalBasis", legal_basis_id)
+    #print(legal_basis_obj)
+    # if legal_basis_obj:
+    #     return {
+    #         "legal_basis_id": legal_basis_id,
+    #     }
+
+    legal_basis_type_id = legal_basis_obj.get("_LegalBasisTypeID")
+    legal_basis_type_value = get_reference_value("LegalBasisType", legal_basis_type_id)
+    legal_basis_value = legal_basis_obj.get("_VALUE")
+    legal_basis_short_ref = legal_basis_obj.get("_LegalBasisShortRef")
+
+    # sanctions_program
+    sanctions_program_id = legal_basis_obj.get("_SanctionsProgramID")
+    sanctions_program_object = get_reference_obj_by_key("SanctionsProgram", sanctions_program_id)
+    sanctions_program_value = sanctions_program_object.get("_VALUE")
+    subsidary_body_id = sanctions_program_object.get("_SubsidiaryBodyID")
+    subsidiary_body_object = get_reference_obj_by_key("SubsidiaryBody", subsidary_body_id)
+    subsidiary_body_value = subsidiary_body_object.get("_VALUE")
+    decision_making_body_id = subsidiary_body_object.get("_DecisionMakingBodyID")
+    decision_making_body_object = get_reference_obj_by_key("DecisionMakingBody", decision_making_body_id)
+    sanctions_program = {
+        "sanctions_program_id": sanctions_program_id,
+        "sanctions_program_value": sanctions_program_value,
+        "subsidiary_body_id": subsidary_body_id,
+        "subsidiary_body_value": subsidiary_body_value,
+        "decision_making_body_id": decision_making_body_id,
+        "decision_making_body_organization_id": decision_making_body_object.get("_OrganisationID"),
+        "decision_making_body_value": decision_making_body_object.get("_VALUE"),
+    }
+    return {
+        "legal_basis_id": legal_basis_id,
+        "legal_basis_value": legal_basis_value,
+        "legal_basis_type_id": legal_basis_type_id,
+        "legal_basis_type_value": legal_basis_type_value,
+        "legal_basis_short_ref": legal_basis_short_ref,
+        "sanctions_program": sanctions_program
+    }
+
+@udf(enrich_sanction_entries_schema)
+#@udf(MapType(StringType(), StringType()))
+def enrich_sanction_entries(sanction_entry_row):
+    #print(f"sanction_entry_row :: {sanction_entry_row}")
+    profile_id = sanction_entry_row["_ProfileID"]
+    list_id = sanction_entry_row["_ListID"]
+    list_value = get_reference_value("List", list_id)
+    sanction_entry_id = sanction_entry_row["_ID"]
+    entry_events = sanction_entry_row["EntryEvent"]
+    #print(f"entry_events :: {entry_events}")
+    entry_event_values = []
+    if entry_events:
+        for entry_event in entry_events:
+            entry_event_id = entry_event["_ID"]
+            comments = entry_event["Comment"]
+            date = entry_event["Date"]
+            date_val = None
+            if date:
+                date_val = parse_date(date)
+            entry_event_type_id = entry_event["_EntryEventTypeID"]
+            entry_event_type_value = get_reference_value("EntryEventType", entry_event_type_id)
+            legal_basis_id = entry_event["_LegalBasisID"]
+            legal_basis_details = get_legal_details(legal_basis_id)
+            entry_event_values.append({
+                "entry_event_id": entry_event_id,
+                "comments": comments,
+                "date": date_val,
+                "entry_event_type_id": entry_event_type_id,
+                "entry_event_type_value": entry_event_type_value,
+                "legal_basis_details": legal_basis_details
+            })
+    #print(f"entry_event_values :: {entry_event_values}")
+    sanctions_measures = sanction_entry_row["SanctionsMeasure"]
+    sanctions_measure_values = []
+    if sanctions_measures:
+        for sanctions_measure in sanctions_measures:
+            sanctions_measure_id = sanctions_measure["_ID"]
+            sanctions_type_id = sanctions_measure["_SanctionsTypeID"]
+            sanctions_type_value = get_reference_value("SanctionsType", sanctions_type_id)
+            date_period = sanctions_measure["DatePeriod"]
+            date_period_value = None
+            if date_period:
+                date_period_value = parse_date_period(date_period)
+            comments = entry_event["Comment"]
+            sanctions_measure_values.append({
+                "sanctions_measure_id": sanctions_measure_id,
+                "sanctions_type_id": sanctions_type_id,
+                "sanctions_type_value": sanctions_type_value,
+                "comments": comments,
+                "date_period": date_period_value,
+            })
+
+    res =   {
+        #"profile_id": profile_id,
+        "list_id": list_id,
+        "list_value": list_value,
+        "sanction_entry_id": sanction_entry_id,
+        "entry_events": entry_event_values,
+        "sanctions_measures": sanctions_measure_values
+    }
+
+    # if profile_id == 36:
+    #     print(f"res :: {res}")
+
+    return res
+
+
+# LowQuality="false" -- low quality data
 def enrich_profile_data_udf(profile_row):
 
     #print(profile_row)
@@ -309,7 +433,7 @@ def enrich_location(row):
         "location_parts": location_parts_values
     }
 
-
+# ValidityID -- capture this as well
 def transform_document(row):
     """
     Transform a single row of id_reg_documents_df into a POJO-like record.

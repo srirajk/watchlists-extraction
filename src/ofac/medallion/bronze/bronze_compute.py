@@ -6,7 +6,7 @@ from pyspark.sql import SparkSession
 from pyspark.sql.functions import col, explode, current_timestamp, lit, date_format, date_trunc
 from pyspark.sql.utils import AnalysisException
 
-from src.ofac.schemas import distinct_party_schema, id_reg_documents_schema, location_schema
+from src.ofac.schemas import distinct_party_schema, id_reg_documents_schema, location_schema, sanctions_entry_schema
 from src.ofac.utility import load_config
 
 def create_spark_session():
@@ -102,6 +102,22 @@ def process_bronze_layer(spark, config, input_file, current_ts):
         .withColumn("input_file", lit(input_file))
 
     create_or_append(spark, locations_df, "bronze.locations")
+
+
+    # Process SanctionsEntry data
+    sanction_entries_raw_df = spark.read \
+        .format("com.databricks.spark.xml") \
+        .option("rowTag", "SanctionsEntry") \
+        .schema(sanctions_entry_schema) \
+        .load(distinct_party_xml)
+
+    # Add extraction timestamp and source name
+    sanction_entries_raw_df = sanction_entries_raw_df.withColumn("extraction_timestamp", lit(current_ts)) \
+        .withColumn("source_name", lit("OFAC")) \
+        .withColumn("input_file", lit(input_file))
+
+    # Create or append to bronze.sanctions_entries table
+    create_or_append(spark, sanction_entries_raw_df, "bronze.sanctions_entries")
 
 
 def main():
