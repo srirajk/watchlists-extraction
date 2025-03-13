@@ -37,6 +37,7 @@ spark = SparkSession.builder \
 
 spark.sql("SELECT * FROM silver.ofac_enriched.refs").show()
 
+spark.sql("CALL local.system.fast_forward('silver.ofac_enriched', 'main', '20250313T145000')").show()
 
 #spark.sql("CALL local.system.fast_forward('silver.ofac_enriched', 'main', '20250202_175100')").show()
 
@@ -48,13 +49,13 @@ spark.sql("SELECT * FROM silver.ofac_enriched.refs").show()
 
 #silver.ofac_enriched.branch_20250305T101800
 print("Delta Changes")
-spark.sql(''' select * from silver.ofac_enriched_audit_logs_20250311T181400 where profile_id = 17013 ''').show()
+spark.sql(''' select * from silver.ofac_enriched_audit_logs_20250313T145000 where profile_id = 17013 ''').show()
 
 spark.sql('''
-  select distinct(update_type) from silver.ofac_enriched_audit_logs_20250311T181400
+  select distinct(update_type) from silver.ofac_enriched_audit_logs_20250313T145000
 ''').show()
 
-spark.sql(''' select * from silver.ofac_enriched_audit_logs_20250311T181400 where update_type = "ALL" ''').show() #31922
+spark.sql(''' select * from silver.ofac_enriched_audit_logs_20250313T145000 where update_type = "ALL" ''').show() #31922
 
 #silver.ofac_enriched.branch_20250205T145100
 
@@ -78,13 +79,13 @@ spark.sql('''
         documents_hash,
         id_documents,
         feature_updated
-    FROM silver.ofac_enriched.branch_20250311T181400
+    FROM silver.ofac_enriched.branch_20250313T145000
     where profile_id = 51318
 ''').show(truncate=False)
 
 
 
-spark.sql("CALL local.system.fast_forward('silver.ofac_enriched', 'main', '20250311T181400')").show()
+
 
 
 # enrich_ofac_silver_latest_data = spark.sql(''' select * from FROM silver.ofac_enriched.branch_20250305T104800 where active_flag = 'Y' ''')
@@ -97,7 +98,7 @@ spark.sql("CALL local.system.fast_forward('silver.ofac_enriched', 'main', '20250
 
 #spark.sql(''' select * from silver.ofac_enriched where profile_id = 51318 ''').write.mode("overwrite").json(f"{output_base_path}/profile_df_51318")
 
-spark.sql(''' select * from silver.ofac_enriched where profile_id = 9647 ''').write.mode("overwrite").json(f"{output_base_path}/profile_df_9647")
+#spark.sql(''' select * from silver.ofac_enriched where profile_id = 9647 ''').write.mode("overwrite").json(f"{output_base_path}/profile_df_9647")
 
 #enrich_ofac_silver_latest_data.filter(col("profile_id") == 17013).write.mode("overwrite").json(f"{output_base_path}/profile_df_17013")
 

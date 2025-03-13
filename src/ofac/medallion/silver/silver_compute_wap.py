@@ -745,7 +745,7 @@ def main():
         .config("spark.sql.defaultCatalog", "local") \
         .getOrCreate()
 
-    extraction_timestamp = "2025-03-11T18:14:00"
+    extraction_timestamp = "2025-03-13T14:50:00"
 
     # create table if not existing with the schema defined record_schema (scd2 covered schema)
     table_name = "silver.ofac_enriched"

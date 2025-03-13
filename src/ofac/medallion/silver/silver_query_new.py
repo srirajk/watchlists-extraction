@@ -30,7 +30,7 @@ spark = SparkSession.builder \
 ofac_silver = spark.read.format("iceberg").table("silver.ofac_enriched")
 
 ofac_silver.printSchema()
-
+"""
 filtered_df = ofac_silver.filter(
     (col("feature_updated").isNotNull()) &
     (size(col("feature_updated")) > 0) &
@@ -65,5 +65,6 @@ filtered_df = (ofac_silver
 
 filtered_df.show(truncate=False)
 
-#spark.sql(''' select * from silver.ofac_enriched where profile_id = 10033 ''').write.mode("overwrite").json(f"{output_base_path}/profile_df_10033")
+"""
+spark.sql(''' select * from silver.ofac_enriched where profile_id = 9647 ''').write.mode("overwrite").json(f"{output_base_path}/profile_df_9647")
 spark.sql(''' select * from silver.ofac_enriched where profile_id = 16829 ''').write.mode("overwrite").json(f"{output_base_path}/profile_df_16829")

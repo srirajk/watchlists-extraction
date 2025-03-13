@@ -57,7 +57,11 @@ sanction_entries_raw_df.show(vertical=False, truncate=False)
 
 sanction_entries_raw_df.filter(col("_ID") == 36).write.mode("overwrite").json(f"{output_base_path}/sanction_entry_36")
 
-sanction_entries_raw_df.printSchema()
+#sanction_entries_raw_df.printSchema()
+
+#_ProfileID
+
+sanction_entries_raw_df.filter(col("_ProfileID") == 16829).write.mode("overwrite").json(f"{output_base_path}/sanction_entry_16829")
 
 
 """

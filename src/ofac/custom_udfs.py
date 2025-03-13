@@ -142,6 +142,8 @@ def enrich_sanction_entries(sanction_entry_row):
     if entry_events:
         for entry_event in entry_events:
             entry_event_id = entry_event["_ID"]
+            if profile_id == 163829:
+                print(f"Printing entry_event comments for {entry_event["Comment"]}")
             comments = entry_event["Comment"]
             date = entry_event["Date"]
             date_val = None
@@ -171,7 +173,8 @@ def enrich_sanction_entries(sanction_entry_row):
             date_period_value = None
             if date_period:
                 date_period_value = parse_date_period(date_period)
-            comments = entry_event["Comment"]
+            comments = sanctions_measure["Comment"]
+
             sanctions_measure_values.append({
                 "sanctions_measure_id": sanctions_measure_id,
                 "sanctions_type_id": sanctions_type_id,
