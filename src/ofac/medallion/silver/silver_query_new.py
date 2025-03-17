@@ -2,6 +2,7 @@ import json
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import col, explode, current_timestamp, lit, size, expr
 
+from src.ofac.custom_udfs import get_relation_quality, get_relation_type, parse_date_period_udf
 from src.ofac.schemas import distinct_party_schema
 
 from src.ofac.utility import load_config
@@ -27,10 +28,69 @@ spark = SparkSession.builder \
     .config("spark.sql.defaultCatalog", "local") \
     .getOrCreate()
 
+ofac_silver = spark.read.format("iceberg").table("silver.ofac_enriched.branch_20250317T123900")
+
+
+#4632
+ofac_silver.filter("profile_id = 4632").write.mode("overwrite").json(f"{output_base_path}/profile_df_4632")
+#16829
+ofac_silver.filter("profile_id = 16829").write.mode("overwrite").json(f"{output_base_path}/profile_df_16829")
+
+"""
+
+
+
+profile_relationships = spark.read.format("iceberg").table("bronze.profile_relationships")
+
+profile_relationships.printSchema()
+
+profile_relationships = profile_relationships.select(
+    col("_From-ProfileID").alias("from_profile_id"),
+    col("_To-ProfileID").alias("to_profile_id"),
+    col("_RelationTypeID").alias("relation_type_id"),
+    col("_RelationQualityID").alias("relation_quality_id"),
+    col("_SanctionsEntryID").alias("sanctions_entry_id"),
+    col("_Former").alias("former"),
+    col("Comment").alias("comment"),
+    col("DatePeriod").alias("date_period_new"),
+    col("IDRegDocumentReference").alias("id_document_reference"),
+    get_relation_quality(col("_RelationQualityID")).alias("relation_quality"),
+    get_relation_type(col("_RelationTypeID")).alias("relation_type"),
+    parse_date_period_udf(col("DatePeriod")).alias("date_period")
+)
+
+
+# Group the profile_relationships by to_profile_id
+from pyspark.sql.functions import collect_list, struct
+
+# Select all columns except the grouping column for the struct
+value_columns = [c for c in profile_relationships.columns if c != "from_profile_id"]
+
+grouped_relationships = profile_relationships.groupBy("from_profile_id").agg(
+    collect_list(struct(*[col(c) for c in value_columns])).alias("relationships")
+)
+
+grouped_relationships.filter(size("relationships") > 1).show(truncate=False)
+
+# Show the result
+#grouped_relationships.show(truncate=False)
+
+grouped_relationships.filter("from_profile_id = 4632").write.mode("overwrite").json(f"{output_base_path}/profile_relationships_raw_4632")
+
+
+
+
+# call a udf to update the relationship quality and relation type
+
+
+
+
+
+
 ofac_silver = spark.read.format("iceberg").table("silver.ofac_enriched")
 
 ofac_silver.printSchema()
-"""
+
 filtered_df = ofac_silver.filter(
     (col("feature_updated").isNotNull()) &
     (size(col("feature_updated")) > 0) &
@@ -66,5 +126,5 @@ filtered_df = (ofac_silver
 filtered_df.show(truncate=False)
 
 """
-spark.sql(''' select * from silver.ofac_enriched where profile_id = 9647 ''').write.mode("overwrite").json(f"{output_base_path}/profile_df_9647")
-spark.sql(''' select * from silver.ofac_enriched where profile_id = 16829 ''').write.mode("overwrite").json(f"{output_base_path}/profile_df_16829")
+#spark.sql(''' select * from silver.ofac_enriched where profile_id = 9647 ''').write.mode("overwrite").json(f"{output_base_path}/profile_df_9647")
+#spark.sql(''' select * from silver.ofac_enriched where profile_id = 16829 ''').write.mode("overwrite").json(f"{output_base_path}/profile_df_16829")

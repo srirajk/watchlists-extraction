@@ -6,7 +6,8 @@ from pyspark.sql import SparkSession
 from pyspark.sql.functions import col, explode, current_timestamp, lit, date_format, date_trunc
 from pyspark.sql.utils import AnalysisException
 
-from src.ofac.schemas import distinct_party_schema, id_reg_documents_schema, location_schema, sanctions_entry_schema
+from src.ofac.schemas import distinct_party_schema, id_reg_documents_schema, location_schema, sanctions_entry_schema, \
+    profile_relation_schema
 from src.ofac.utility import load_config
 
 def create_spark_session():
@@ -118,6 +119,22 @@ def process_bronze_layer(spark, config, input_file, current_ts):
 
     # Create or append to bronze.sanctions_entries table
     create_or_append(spark, sanction_entries_raw_df, "bronze.sanctions_entries")
+
+    # Process Profile Relationships data
+    profile_relationships_raw_df = spark.read \
+        .format("com.databricks.spark.xml") \
+        .option("rowTag", "ProfileRelationship") \
+        .schema(profile_relation_schema) \
+        .load(distinct_party_xml)
+
+    # Add extraction timestamp and source name
+    profile_relationships_raw_df = profile_relationships_raw_df.withColumn("extraction_timestamp", lit(current_ts)) \
+        .withColumn("source_name", lit("OFAC")) \
+        .withColumn("input_file", lit(input_file))
+
+    # Create or append to bronze.sanctions_entries table
+    create_or_append(spark, profile_relationships_raw_df, "bronze.profile_relationships")
+
 
 
 def main():

@@ -382,6 +382,15 @@ enriched_sanction_measures_schema = StructType([
 ])
 """
 
+# Fix the return_date_period_schema definition
+return_date_period_schema = StructType([
+    StructField("start_date", return_date_boundary_schema, True),
+    StructField("end_date", return_date_boundary_schema, True),
+    StructField("calendar_type_id", StringType(), True),
+    StructField("calendar_type_value", StringType(), True)
+])
+
+
 enriched_sanction_measures_schema = StructType([
     StructField("sanctions_measure_id", LongType(), True),
     StructField("sanctions_type_id", LongType(), True),
@@ -405,4 +414,32 @@ enrich_sanction_entries_schema = StructType([
     #StructField("sanctions_measures", ArrayType(MapType(StringType(), StringType())), True)
 ])
 
+# Define the schema for Relation
+profile_relation_schema = StructType([
+    StructField("_ID", LongType(), True),
+    StructField("_From-ProfileID", LongType(), True),
+    StructField("_To-ProfileID", LongType(), True),
+    StructField("_RelationTypeID", LongType(), True),
+    StructField("_RelationQualityID", LongType(), True),
+    StructField("_SanctionsEntryID", LongType(), True),
+    StructField("_Former", BooleanType(), True),
+    StructField("Comment", StringType(), True),
+    StructField("DatePeriod", date_period_schema, True),
+    StructField("IDRegDocumentReference", ArrayType(StructType([
+        StructField("_IDRegDocumentID", LongType(), True),
+        StructField("_VALUE", StringType(), True)
+    ])), True),
+])
 
+return_profile_relation_schema = StructType([
+    StructField("relationship_id", LongType(), True),
+    StructField("to_profile_id", LongType(), True),
+    StructField("relation_type_id", LongType(), True),
+    StructField("relation_quality_id", LongType(), True),
+    StructField("sanctions_entry_id", LongType(), True),
+    StructField("former", BooleanType(), True),
+    StructField("comment", StringType(), True),
+    StructField("relation_quality", StringType(), True),
+    StructField("relation_type", StringType(), True),
+    StructField("date_period", return_date_period_schema, True),
+])

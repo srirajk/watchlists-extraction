@@ -134,6 +134,9 @@ spark.sql('''
     where profile_id = 51318
 ''').show(truncate=False)
 
+# get schema of the table
+#ofac_silver.printSchema()
+spark.sql("SELECT * from silver.ofac_enriched").printSchema()
 
 
 

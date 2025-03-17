@@ -3,7 +3,7 @@ import json
 from pyspark.sql.functions import udf
 from pyspark.sql.types import StringType, MapType
 
-from src.ofac.schemas import enriched_feature_schema, enrich_sanction_entries_schema
+from src.ofac.schemas import enriched_feature_schema, enrich_sanction_entries_schema, return_date_period_schema
 
 reference_values_json = "/Users/srirajkadimisetty/projects/watchlists-extraction/reference_data/ofac/reference_values_map.json"
 
@@ -19,6 +19,20 @@ def get_reference_obj_by_key(map_type, key):
 
 def get_reference_value_by_sub_key(map_type, key, sub_key):
     return reference_data.get(map_type, {}).get(str(key), {}).get(sub_key, "Unknown")
+
+@udf(return_date_period_schema)
+def parse_date_period_udf(date_period):
+
+    if date_period is None:
+        # Return a default structure with empty/null values
+        return {
+            "calendar_type_id": None,
+            "calendar_type_value": None,
+            "start_date": {},
+            "end_date": {},
+        }
+
+    return parse_date_period(date_period)
 
 # Function to process a single Profile row
 def parse_date_period(date_period):
@@ -585,6 +599,22 @@ def enrich_features(original_feature, feature_enriched, is_primary):
         })
 
     return enriched_features
+
+@udf(StringType())
+def get_relation_quality(relation_quality_id):
+    """
+    Get the human-readable value of a relation quality ID from the reference data.
+    """
+    print
+    return get_reference_value("RelationQuality", relation_quality_id)
+
+@udf(StringType())
+def get_relation_type(relation_type_id):
+    """
+    Get the human-readable value of a relation type ID from the reference data.
+    """
+    return get_reference_value("RelationType", relation_type_id)
+
 
 from typing import Any, Dict, List, Union
 from pyspark.sql import Row

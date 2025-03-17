@@ -28,6 +28,7 @@ spark = SparkSession.builder \
     .config("spark.sql.defaultCatalog", "local") \
     .getOrCreate()
 
+"""
 
 print(f"Distinct Parties Table")
 df = spark.sql("select * from bronze.distinct_parties LIMIT 30")
@@ -43,28 +44,31 @@ identities_df.show()
 
 spark.sql("select distinct extraction_timestamp from bronze.identities").show()
 
+"""
 
 # Process DistinctParty data
-sanction_entries_raw_df = spark.read \
+profile_relationships_raw_df = spark.read \
     .format("com.databricks.spark.xml") \
-    .option("rowTag", "SanctionsEntry") \
-    .schema(sanctions_entry_schema) \
+    .option("rowTag", "ProfileRelationship") \
+    .option("schema", "profile_relation_schema") \
     .load("/Users/srirajkadimisetty/projects/watchlists-extraction/source_data/ofac/sdn_advanced_jan_30.xml")
 
-sanction_entries_raw_df.count()
+profile_relationships_raw_df.printSchema()
+"""
+profile_relationships_raw_df.count()
 
-sanction_entries_raw_df.show(vertical=False, truncate=False)
+profile_relationships_raw_df.show(vertical=False, truncate=False)
 
-sanction_entries_raw_df.filter(col("_ID") == 36).write.mode("overwrite").json(f"{output_base_path}/sanction_entry_36")
+profile_relationships_raw_df.filter(col("_ID") == 36).write.mode("overwrite").json(f"{output_base_path}/profile_relationships_raw_36")
 
-#sanction_entries_raw_df.printSchema()
+profile_relationships_raw_df.printSchema()
 
 #_ProfileID
 
-sanction_entries_raw_df.filter(col("_ProfileID") == 16829).write.mode("overwrite").json(f"{output_base_path}/sanction_entry_16829")
+profile_relationships_raw_df.filter(col("_ProfileID") == 16829).write.mode("overwrite").json(f"{output_base_path}/profile_relationships_raw_16829")
 
 
-"""
+
 from pyspark.sql.functions import  to_json, struct
 
 # Exclude '_FixedRef' from hashing

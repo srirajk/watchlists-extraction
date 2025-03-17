@@ -8,8 +8,9 @@ from pyspark.sql.functions import col, struct, collect_list, udf, explode, lit, 
 from pyspark.sql.types import ArrayType, StructType, StructField, StringType, BooleanType, LongType, MapType
 
 from src.ofac.custom_udfs import enrich_profile_data_udf, transform_document, enrich_location, enrich_features, \
-    deep_asdict, enrich_sanction_entries
-from src.ofac.schemas import feature_schema, enriched_feature_schema, enrich_sanction_entries_schema
+    deep_asdict, enrich_sanction_entries, get_relation_quality, get_relation_type, parse_date_period_udf
+from src.ofac.schemas import feature_schema, enriched_feature_schema, enrich_sanction_entries_schema, \
+    return_profile_relation_schema
 
 from src.ofac.utility import load_config
 
@@ -53,6 +54,9 @@ record_schema = StructType([
 
     StructField("sanctions_entries_hash", StringType(), nullable=True),
     StructField("sanction_entries", ArrayType(enrich_sanction_entries_schema), nullable=True),
+
+    StructField("relationships", ArrayType(return_profile_relation_schema), nullable=True),
+    StructField("relationships_hash", StringType(), nullable=True),
 
     StructField("version", LongType(), nullable=True),  # Added for old data
     StructField("active_flag", StringType(), nullable=True),  # Added for old data
@@ -267,6 +271,52 @@ def enrich_profiles_with_sanction_entries(spark, profiles_df, sanction_entries_d
     return joined_df.unionByName(non_primary_profiles_df, allowMissingColumns=True)
 
 
+def get_profile_relationships_by_profile_id(profile_relationships_df):
+
+    profile_relationships_df = profile_relationships_df.select(
+        col("_ID").alias("relationship_id"),
+        col("_From-ProfileID").alias("from_profile_id"),
+        col("_To-ProfileID").alias("to_profile_id"),
+        col("_RelationTypeID").alias("relation_type_id"),
+        col("_RelationQualityID").alias("relation_quality_id"),
+        col("_SanctionsEntryID").alias("sanctions_entry_id"),
+        col("_Former").alias("former"),
+        col("Comment").alias("comment"),
+        #col("DatePeriod").alias("date_period_new"),
+        #col("IDRegDocumentReference").alias("id_document_reference"),
+        get_relation_quality(col("_RelationQualityID")).alias("relation_quality"),
+        get_relation_type(col("_RelationTypeID")).alias("relation_type"),
+        parse_date_period_udf(col("DatePeriod")).alias("date_period"),
+    )
+
+    # Select all columns except the grouping column for the struct
+    value_columns = [c for c in profile_relationships_df.columns if c != "from_profile_id"]
+
+    profile_relationships_df_by_from_profile_id = profile_relationships_df.groupBy("from_profile_id").agg(
+        collect_list(struct(*[col(c) for c in value_columns])).alias("relationships")
+    )
+
+    profile_relationships_df_by_from_profile_id = profile_relationships_df_by_from_profile_id.withColumn("relationships_hash", md5(to_json(col("relationships"))))
+
+    return profile_relationships_df_by_from_profile_id
+
+
+def enrich_profiles_with_relationships(profiles_df,
+                                                 profile_relationships_df):
+
+    primary_profiles_df = profiles_df.filter(col("is_primary") == True)
+    non_primary_profiles_df = profiles_df.filter(col("is_primary") == False)
+
+    # Update the join condition to match profile_id from primary_profiles_df with from_profile_id from profile_relationships_df
+    joined_df = primary_profiles_df.join(
+        profile_relationships_df,
+        primary_profiles_df["profile_id"] == profile_relationships_df["from_profile_id"],
+        "left"
+    ).drop(profile_relationships_df["from_profile_id"])  # Drop the duplicate column after join
+
+    return joined_df.unionByName(non_primary_profiles_df, allowMissingColumns=True)
+
+
 def enrich_current_data_extraction(spark, extraction_timestamp):
 
     locations_df = spark.read.format("iceberg").table("bronze.locations").filter(
@@ -282,6 +332,10 @@ def enrich_current_data_extraction(spark, extraction_timestamp):
 
     sanction_entries_df = get_sanction_entries_by_profile_id(sanction_entries_df)
 
+    profile_relationships_df = spark.read.format("iceberg").table("bronze.profile_relationships").filter(
+        col("extraction_timestamp") == extraction_timestamp)
+
+    profile_relationships_df = get_profile_relationships_by_profile_id(profile_relationships_df)
 
     distinct_parties_df = spark.read.format("iceberg").table("bronze.distinct_parties").filter(
         col("extraction_timestamp") == extraction_timestamp)
@@ -294,7 +348,9 @@ def enrich_current_data_extraction(spark, extraction_timestamp):
 
     distinct_parties_with_locations_enriched_df = enrich_profiles_with_locations(spark, distinct_parties_enriched_df, locations_df)
 
-    distinct_parties_full_df = enrich_profiles_with_sanction_entries(spark, distinct_parties_with_locations_enriched_df, sanction_entries_df)
+    distinct_parties_with_relationships_enriched_df = enrich_profiles_with_relationships(distinct_parties_with_locations_enriched_df, profile_relationships_df)
+
+    distinct_parties_full_df = enrich_profiles_with_sanction_entries(spark, distinct_parties_with_relationships_enriched_df, sanction_entries_df)
 
     identities_df = spark.read.format("iceberg").table("bronze.identities").filter(
         col("extraction_timestamp") == extraction_timestamp)
@@ -545,9 +601,10 @@ def compare_alias_data(new_data, existing_data):
                     documents_updated = new_record["documents_hash"] != existing_record["documents_hash"]
                     features_updated = new_record["feature_updated_hash"] != existing_record["feature_updated_hash"]
                     sanctions_entries_updated = new_record["sanctions_entries_hash"] != existing_record["sanctions_entries_hash"]
+                    relationships_updated = new_record["relationships_hash"]!= existing_record["relationships_hash"]
 
                     #if new_record["documents_hash"] != existing_record["documents_hash"]:
-                    if documents_updated or features_updated or sanctions_entries_updated:
+                    if documents_updated or features_updated or sanctions_entries_updated or relationships_updated:
                         #Deactivate existing primary record
                         #existing_inactive = existing_record.asDict()  # Convert Row to dict
                         existing_inactive = deep_asdict(existing_record)
@@ -570,6 +627,8 @@ def compare_alias_data(new_data, existing_data):
                             update_type = "FEATURES"
                         elif sanctions_entries_updated:
                             update_type = "SANCTIONS_ENTRIES"
+                        elif relationships_updated:
+                            update_type = "RELATIONSHIPS"
 
                         updated_record["alias_id"] = existing_record["alias_id"]
                         updated_record["app_profile_id"] = existing_record["app_profile_id"]
@@ -675,6 +734,8 @@ def merge_ofac_data(spark, new_data_df, table_name, branch_name):
         col("decision.data.feature_updated").alias("feature_updated"),
         col("decision.data.sanctions_entries_hash").alias("sanctions_entries_hash"),
         col("decision.data.sanction_entries").alias("sanction_entries"),
+        col("decision.data.relationships").alias("relationships"),
+        col("decision.data.relationships_hash").alias("relationships_hash"),
         col("decision.update_type").alias("update_type"),
         col("decision.action").alias("action"),# Extract `action` separately
 
@@ -745,7 +806,7 @@ def main():
         .config("spark.sql.defaultCatalog", "local") \
         .getOrCreate()
 
-    extraction_timestamp = "2025-03-13T14:50:00"
+    extraction_timestamp = "2025-03-17T12:39:00"
 
     # create table if not existing with the schema defined record_schema (scd2 covered schema)
     table_name = "silver.ofac_enriched"
