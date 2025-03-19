@@ -271,7 +271,12 @@ def enrich_profiles_with_sanction_entries(spark, profiles_df, sanction_entries_d
     return joined_df.unionByName(non_primary_profiles_df, allowMissingColumns=True)
 
 
-def get_profile_relationships_by_profile_id(profile_relationships_df):
+def get_profile_relationships_by_profile_id(profiles_df, profile_relationships_df):
+
+    primary_profiles_df = profiles_df.filter(col("is_primary") == True).select(
+        col("profile_id"),
+        col("documented_names").alias("to_profile_documented_name")
+    )
 
     profile_relationships_df = profile_relationships_df.select(
         col("_ID").alias("relationship_id"),
@@ -289,14 +294,34 @@ def get_profile_relationships_by_profile_id(profile_relationships_df):
         parse_date_period_udf(col("DatePeriod")).alias("date_period"),
     )
 
+
+    # Join with primary profiles to get the target profile names
+    profile_relationships_df = profile_relationships_df.join(
+        primary_profiles_df,
+        profile_relationships_df["to_profile_id"] == primary_profiles_df["profile_id"],
+        "left"
+    ).drop(primary_profiles_df["profile_id"])  # Drop the duplicate profile_id column
+
+    profile_relationships_df.printSchema()
+
+
+    # merge this with the primary name of the profiles_df so within the to_profile_id, we need to filter and get the is_primary = True and profile_id = to_profile_id
+    #then pass along to the udf which will create a name by extracting the documented name from the profile..
+
     # Select all columns except the grouping column for the struct
     value_columns = [c for c in profile_relationships_df.columns if c != "from_profile_id"]
+
+    #print("value_columns: ", value_columns)
 
     profile_relationships_df_by_from_profile_id = profile_relationships_df.groupBy("from_profile_id").agg(
         collect_list(struct(*[col(c) for c in value_columns])).alias("relationships")
     )
 
     profile_relationships_df_by_from_profile_id = profile_relationships_df_by_from_profile_id.withColumn("relationships_hash", md5(to_json(col("relationships"))))
+
+    #profile_relationships_df_by_from_profile_id.limit(20).write.mode("overwrite").json(f"{output_base_path}/profile_relationships_20_samples")
+
+    #profile_relationships_df_by_from_profile_id.filter(col("from_profile_id") == 4632).write.mode("overwrite").json(f"{output_base_path}/profile_relationships_df_by_from_profile_id_4632")
 
     return profile_relationships_df_by_from_profile_id
 
@@ -332,11 +357,6 @@ def enrich_current_data_extraction(spark, extraction_timestamp):
 
     sanction_entries_df = get_sanction_entries_by_profile_id(sanction_entries_df)
 
-    profile_relationships_df = spark.read.format("iceberg").table("bronze.profile_relationships").filter(
-        col("extraction_timestamp") == extraction_timestamp)
-
-    profile_relationships_df = get_profile_relationships_by_profile_id(profile_relationships_df)
-
     distinct_parties_df = spark.read.format("iceberg").table("bronze.distinct_parties").filter(
         col("extraction_timestamp") == extraction_timestamp)
     #distinct_parties_df.show(truncate=False)
@@ -348,9 +368,22 @@ def enrich_current_data_extraction(spark, extraction_timestamp):
 
     distinct_parties_with_locations_enriched_df = enrich_profiles_with_locations(spark, distinct_parties_enriched_df, locations_df)
 
+    profile_relationships_df = spark.read.format("iceberg").table("bronze.profile_relationships").filter(
+        col("extraction_timestamp") == extraction_timestamp)
+
+    profile_relationships_df = get_profile_relationships_by_profile_id(distinct_parties_enriched_df, profile_relationships_df)
+
+    #profile_relationships_df.filter(col("from_profile_id") == 4632).write.mode("overwrite").json(f"{output_base_path}/profile_relationships_df_4632")
+
     distinct_parties_with_relationships_enriched_df = enrich_profiles_with_relationships(distinct_parties_with_locations_enriched_df, profile_relationships_df)
 
+    # (distinct_parties_with_relationships_enriched_df.filter(col("profile_id") == 4632)
+    #  .write.mode("overwrite")
+    #  .json(f"{output_base_path}/distinct_parties_with_relationships_enriched_df_4632"))
+
     distinct_parties_full_df = enrich_profiles_with_sanction_entries(spark, distinct_parties_with_relationships_enriched_df, sanction_entries_df)
+
+    #distinct_parties_full_df.filter(col("profile_id") == 4632).write.mode("overwrite").json(f"{output_base_path}/distinct_parties_full_df_4632")
 
     identities_df = spark.read.format("iceberg").table("bronze.identities").filter(
         col("extraction_timestamp") == extraction_timestamp)
@@ -364,6 +397,9 @@ def enrich_current_data_extraction(spark, extraction_timestamp):
                 distinct_parties_full_df["is_primary"] == True),  # Join on identity_id and is_primary
         "left"
     ).drop(id_documents_grouped_by_identity_df["identity_id"])  # Drop the duplicate identity_id column
+
+
+    ofac_enriched_data_df.filter(col("profile_id") == 13124).write.mode("overwrite").json(f"{output_base_path}/ofac_enriched_data_df_13124")
 
     return ofac_enriched_data_df
 
@@ -565,6 +601,8 @@ def compare_alias_data(new_data, existing_data):
     Compares new alias data with existing data to determine whether records should be inserted, updated, or deleted.
     Returns a structured list of decisions, ensuring compatibility with the defined schema.
     """
+    identity_id = 0
+
     if new_data is None:
         new_data = []
 
@@ -581,8 +619,23 @@ def compare_alias_data(new_data, existing_data):
     if not active_existing_data:
         # If no active records exist, insert all new records
         for record in new_data:
-            #new_record = record.asDict()
+            #print(f"Record :: {record}")
+            #identity_id =
+
             new_record = deep_asdict(record)
+
+            if record["identity_id"] == 6597:
+            #     print(f"{profile_id} Record before clone: {record}")
+            #     print(f"{profile_id} Record after clone: {new_record}")
+                relationships_row = record["relationships"]
+                cloned_relationships_row = deep_asdict(relationships_row)
+                print(f"Relationships Row: {relationships_row}")
+                print(f"Cloned Relationships Row: {cloned_relationships_row}")
+                print(f"**********")
+                print(f"before record :: {record}")
+                print(f"new_record :: {new_record}")
+                identity_id = record["identity_id"]
+
             new_record["version"] = 1
             new_record["active_flag"] = "Y"
             decisions.append(Row(action="insert", data=new_record, update_type=None))  # Convert Row to dict using asDict()
@@ -640,7 +693,12 @@ def compare_alias_data(new_data, existing_data):
             else:
                 # New alias → Insert as a new record
                 #new_record_dict = new_record.asDict()
+
+
                 new_record_dict = deep_asdict(new_record)
+
+
+
                 new_record_dict["version"] = 1
                 new_record_dict["active_flag"] = "Y"
                 decisions.append(Row(action="insert", data=new_record_dict, update_type=None))
@@ -655,11 +713,9 @@ def compare_alias_data(new_data, existing_data):
                 existing_inactive["active_flag"] = "N"
                 decisions.append(Row(action="delete", data=existing_inactive, update_type=None))
 
-    #print(f"Final Decisions: {decisions}")
+    if identity_id == 6597:
+        print(f"Final Decisions: {decisions}")
     return decisions
-
-
-
 
 
 from pyspark.sql.functions import col, explode, current_timestamp, when, lit
@@ -684,6 +740,9 @@ def merge_ofac_data(spark, new_data_df, table_name, branch_name):
     existing_data_grouped = group_data_by_profile(existing_data)
 
     print("Existing Data Grouped")
+   # if existing_data_grouped is not None:
+   #     existing_data_grouped.filter(col("profile_id") == 13124).write().mode("overwrite").json(f"{output_base_path}/existing_data_grouped_13124")
+
     #existing_data_grouped.show(truncate=False)
 
     # Join new and existing data on profile_id
@@ -700,6 +759,9 @@ def merge_ofac_data(spark, new_data_df, table_name, branch_name):
     print("merged data")
     merged_data.show(truncate=False)
 
+    merged_data.filter(col("profile_id") == 13124).write.mode("overwrite").json(f"{output_base_path}/merged_data_13124")
+    merged_data.filter(col("profile_id") == 4632).write.mode("overwrite").json(f"{output_base_path}/merged_data_4632")
+
     # Apply merge decision UDF
     decisions_df = merged_data.select(
         col("profile_id"),
@@ -710,12 +772,15 @@ def merge_ofac_data(spark, new_data_df, table_name, branch_name):
 
     current_ts = date_format(date_trunc('minute', current_timestamp()), 'yyyy-MM-dd HH:mm:00')
 
+    decisions_df.filter(col("profile_id") == 13124).write.mode("overwrite").json(f"{output_base_path}/decisions_df_13124")
+
     final_df = decisions_df.select(
         col("profile_id"),
         col("decision.data.identity_id").alias("identity_id"),
         col("decision.data.alias_type_value").alias("alias_type_value"),
         col("decision.data.is_primary").alias("is_primary"),
         col("decision.data.documented_names").alias("documented_names"),
+        col("decision.data.documents_hash").alias("documents_hash"),
         col("decision.data.extraction_timestamp").alias("extraction_timestamp"),
         col("decision.data.source_name").alias("source_name"),
         col("decision.data._FixedRef").alias("_FixedRef"),
@@ -725,7 +790,7 @@ def merge_ofac_data(spark, new_data_df, table_name, branch_name):
         col("decision.data.alias_id").alias("alias_id"),
         col("decision.data.alias_hash").alias("alias_hash"),
         col("decision.data.id_documents").alias("id_documents"),
-        col("decision.data.documents_hash").alias("documents_hash"),
+        #col("decision.data.documents_hash").alias("documents_hash"),
         col("decision.data.version").alias("version"),
         col("decision.data.active_flag").alias("active_flag"),
         col("decision.data.updated_at").alias("updated_at"),
@@ -750,6 +815,8 @@ def merge_ofac_data(spark, new_data_df, table_name, branch_name):
 
     print("Existing DataFrame")
     existing_data.show(truncate=False)
+
+
 
     print("Final DataFrame with all the required changes")
     final_df.show(truncate=False)

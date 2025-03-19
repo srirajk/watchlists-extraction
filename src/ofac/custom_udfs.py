@@ -619,6 +619,7 @@ def get_relation_type(relation_type_id):
 from typing import Any, Dict, List, Union
 from pyspark.sql import Row
 
+'''
 def deep_asdict(obj: Any) -> Union[Dict, List, Any]:
     """
     Recursively convert Row objects to dictionaries.
@@ -654,3 +655,54 @@ def deep_asdict(obj: Any) -> Union[Dict, List, Any]:
     except Exception as e:
         # Catch any other unexpected errors
         raise ValueError(f"Error converting object: {str(e)}")
+        
+'''
+
+def deep_asdict(obj: Any) -> Union[Dict, List, Any]:
+    """
+    Recursively convert Row objects to dictionaries.
+    
+    Args:
+        obj: The object to convert, which can be a Row, list, dict, or primitive type
+        
+    Returns:
+        The converted object with all Row objects transformed to dictionaries
+        
+    Example:
+        >>> row = Row(name="John", details=Row(age=30))
+        >>> deep_asdict(row)
+        {'name': 'John', 'details': {'age': 30}}
+    """
+    try:
+        if obj is None:
+            return None
+        elif isinstance(obj, list):
+            return [deep_asdict(item) for item in obj]
+        elif hasattr(obj, "asDict"):
+            try:
+                # Convert Row to dict
+                d = obj.asDict(recursive=False)  # Don't let asDict handle recursion
+                # Recursively convert any nested Row objects
+                return {k: deep_asdict(v) for k, v in d.items()}
+            except Exception:
+                # If asDict fails, try to convert to a regular dict
+                return {k: deep_asdict(v) for k, v in obj.__dict__.items() 
+                        if not k.startswith('_')}  # Skip private attributes
+        elif isinstance(obj, dict):
+            # Recursively convert any Row objects in dict values
+            return {k: deep_asdict(v) for k, v in obj.items()}
+        elif hasattr(obj, "__dict__") and not callable(obj):
+            # Handle custom objects that aren't Row but have attributes
+            return {k: deep_asdict(v) for k, v in obj.__dict__.items() 
+                    if not k.startswith('_')}  # Skip private attributes
+        else:
+            # Return primitive types as is
+            return obj
+    except RecursionError:
+        # Handle potential recursion errors for deeply nested structures
+        return str(obj)  # Convert to string instead of raising an error
+    except Exception as e:
+        # Catch any other unexpected errors
+        print(f"Error in deep_asdict: {str(e)} for object type {type(obj)}")
+        # Return a simple representation rather than failing
+        return str(obj)

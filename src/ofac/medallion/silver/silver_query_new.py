@@ -31,10 +31,10 @@ spark = SparkSession.builder \
 ofac_silver = spark.read.format("iceberg").table("silver.ofac_enriched.branch_20250317T123900")
 
 
-#4632
-ofac_silver.filter("profile_id = 4632").write.mode("overwrite").json(f"{output_base_path}/profile_df_4632")
-#16829
-ofac_silver.filter("profile_id = 16829").write.mode("overwrite").json(f"{output_base_path}/profile_df_16829")
+
+profiles = [39017, 9340, 23203, 6931, 15007, 7203, 7743, 15037, 15038, 26345, 22256, 36216]
+for profile_id in profiles:
+    ofac_silver.filter(f"profile_id = {profile_id}").write.mode("overwrite").json(f"{output_base_path}/profiles/profile_df_{profile_id}")
 
 """
 

@@ -442,4 +442,5 @@ return_profile_relation_schema = StructType([
     StructField("relation_quality", StringType(), True),
     StructField("relation_type", StringType(), True),
     StructField("date_period", return_date_period_schema, True),
+    StructField("to_profile_documented_name", ArrayType(MapType(StringType(), StringType())), True),
 ])
