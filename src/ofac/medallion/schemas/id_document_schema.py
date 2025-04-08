@@ -17,5 +17,6 @@ id_document_schema = StructType([
     StructField("id_registration_number", StringType(), True),
     StructField("document_dates", ArrayType(document_date_schema), True),
     StructField("location_id", LongType(), True),
-    StructField("validity_id", LongType(), True)
+    StructField("validity_id", LongType(), True),
+    StructField("validity_value", StringType(), True),
 ])

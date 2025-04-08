@@ -1,7 +1,7 @@
 from pyspark.sql.functions import udf, col, struct, collect_list, to_json, md5
 from pyspark.sql.types import StringType, MapType
 
-from src.ofac.custom_udfs import reference_data
+from src.ofac.custom_udfs import reference_data, get_reference_value
 from src.ofac.medallion.schemas.id_document_schema import id_document_schema
 
 
@@ -32,7 +32,8 @@ def get_id_reg_documents_df(spark, identities_df, locations_df):
         col("transformed_document.id_registration_number").alias("id_registration_number"),
         col("transformed_document.document_dates").alias("document_dates"),
         col("transformed_document.location_id").alias("issued_in_location_id"),
-        col("transformed_document.validity_id").alias("validity_id")
+        col("transformed_document.validity_id").alias("validity_id"),
+        col("transformed_document.validity_value").alias("validity_value"),
     )
 
     # Join with Location df to enrich the issued_in_location_id
@@ -43,10 +44,10 @@ def get_id_reg_documents_df(spark, identities_df, locations_df):
     ).select(
         id_reg_documents_enriched_df["*"],
         struct(
-            col("location_id").alias("id"),
-            col("location_area").alias("area"),
-            col("location_country").alias("country"),
-            col("location_parts").alias("parts")
+            col("location_id"),
+            col("location_area"),
+            col("location_country"),
+            col("location_parts")
         ).alias("issued_in_location")
     ).drop("issued_in_location_id")
 
@@ -58,7 +59,9 @@ def get_id_reg_documents_df(spark, identities_df, locations_df):
                 col("id_reg_document_id"),
                 col("id_registration_number"),
                 col("document_dates"),
-                col("issued_in_location")
+                col("issued_in_location"),
+                col("validity_id"),
+                col("validity_value")
             )
         ).alias("id_documents"))
 
@@ -80,6 +83,7 @@ def enrich_id_document(row):
     identity_id = row["_IdentityID"]
     location_id = row["_IssuedIn-LocationID"]
     validity_id = row["_ValidityID"]
+    validity_value = get_reference_value("Validity", validity_id)
     document_type = map_document_type(row["_IDRegDocTypeID"])
     issuing_country = map_issuing_country(row["_IssuedBy-CountryID"])
     id_reg_document_id = row["_ID"]
@@ -147,7 +151,7 @@ def enrich_id_document(row):
                 )
 
     # Build the POJO-like record
-    return {
+    response_ = {
         "identity_id": identity_id,
         "document_type": document_type,
         "issuing_country": issuing_country,
@@ -156,7 +160,13 @@ def enrich_id_document(row):
         "document_dates": document_dates,
         "location_id": location_id,
         "validity_id": validity_id,
+        "validity_value": validity_value
     }
+
+    # if identity_id == 6746:
+    #     print(f"ID_RESPONSE {response_}")
+
+    return response_
 
 
 def map_document_type(doc_type_id):

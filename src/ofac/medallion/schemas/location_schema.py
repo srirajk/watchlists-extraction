@@ -29,6 +29,7 @@ location_schema =  StructType([
                     StructField("location_part_value_status_id", LongType(), True),
                     StructField("location_part_value_status", StringType(), True),
                     StructField("location_value", StringType(), True),
+                    StructField("location_value_type", StringType(), True),
                     StructField("is_primary", BooleanType(), True)
                 ])
             ), True)

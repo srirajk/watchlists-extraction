@@ -48,6 +48,7 @@ profile_documented_names_schema = StructType([
     StructField("feature", feature_schema, True)
 ])
 
+#TODO can we merge the following schema with the existing location_schema
 enriched_location_schema = StructType([
     StructField("location_id", LongType(), True),
     StructField("location_area", ArrayType(StructType([
@@ -67,6 +68,7 @@ enriched_location_schema = StructType([
             StructField("location_part_value_status_id", LongType(), True),
             StructField("location_part_value_status", StringType(), True),
             StructField("location_value", StringType(), True),
+            StructField("location_value_type", StringType(), True),
             StructField("is_primary", BooleanType(), True)
         ])), True)
     ])), True)

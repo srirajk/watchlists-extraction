@@ -80,6 +80,7 @@ def enrich_location(row):
                 location_part_value_status_id = location_part_value["_LocPartValueStatusID"]
                 location_part_value_status = get_reference_value("LocPartValueStatus", location_part_value_status_id)
                 location_value = location_part_value["Value"]
+                location_value_type = location_part_value["Comment"]
 
                 part = {
                     "location_party_type_value_id": location_party_type_value_id,
@@ -88,6 +89,7 @@ def enrich_location(row):
                     "location_part_value_status": location_part_value_status,
                     "location_value": location_value,
                     "is_primary": location_part_value["_Primary"],
+                    "location_value_type": location_value_type
                 }
                 parts.append(part)
 
