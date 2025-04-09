@@ -29,8 +29,8 @@ class SanctionEntryUDfs:
             ), True),
             StructField("sanctions_measures", ArrayType(
                 StructType([
-                    StructField("sanctions_type_value", ArrayType(StringType()), True),
-                    StructField("comments", StringType(), True),
+                    StructField("sanctions_type_value", StringType(), True),
+                    StructField("comments", ArrayType(StringType()), True),
                     StructField("date_period", CommonUDFs.enriched_date_period_schema, True)
                 ])
             ), True)

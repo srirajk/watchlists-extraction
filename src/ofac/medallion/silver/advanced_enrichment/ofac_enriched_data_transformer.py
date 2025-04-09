@@ -38,7 +38,7 @@ class OFACEnrichedDataTransformer:
     def transform(self):
         df = self.spark.read.format("iceberg").table(self.input_table)
 
-        df = df.filter(col("profile_id") == 39017)
+        #df = df.filter(col("profile_id") == 39017)
         
         df = self.transform_aliases(df)
         df = self.transform_features(df)
@@ -91,7 +91,6 @@ def main():
         "15039", "15044", "20820", "45065", "30226", "25293", "15007", "20239", "25288"
     ]
 
-    ofac_ids = ["39017"]
     __generate_data_by_profile_id__(output_base_path, output_table, ofac_ids)
 
     output_table.printSchema()
